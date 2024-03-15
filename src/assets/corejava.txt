@@ -1,0 +1,2760 @@
+Category: CoreJava
+
+Q) what is oops?
+A) 1.jvm loads .class byte into memory(static blocks are executed)
+
+2.after loads it calls to main method to start execution.
+
+class contains 5 variables
+
+1.variables =>local,instance,static variable
+
+2.methods--instance{},static{}
+
+3.constructor--default,user defined constructor
+
+4.instance blocks
+
+5.static blocks(executed during .class loading)
+
+note:instance blocks are executed first compare to constructor blocks is executed
+
+Object class in Java
+
+ref:https://www.javatpoint.com/object-class.
+
+object is instance of a class
+
+The Object class is the parent class of all the classes in java by default
+
+object class methods(11)::
+
+boolean equals(object o)
+
+class getclass()
+int hashcode;
+
+void notify();
+
+void notifyall();
+
+String toString();
+
+public final void wait();//wait lo ne inka 2 methods vunnayi but parameters are
+
+public final void wait(long timeout,int nanos)throws InterruptedException
+
+protected object clone()throws cloneNotSupportedException
+
+protected void finalize()throws throwable;
+~~~~~~~~~~~~~~~~~
+Q) How many Ways to Create an Object in Java
+
+A) 5 ways
+
+1.Java new Operator.
+
+2.Java Class. newInstance() method.
+
+3.Java newInstance() method of constructor.
+
+4.Java Object. clone() method.
+
+5.Java Object Serialization and Deserialization.
+
+1.Java new Operator
+
+A new operator is also followed by a call to constructor which
+
+initializes the new object. While we create an object it occupies
+
+space in the heap.
+
+Java Class.newInstance() method
+
+public class NewInstanceExample
+
+{
+    String str="hello";
+
+public static void main(String args[])
+
+{
+
+try
+
+{
+
+//creating object of class
+
+NewInstanceExample obj= NewInstanceExample.class.newInstance();
+
+System.out.println(obj.str);
+
+}
+
+Java newInstance() method of constructor
+
+import java.lang.reflect.Constructor;
+
+public class NewInstanceExample1
+
+{
+
+String str="hello";
+
+public static void main(String args[])
+
+{
+
+try
+
+{
+
+Constructor obj
+
+=NewInstanceExample1.class.getConstructor();
+
+NewInstanceExample1 obj1 = obj.newInstance();
+
+Java Object.clone() method
+
+public class CloneExample implements Cloneable
+
+{
+
+//creates and returns a copy of this object
+
+protected Object clone() throws CloneNotSupportedException
+
+{
+
+return super.clone();
+
+}
+
+String name = "Microprocessor";
+
+public static void main(String[] args)
+
+{
+
+CloneExample obj1 = new CloneExample(); //creating object of
+
+class
+
+try
+
+{
+
+CloneExample obj2 = (CloneExample) obj1.clone();
+
+Java Object Serialization and Deserialization
+
+import java.io.*;
+
+class Demo implements Serializable
+
+{
+
+public int i;
+
+public String s;
+
+public Demo(int i, String s) //default constructor
+
+{
+
+this.i = i;
+
+this.s = s;
+
+}
+
+}
+
+public class DeserializationExample
+
+{
+
+public static void main(String[] args)
+
+{
+
+Demo object = new Demo(8, "javatpoint");
+
+String filename = "Demofile.ser"; //specified file name (must
+
+have extension .ser)
+
+/*-----------------Serialization----------*/
+
+try
+
+{
+
+FileOutputStream file = new FileOutputStream(filename); //Saving of
+
+object in the file
+
+ObjectOutputStream out = new ObjectOutputStream(file);
+
+out.writeObject(object); //serialize object
+
+out.close(); //closes the ObjectOutputStream
+
+file.close(); //closes the file
+
+System.out.println("Object serialized");
+
+}
+
+catch(IOException e)
+
+{
+
+e.printStackTrace();
+
+}
+
+Demo obj = null;
+
+/*-----------------Deserialization--------*/
+
+try
+
+{
+
+FileInputStream file = new FileInputStream(filename); // reading an
+
+object from a file
+
+ObjectInputStream is = new ObjectInputStream(file);
+
+obj = (Demo)is.readObject(); //deserialize object
+
+is.close(); //closes the ObjectInputStream
+
+file.close(); //closes the file
+
+System.out.println("Object deserialized ");
+
+System.out.println("number = " + obj.i);
+
+System.out.println("string = " + obj.s);
+
+}
+
+catch(IOException e)
+
+{
+
+System.out.println("IOException is caught");
+
+}
+
+catch(ClassNotFoundException e)
+
+{
+
+System.out.println("ClassNotFoundException is caught");
+
+}
+
+}
+
+}
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Q) upendra sir told:about hashcode and equals method in hashset.
+
+A) samehash code vunte apude mathrame equals ki cal avuthundi.
+
+so its override the object with new object.
+
+samehashcode aunte meaning is 2 objects having same data.
+
+pubic int hashcode(){
+
+return name.hashcode()+age.hashcode.sirname.hashcode();//if hshcode
+
+is same then it cals to equals method.
+
+}
+
+hashset lo duplicate data ni set chesi print chesthe ..duplicate
+
+data kuda print avuthundi.ila duplicate print avakunda vundalante
+
+we need to override hashcode and equals by our own methods.
+
+ila override cheyakapothe inbuilt ga vunna object class methods cal
+
+avuthundi ok na.object class equals method lo dummy logic vundi
+
+equals comparison logic ledu.
+
+~~~~~~~~~~~~~~~~~~~~
+
+Q) Locking in java ?
+A) Class level lock is achieved by keyword Sychronized(DemoClass.class)
+
+where as object level is achieved only by synchronized(this)
+
+keyword.
+
+Class level locking ::
+
+it prevents multiple threads to enter in synchronized block
+
+in any of all available instances on runtime. This means if in
+
+runtime there are 100
+
+instances of DemoClass, then only one thread will be able to
+
+execute demoMethod()
+
+in any one of instance at a time, and all other instances will be
+
+locked for other threads.
+
+This should always be done to make static data thread safe.
+
+public class DemoClass
+
+{
+
+public void demoMethod(){
+
+synchronized (DemoClass.class)
+
+{
+
+//other thread safe code
+
+}
+
+}
+
+}
+
+object level locking::
+
+public class DemoClass
+
+{
+
+public void demoMethod(){
+
+synchronized (this)
+
+{
+
+//other thread safe code
+
+}
+
+}
+
+}
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Q) what is Hashcode?
+A) by nageswararao
+
+Hashcode:
+
+it is unique identification number allotted to the objects by jvm
+
+it is also reference number location of objects,except for string
+
+objects.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Q) Cloning:
+
+A) In Simple Terms, a Shallow Copy is similar to Call By Reference and
+
+a Deep Copy is similar to Call By Value
+
+In Call By Reference, Both formal and actual parameters of a
+
+function refers to same memory location and the value.
+
+In Call By Value, Both formal and actual parameters of a functions
+
+refers to different memory location but having the same value.
+
+copy of object
+
+In shallow copy main or parent object is copied,
+
+but they share same fields or children if fields are modified in one
+
+parent object other parent fields have automatic same changes occur,
+
+but in deep copy this is not the case.
+
+shallow copy::
+
+makes a copy of the reference to A into B
+
+think about it as a copy of A's address.so the
+
+address of A and B will be the same
+
+means they will be point to same memorylocation means data contents.
+
+deep copy:: stored in two diiferent entities in the memory space.
+
+clone object and original object will be 100% disjoint.
+
+They will be 100% independent of each other.
+
+Any changes made to clone object will not be reflected in original
+
+object.
+
+public class Language implements Cloneable{
+
+String name;
+
+public Language(String name){
+
+this.name=name;
+
+}
+
+public String getName() {
+
+return name;
+
+}
+
+@Override
+
+protected Object clone() throws CloneNotSupportedException {
+
+return super.clone();
+
+}
+
+}
+
+main class is following-
+
+public static void main(String args[]) throws
+
+ClassNotFoundException, CloneNotSupportedException{
+
+ArrayList list=new ArrayList();
+
+list.add(new Language("C"));
+
+list.add(new Language("JAVA"));
+
+ArrayList shallow=(ArrayList) list.clone
+
+();
+
+//We used here clone since this always shallow copied.
+
+System.out.println(list==shallow);
+
+for(int i=0;i
+
+System.out.println(list.get(i)==shallow.get(i));//true
+
+ArrayList deep=new ArrayList();
+
+for(Language language:list){
+
+deep.add((Language) language.clone());
+
+}
+
+System.out.println(list==deep);
+
+for(int i=0;i
+
+System.out.println(list.get(i)==deep.get(i));//false
+
+}
+
+class Course
+
+{
+
+String subject1;
+
+String subject2;
+
+String subject3;
+
+public Course(String sub1, String sub2, String sub3)
+
+{
+
+this.subject1 = sub1;
+
+this.subject2 = sub2;
+
+this.subject3 = sub3;
+
+}
+
+}
+
+class Student implements Cloneable
+
+{
+
+int id;
+
+String name;
+
+Course course;
+
+public Student(int id, String name, Course course)
+
+{
+
+this.id = id;
+
+this.name = name;
+
+this.course = course;
+
+}
+
+//Default version of clone() method. It creates shallow copy of
+
+an object.
+
+protected Object clone() throws CloneNotSupportedException
+
+{
+
+return super.clone();
+
+}
+
+}
+
+public class ShallowCopyInJava
+
+{
+
+public static void main(String[] args)
+
+{
+
+Course science = new Course("Physics", "Chemistry",
+
+"Biology");
+
+Student student1 = new Student(111, "John", science);
+
+Student student2 = null;
+
+try
+
+{
+
+//Creating a clone of student1 and assigning it to
+
+student2
+
+student2 = (Student) student1.clone();
+
+}
+
+catch (CloneNotSupportedException e)
+
+{
+
+e.printStackTrace();
+
+}
+
+//Printing the subject3 of 'student1'
+
+System.out.println(student1.course.subject3);
+
+//Output : Biology
+
+//Changing the subject3 of 'student2'
+
+student2.course.subject3 = "Maths";
+
+//This change will be reflected in original student
+
+'student1'
+
+System.out.println(student1.course.subject3); //Output
+
+: Maths
+
+}
+
+}
+
+output::
+
+student1 Biology
+
+------------------------
+
+student2 Maths
+
+-----------------------------------
+
+deep copy example::(has a relationship)
+
+Deep copy is preferred if an object has references to other objects
+
+as fields.
+
+To create the deep copy of an object, you have to override clone
+
+method.
+
+class course implements cloneable(subject1,2,3)
+
+class sutdent implements cloneable(id,name,course)
+
+class Course implements Cloneable
+
+{
+
+String subject1;
+
+String subject2;
+
+String subject3;
+
+public Course(String sub1, String sub2, String sub3)
+
+{
+
+this.subject1 = sub1;
+
+this.subject2 = sub2;
+
+this.subject3 = sub3;
+
+}
+
+protected Object clone() throws CloneNotSupportedException
+
+{
+
+return super.clone();
+
+}
+
+}
+
+class Student implements Cloneable
+
+{
+
+int id;
+
+String name;
+
+Course course;
+
+public Student(int id, String name, Course course)
+
+{
+
+this.id = id;
+
+this.name = name;
+
+this.course = course;
+
+}
+
+//Overriding clone() method to create a deep copy of an object.
+
+protected Object clone() throws CloneNotSupportedException
+
+{
+
+Student student = (Student) super.clone();
+
+student.course = (Course) course.clone();
+
+return student;
+
+}
+
+}
+
+public class DeepCopyInJava
+
+{
+
+public static void main(String[] args)
+
+{
+
+Course science = new Course("Physics", "Chemistry",
+
+"Biology");
+
+Student student1 = new Student(111, "John", science);
+
+Student student2 = null;
+
+try
+
+{
+
+//Creating a clone of student1 and assigning it to
+
+student2
+
+student2 = (Student) student1.clone();
+
+}
+
+catch (CloneNotSupportedException e)
+
+{
+
+e.printStackTrace();
+
+}
+
+//Printing the subject3 of 'student1'
+
+System.out.println(student1.course.subject3);
+
+//Output : Biology
+
+//Changing the subject3 of 'student2'
+
+student2.course.subject3 = "Maths";
+
+//This change will not be reflected in original student
+
+'student1'
+
+System.out.println(student1.course.subject3); //Output
+
+: Biology
+
+}
+
+}
+
+output::
+
+Biology
+
+Biology
+
+~~~~~~~~~~~~~~
+Category: Ploymorphism
+Q) Ploymorphism
+
+A) Ratan says below
+
+Polymorphism::
+
+poly means (many) morphism (forms)
+
+method overloading (static binding)
+
+method overriding(dynamic binding)
+
+3 types of overloading
+
+1.method overloading
+
+2.constructor overloading
+
+3.operator ovreloading
+
+1.method overloading
+
+class contain morethan one method with same name but diff no of arguments
+
+class contain morethan one method with same name but diff datatypes
+
+for ex:
+
+m1(int a){
+
+}
+
+m1(int a,int b){
+
+}
+
+m1(char ch){
+
+}
+
+main(){
+
+new Test().m1()//compile time checking on which method is called
+
+is called compiletime polymorphism.
+
+}
+
+2.constructor overload
+
+its like method overloading.
+
+Test(int a){
+
+}
+
+Test(int a,int b){
+
+}
+
+Test(Char ch){
+
+}
+
+operator overloading::
+
+Syso(10+"ratan");
+
+Syso(10+"ratan"+"anu"+10+20)
+
+overriding:
+
+previous content is gone,new content is loaded.
+
+to achieve overrridng 2 classes is required with inheritance realtionship required.
+
+class Parent{
+
+//overriden method
+
+void marry(){
+
+sop("block girl")
+
+}
+
+class Child extends Parent{
+
+//if child accepts ok .or write your own impl.
+
+//overrding method
+
+void marry(){
+
+//to write our own implementation.
+
+syso("red")
+
+}
+
+}
+
+}
+
+8 rules :
+
+1.overriden and overriding method signature must be same.
+
+2.in overriden and overriding return type must be same at primitive level in method signature.
+
+but in class level its possible to change return type.
+
+class Animal{
+
+A m1(){
+
+}
+
+}
+
+//mainly to change return type is not posiible.but it is possible to covariant returntype only.
+
+//return must be sub class type is possible is called covariant return type.
+
+class Dog extends Animal {
+
+Dog m1(){
+
+}
+
+}
+
+}
+
+3.If an overridden method is final it is not possible to override that method in child class.
+
+final variables reference are not changed
+
+class Test
+
+{ public static void main(String[] args)
+
+{ final int a=10;
+
+a=a+10; //trying to modify a value it will generate error
+
+System.out.println(a);
+
+}
+
+};
+
+class Test
+
+{ final int a; //instance variable
+
+final static int b; //static variable
+
+};
+
+
+Polymorphism::
+
+method overloding::
+
+There are two ways to overload the method in java
+
+**By changing number of arguments
+
+void sum(int a,int b)
+
+void sum(int a,int b,int c)
+
+**By changing the data type.
+
+void sum(int a,int b){System.out.println(a+b);}
+
+void sum(double a,double b)
+
+Why Method Overloaing is not possible by changing the return type of method
+
+because of ambiguity,
+
+class Calculation3{
+
+int sum(int a,int b){System.out.println(a+b);}
+
+double sum(int a,int b){System.out.println(a+b);}
+
+public static void main(String args[]){
+
+Calculation3 obj=new Calculation3();
+
+int result=obj.sum(20,20); //Compile Time Error
+
+}
+
+}
+
+Can we overload main() method?
+
+Yes, by method overloading it is possible.
+~~~~~~~~~~~~~~~~
+Category: Java 8
+Q) what is Java 8 features?
+
+A) --> Lambda expressions,
+
+--> Method references,
+
+--> Functional interfaces,
+
+--> Stream API,
+
+--> Default methods,
+
+--> Base64 Encode Decode,
+
+--> Optional class,
+
+--> Collectors class,
+
+--> ForEach() method,
+
+--> Parallel array sorting,
+
+--> Nashorn JavaScript Engine,
+
+--> Parallel Array Sorting,
+
+--> Type and Repating Annotations,
+
+--> IO Enhancements,
+
+--> Concurrency Enhancements,
+
+--> JDBC Enhancements etc.
+~~~~~~~~~~~~~~~~
+Q) how to use comparator in java 8
+
+A) list.sort(Comparator.comparing(DentalMasterDTOList::getLastUpdateDttm.reversed()));
+
+//you can create constructor in the abstract class whereas you can't do this in interface.
+
+//checking in ternary operator
+
+///*int val1 = 10;
+
+int val2 = 20;
+
+int max = val1 >= val2 ? val1 : val2;
+
+*/
+~~~~~~~~~~~~~~~~
+Q) about Lambda expression:
+
+A) step 1:
+
+it is an ananynomous function(name less function and it is not having name,modifier,return type)
+
+for example :
+
+public void test(){
+
+syso("hello");
+
+}
+
+//Lambda expression style is so here no method name and modifier and return type so we write below
+
+but we add some extra symbol like -->
+
+()-->{syso("hello");}
+
+step 2:
+
+body having multiple stmts then we use curly braces.
+
+step 3:
+
+type inference -->means based on situation compiler assign type
+
+ex: public void sum(int a,int b){
+
+syso(a+b);
+
+}
+
+//Lambda expression style
+
+(int a,int b)->syso(a+b);
+
+in above no need to mention type of a,b ,so the compiler identify based on its context and assigned.so
+
+(a,b)->syso(a+b);
+
+step 4 :
+
+it wil return single data like int size = s.length(); here braces is optional.
+
+so we write s->s.length();
+
+
+
+Java Lambda Expression Syntax :
+
+(argument-list) -> {body}
+
+Java lambda expression is consisted of three components.
+
+1) Argument-list: It can be empty or non-empty as well.
+
+2) Arrow-token: It is used to link arguments-list and body of expression.
+
+3) Body: It contains expressions and statements for lambda expression.
+
+No Parameter Syntax
+
+() -> {
+
+//Body of no parameter lambda
+
+}
+
+~~~~~~~~~~~~~~~~
+
+Q) functional interface(having single abstract method)
+
+A) step 1:
+
+oka abstract method vundali.enni default method,static methods ayina vunda vachhu.
+
+ex:
+
+inteface A{
+
+public void test();
+
+default void m1(){}
+
+public static void test(){}
+
+}
+
+~~~~~~~~~~~~~~~~
+
+
+Q) method references ::
+
+A) The double colon (::) operator, also known as method reference operator in Java,
+
+is used to call a method by referring to it with the help of its class directly. They behave exactly as the lambda expressions.
+
+for Ex:
+
+Predicate p = String::isEmpty;
+~~~~~~~~~~~~~~~~
+Q) functional interfaces :(SAM)
+
+
+A) from (oracle)
+Functional interfaces provide target types for lambda expressions and method references.
+
+Each functional interface has a single abstract method, called the functional method for that functional interface,
+
+to which the lambda expression's parameter and return types are matched or adapted. Functional interfaces can provide a target type in multiple contexts,
+
+such as assignment context, method invocation, or cast context:
+~~~~~~~~~~~~~~~~
+Q) about streams?
+A) streams :(java.util.stream)(we can find (aggregate operations like) max,min value &count value also &we can convert list to set also byusing Collectors.toset() method)
+
+You can use stream by importing java.util.stream package.
+
+Stream obtained from a collection produces a new Stream without the filtered elements, rather than removing elements from the source collection.
+
+You can use stream to filter, collect, print, and convert from one data structure to other etc.
+
+In the following examples, we have apply various operations with the help of stream.
+
+package com.java8.streams;
+
+import java.util.stream.Collectors;
+
+import java.util.stream.Stream;
+
+import com.java8.model.Person;
+
+public class StreamsTestUsingList {
+
+public static void main(String[] args) {
+
+ArrayList plist = null;
+
+Person p = new Person();
+
+p.setAge(12);
+
+Person p1 = new Person();
+
+p.setAge(1);
+
+Person p2 = new Person();
+
+p2.setAge(2);
+
+Person p3 = new Person();
+
+p3.setAge(3);
+
+plist = new ArrayList();
+
+plist.add(p);
+
+plist.add(p1);
+
+plist.add(p2);
+
+plist.add(p3);
+
+//plist.stream().filter((Person)->p.getAge()<10).forEach((plist)->(p.age));
+
+//stream return collection
+
+//old approach
+
+/* for (Person plistdata : plist) {
+
+if (plistdata.getAge()<10) {
+
+int age = plistdata.getAge();
+
+System.out.println("age ::"+age);
+
+newagelist.add(age);
+
+}
+
+}
+
+/below is for stream approach for above
+
+//usage of strams on the below step1 get age <10 data from list
+
+System.out.println("newagelist ::"+newagelist);*/
+
+//condition //output ?
+
+//Integer person2 = plist.stream().filter((Person)->p.getAge()<10).map((Person)->p.getAge()).findAny().get();
+
+//System.out.println(person2);
+
+//to fetch distinct age from list
+
+//Optional findFirst = plist.stream().distinct().findFirst();
+
+//usage of strams on the below step2 usage of foreach
+
+//plist.stream().filter((Person)->p.getAge()<10).forEach((Person)->System.out.println(p.age));
+
+//usage of strams on the below step3 usage of list set convert
+
+//Set collect = plist.stream().filter((Peson)->p.getAge()<10).map((person)->p.age).collect(Collectors.toSet());
+
+//System.out.println(collect);
+
+//find min and max value form list by using stream().max()
+
+//plist.stream().filter(plist->Person.getAge()==10).max(plist->plist.getAge());
+
+//Person person3 = plist.stream().filter((Person)->p.getAge()<10)
+
+// .max((Person1,Person2)->Person1.age < Person2.age ? 1: -1).get();
+
+//System.out.println(person3.age);
+
+}
+
+}
+
+public class HashMapUsingStreams {
+
+@SuppressWarnings("unchecked")
+
+public static void main(String[] args) {
+
+HashMap hm = new HashMap<>();
+
+hm.put(10, "acda");
+
+hm.put(10, "acd");
+
+hm.put(11, "data1");
+
+hm.put(12, "data2");
+
+//get data greater than 5
+
+Map entrySet =hm.entrySet().stream().
+
+filter(map->map.getKey()>=5).collect(Collectors.toMap(map->map.getKey(),map->map.getValue()));
+
+System.out.println(entrySet);
+
+//output {10=dataa, 11=data1, 12=data2}
+
+//get values by using .equals
+
+Map entrySet2 = hm.entrySet().stream().filter(map->"data".equals(map.getValue()))
+
+.collect(Collectors.toMap(map->map.getKey(),map->map.getValue()));
+
+System.out.println(entrySet2);
+
+//startsWith
+
+Map result = hm.entrySet()
+
+.stream()
+
+//.filter(p -> p.getKey().intValue() <= 2) //filter by key
+
+.filter(map -> map.getValue().startsWith("ac")) //filter by value
+
+.collect(Collectors.toMap(map -> map.getKey(), map -> map.getValue()));
+
+System.out.println(result);
+
+MultiMap map = new MultiValueMap();
+
+map.put("key1", "value1");
+
+map.put("key1", "value2");
+
+System.out.println(map);
+
+Map maps = new HashMap();
+
+maps.put(1,new Employee(1,"",12));
+
+Map maps1 = new HashMap();
+
+maps1.put(1,"a");
+
+ArrayList> al = new ArrayList>();
+
+// al.add((Entry) maps1);
+
+HashMap> Items = new HashMap>();
+
+/*
+
+System.out.println(maps1);
+
+private synchronized void addToList(String mapKey,Employee myItem) {
+
+List itemsList = items.get(mapKey);
+
+// if list does not exist create it
+
+if(itemsList == null) {
+
+itemsList = new ArrayList();
+
+itemsList.add(myItem);
+
+items.put(mapKey, itemsList);
+
+} else {
+
+// add if item is not already in list
+
+if(!itemsList.contains(myItem)) itemsList.add(myItem);
+
+}
+
+}*/
+
+String str="abc";
+
+int strlength = str.length()-1;
+
+System.out.println(str.length()-1);
+
+System.out.println(str.length());
+
+for (int i = 0; i < str.length(); i++) {
+
+System.out.println("str::"+str.charAt(i));
+
+}
+
+for (int i = 0; i < str.length()-1; i++) {
+
+System.out.println("str-1::"+str.charAt(i));
+
+}
+
+}
+
+}
+
+~~~~~~~~~~~~~~~~
+Q) Default Methods?
+A) defaut is a keyword.. its applicable only for interfaces but must provide body also
+
+we can use static methods also but its having body
+~~~~~~~~~~~~~~~~
+Q) Optional class 
+
+A)for avoid nullpointer exception we are using
+
+public static void main(String[] args) {
+
+String[] data = new String[10];
+
+// data[0]="A";
+
+Optional ofNullable = Optional.ofNullable(data[0]);
+
+if (ofNullable.isPresent()) {
+
+System.out.println("value in array");
+
+} else {
+
+System.out.println("no value in array");
+
+}
+~~~~~~~~~~~~~~~~
+Q) Base64 ?
+A):for encrypt or decrypt we are using
+
+// Getting encoder
+
+Base64.Encoder decoder = Base64.getMimeDecoder();
+
+// Decoding string
+
+String str = "JavaTpoint";
+
+String dStr = new String(decoder.decode(str));
+
+System.out.println("Decoded string: "+dStr);
+
+}
+
+//output
+
+Decoded string: JavaTpoint
+
+what is asynchronous programming in java 8
+
+ans is :: through CompletableFuture class we can achieve aynchronous .it is comes from util.concurrent package
+
+pls refer https://www.callicoder.com/java-8-completablefuture-tutorial/
+
+~~~~~~~~~~~~~~~~
+Category: Collection
+Q) what is Collection?
+
+A) Collection is an Interface which can used to Represent a Group of Individual object as a single Entity.
+
+Collections is an utility class to Define several Utility Methods for Collection object.
+
+
+List ArrayList,LinkedList,Vector,Stack
+
+Set Hashset,LinkedHashset
+
+note:: oka hashset lo string data ni send chesthe idi direct ga string lo vunna .equals call ayi duplicate ni remove chestundi.
+
+so ade customized object ni send chesthe like new Hashset lo hs.add(1,r);new hashset lo hs.add (1,r) idi size 2 ani duplecate data print avuthundi
+
+so denni overcome cheyalante nuvvu tesukunna aa pojo lo ..need to override hashcode and equals.then it gives no duplicates data.
+
+sortedset,Treeset
+
+Map sortedmap,treemap
+
+hashmap,linkedhashmap
+
+
+time complexity are commonly found in operations on binary trees or when using binary search. An O(log n) algorithm is considered highly .
+
+add remove get contains
+
+ArrayList O(1) O(n) O(1) O(n)
+
+LinkedList o(1)
+
+caopyon arraylist 0(n)
+~~~~~~~~~~~~~~~~
+Q) what is arrylist?
+A)The ArrayList class is a resizable array, which can be found in the java.util package.
+
+The ArrayList class has a regular array inside it. When an element is added, it is placed into the array. If the array is not big enough, a new, larger array is
+
+created to replace the old one and the old one is removed.
+
+Iterable-->Collection-->List-->AbstractList-->ArrayList
+
+Java ArrayList class can contain duplicate elements.
+
+Java ArrayList class maintains insertion order.
+
+Java ArrayList class is non synchronized.
+
+Java ArrayList allows random access because array works at the index basis.
+
+In ArrayList, manipulation is little bit slower than the LinkedList in Java because a lot of shifting needs to occur if any element is removed from the array list.
+
+how the arraylist copy and growable nature shown on below pgm.
+
+default size is 10
+
+once its reaches to load factor the size got dubbeled.so here it will create new object to copy old elements..
+
+from java API ::
+
+/**
+
+* Increases the capacity to ensure that it can hold at least the
+
+* number of elements specified by the minimum capacity argument.
+
+*
+
+* @param minCapacity the desired minimum capacity
+
+*/
+
+private void grow(int minCapacity) {
+
+// overflow-conscious code
+
+int oldCapacity = elementData.length;
+
+int newCapacity = oldCapacity + (oldCapacity >> 1);(or)int newCapacity = (oldCapacity * 3)/2 + 1;
+
+if (newCapacity - minCapacity < 0)
+
+newCapacity = minCapacity;
+
+if (newCapacity - MAX_ARRAY_SIZE > 0)
+
+newCapacity = hugeCapacity(minCapacity);
+
+// minCapacity is usually close to size, so this is a win:
+
+elementData = Arrays.copyOf(elementData, newCapacity);
+
+}
+
+private static int hugeCapacity(int minCapacity) {
+
+if (minCapacity < 0) // overflow
+
+throw new OutOfMemoryError();
+
+return (minCapacity > MAX_ARRAY_SIZE) ?
+
+Integer.MAX_VALUE :
+
+MAX_ARRAY_SIZE;
+
+}
+
+Remove duplicates from arraylist without using collections
+
+package arrayListRemoveduplicateElements;
+
+import java.util.ArrayList;
+
+public class RemoveDuplicates {
+
+public static void main(String[] args){
+
+ArrayList Object al = new ArrayList Object()
+
+al.add("java")
+
+al.add('a');
+
+System.out.println("Before Remove Duplicate elements:"+al);
+
+for(int i=0;i al.size();i++){
+
+for(int j=i+1;j al.size();j++){
+
+if(al.get(i).equals(al.get(j))){
+
+al.remove(j);
+
+j--;
+
+}
+
+}
+
+}
+
+System.out.println("After Removing duplicate elements:"+al);
+
+}
+
+}
+
+~~~~~~~~~~~~~~~~
+Q) what is LnkedList?
+A) linked list class contains 3 fields 1.link(prev)2.data3.(link (next nodes))..
+
+LinkedList : Iterable--->Collection-->List-->AbstractSequentialList-->LinkedList
+
+The LinkedList class is a collection which can contain many objects of the same type, just like the ArrayList.
+
+The LinkedList class has all of the same methods as the ArrayList class because they both implement the List interface. This means that you can add items, change
+
+items, remove items and clear the list in the same way.
+
+Java LinkedList class uses a doubly linked list to store the elements. It provides a linked-list data structure. It inherits the AbstractList class and implements List
+
+and Deque interfaces.
+
+The important points about Java LinkedList are:
+
+Java LinkedList class can contain duplicate elements.
+
+Java LinkedList class maintains insertion order.
+
+Java LinkedList class is non synchronized.
+
+In Java LinkedList class, manipulation is fast because no shifting needs to occur.
+
+Java LinkedList class can be used as a list, stack or queue.
+
+Doubly Linked List:
+
+In the case of a doubly linked list, we can add or remove elements from both sides.
+
+public class LinkedList1{
+
+public static void main(String args[]){
+
+LinkedList al=new LinkedList();
+
+al.add("Ravi");
+
+al.add("Vijay");
+
+al.add("Ravi");
+
+al.add("Ajay");
+
+Iterator itr=al.iterator();
+
+while(itr.hasNext()){
+
+System.out.println(itr.next());
+
+}
+
+}
+
+}
+~~~~~~~~~~~~~~~~
+Q) diff of ArrayList and LinkedList or When To Use
+
+A) It is best to use an ArrayList when:
+
+You want to access random items frequently
+
+You only need to add or remove elements at the end of the list
+
+It is best to use a LinkedList when:
+
+You only use the list by looping through it instead of accessing random items
+
+You frequently need to add and remove items from the beginning or middle of the
+
+list
+
+it is fast because no shifting is required.
+~~~~~~~~~~~~~~~~
+Q) about Hashset ?
+A) Hashset : iterable-->collection-->set-->abstractSet-->Hashset
+
+A HashSet is a collection of items where every item is unique, and it is found in the java.util package:
+
+Java HashSet class is used to create a collection that uses a hash table for storage. It inherits the AbstractSet class and implements Set interface.
+
+The important points about Java HashSet class are:
+
+HashSet stores the elements by using a mechanism called hashing.
+
+HashSet contains unique elements only.
+
+HashSet allows null value.
+
+HashSet class is non synchronized.
+
+HashSet doesn't maintain the insertion order. Here, elements are inserted on the basis of their hashcode.
+
+HashSet is the best approach for search operations.
+
+The initial default capacity of HashSet is 16, and the load factor is 0.75
+
+How to add Duplicate elements in Set?
+
+Any Set implementations in Java Collections don't allow to do that.
+
+Consider using MultiSet from Apache Commons Collections.
+
+import org.apache.commons.collections4.MultiSet;
+
+import org.apache.commons.collections4.multiset.HashMultiSet;
+
+public class Test {
+
+public static void main(String[] args) {
+
+MultiSet set = new HashMultiSet<>();
+
+set.add(1);
+
+set.add(1);
+
+set.add(3);
+
+set.add(4);
+
+set.add(5);
+
+set.add(6);
+
+set.forEach(s -> System.out.println(s));
+
+}
+
+}
+
+Result:
+
+1
+
+1
+
+3
+
+4
+
+5
+
+6
+
+
+how to sort custom hashset object in java
+
+class Test{
+
+public static void main(String args[])
+
+{
+
+// Creating a HashSet
+
+HashSet set = new HashSet();
+
+// Adding elements into HashSet using add()
+
+set.add("geeks");
+
+set.add("practice");
+
+set.add("contribute");
+
+set.add("ide");
+
+System.out.println("Original HashSet: "
+
++ set);
+
+// Sorting HashSet using List
+
+List list = new ArrayList(set);
+
+Collections.sort(list);
+
+// Print the sorted elements of the HashSet
+
+System.out.println("HashSet elements "
+
++ "in sorted order "
+
++ "using List: "
+
++ list);
+
+}
+
+}
+
+}
+
+Output:
+
+Original HashSet: [practice, geeks, contribute, ide]
+
+HashSet elements in sorted order using List: [contribute, geeks, ide, practice]
+
+
+hashset lo customized objects duplicate remove cheyalante.
+
+aa pojo loki velli right click chesi we need to override hashcode and equals ivvali.
+
+Example 1::
+
+Person p5 = p4
+
+hs = new Hashset();
+
+hs.add(new Person(1,"adat"));
+
+hs.add(new Person(2,"adct"));
+
+hs.add(new Person(3,"advt"));
+
+hs.add(new Person(1,"adat"));
+
+hs.add(p5);//here set is working properly.
+
+system.out.println(hs.size());//o/p is :: 4
+
+easy way to add hashcode method inyour class:
+
+public int hashcode(){
+
+return this.id+this.age+this.name.hashcode();
+
+}
+
+step 2 :
+
+hashset lo customized objects duplicate remove cheyalante.
+
+HashSet hs = hashset();
+
+hs.add("a");
+
+hs.add("b");
+
+hs.add("a");
+
+o/p: is b because it calls to comparison logic of string class thats y its remove duplicates.
+
+HashSet hs = hashset();
+
+Person p = new Person(1,"d");
+
+Person p1 = new Person(2,"a");
+
+Person p2 = new Person(1,"d");
+
+hs.add(p);
+
+hs.add(p1);
+
+hs.add(p2);
+
+syso(hs.getId())
+
+o/p is :: 1,1,2 because
+
+nuvvu override logic provide lcheyakapothe object class equals ki call avuthundi.
+
+below code provide equlas logic in your class.
+
+public class Person{
+
+public boolean equals(Object obj){
+
+if(obj==this){
+
+return true;
+
+}
+
+if(obj==null){
+
+return false;
+
+}
+
+//sametype of this class or not
+
+if(!(obj instance of Person)){
+
+return false;
+
+}
+
+//manamu create chesina method lo vunna cal avvalante type cast cheyali.
+
+//Person p = (Person)obj
+
+if(!this.name.equals(p.getName())){
+
+return flase;
+
+}
+
+return true;
+
+}
+
+}
+
+~~~~~~~~~~~~~~~~
+Q)about HashMap?
+A)Hashmap:: Map-->AbstractMap-->HashMap
+
+In the ArrayList chapter, you learned that Arrays store items as an ordered collection, and you have to access them with an index number (int type). A HashMap however, store items in "key/value" pairs, and you can access them by an index of another type (e.g. a String).
+
+One object is used as a key (index) to another object (value). It can store different types: String keys and Integer values, or the same type, like: String keys and String values:
+
+Points to remember
+
+Java HashMap contains values based on the key.
+
+Java HashMap contains only unique keys.
+
+Java HashMap may have one null key and multiple null values.
+
+Java HashMap is non synchronized.
+
+Java HashMap maintains no order.
+
+The initial default capacity of Java HashMap class is 16 with a load factor of 0.75.
+
+what is internal implementation
+
+Each bucket contains a linked list of Map.Entry object,
+
+which contains both Key and Value. Now Java will take the Key object
+
+from each entry and compare with this new key using equals() method,
+
+if that return true then value object in that entry will be replaced by new value
+
+if hash collision is occured(like same hashcode)then it will be called to internally hashcode and equals n method.
+
+duplicate value is removed and latest value is stored by using equals method.
+
+how to get keys and values from hashmap
+
+package com.test;
+
+import java.util.HashMap;
+
+import java.util.Map.Entry;
+
+import java.util.Set;
+
+public class Student {
+
+//finally by using keyset() we get the keys
+
+//from keys we get the values by using get() method.
+
+//or
+
+//by using entryset method ofter for each we get each key and values
+
+//entryset returns Set>
+
+// for(Entry entry:entrySet){
+
+//from entry.getkeys we get key and entry.getValue we get value
+
+public static void main(String[] args) {
+
+HashMap hashmap = new HashMap();
+
+hashmap.put(1, "a");
+
+hashmap.put(2, "b");
+
+/*Setkeys=hashMap.keySet();
+
+System.out.println(keys);
+
+for(Integer allkeys:keys){
+
+System.out.println("keys::"+allkeys);
+
+String value = hashMap.get(allkeys);
+
+System.out.println("values::"+value);*/
+
+Set> entrySet = hashmap.entrySet();
+
+for(Entry entry:entrySet){
+
+System.out.println(entry.getKey());
+
+System.out.println(entry.getValue());
+
+}
+
+}
+
+}
+
+link::http://javaconceptoftheday.com/java-hashmap-programs-and-examples/
+
+
+how to maintain insertion order in HashMap?
+
+We can use LinkedHashMap for maintain insertion and retrieve order must be same:
+
+If you truly are unable to switch to another Map implementation (LinkedHashMap is exactly what you want), then the only other possibility is to retain the original
+
+List, and use it to create the new List from the Map.
+
+public T ListT listFromMapInOrder(final MapT, T map, final ListT order) {
+
+ListT result = new ArrayListT();
+
+for (T key : order) {
+
+if (map.containsKey(key)) {
+
+result.add(key);
+
+result.add(map.get(key));
+
+}
+
+}
+
+return result;
+
+}
+
+But I would refactor the code until it was possible to switch to a LinkedHashMap.
+
+~~~~~~~~~~~~~~~~
+Q)interviewr asked for diff of identity hashmap and hashmap
+
+A)identity hashmap refers == for storing map entry into buckets
+
+hashmap uses .equals for storing map entry into buckets.
+
+~~~~~~~~~~~~~~~~
+Q)about Hashtable ?
+A)it is synchronized by defult.
+
+multiple thread it is advisable,in single thread it is slow
+
+does not allow null keys or values
+
+it is not failfast,means if concurrent updations are done to hashtable,there will not be
+
+any incorrect results produced by the enumeration.
+
+Hasmap::(key should be unique(means wecannot use duplicate data for keys,it is not synchronized))
+
+we can make hashmap is synchronized using synchronized map
+
+collections.synchronizedmap(new hashmap());
+
+difference of set and list
+
+a set represents a collection of elements order of the elements may change in the set.
+
+not allow duplicate values to be stored.
+
+acess elements by their index based.it is not posiible in case of sets.
+
+not allow null elements.
+~~~~~~~~~~~~~~~~
+
+Q)difference of set and list
+
+a set represents a collection of elements order of the elements may change in the set.
+
+not allow duplicate values to be stored.
+
+acess elements by their index based.it is not posiible in case of sets.
+
+not allow null elements.
+~~~~~~~~~~~~~~~~
+
+Q)difference of arraylist and vector
+
+A)Vector: Vector is similar to ArrayList but the differences are,
+
+it is synchronized and its default initial size is 10 and when the size exceeds
+
+its size increases to double of the original size that means the new size will be 20.
+
+Vector is the only class other than ArrayList to implement RandomAccess.
+
+it is not synchronized by defult vector is synchrozied by default
+
+we make it synchrozied using synchronizedList
+
+Collections.synchronizedList(new ArrayList());
+
+2.incase of single thread,using arrylist multithread is advisable,
+
+is faster than vector in single thread ,its slow
+
+3.Arraylist increases its size everytime by 50 percent(half) its size everytime by doubling it.
+
+~~~~~~~~~~~~~~~~
+Q)Difference of Hashmap and Hashtable:
+A)1)Hashtable is synchronized whereas hashmap is not.
+
+2)Another difference is that iterator in the HashMap is fail-safe while the enumerator for the Hashtable isn't. If you change
+
+the map while iterating, you'll know.
+
+3)HashMap permits null values in it, while Hashtable doesn't.
+~~~~~~~~~~~~~~~~
+Q)about Collection framework(9 key interfaces)
+A)Interfaces: An Interface provides much information than classes. Class is the implementation of an interface.
+
+1) Collection:
+
+When we should go for collection: To represent a group of elements as one entity.
+
+collection interface is the root interface of all interfaces.
+
+2) List Interface: (1.2 v)
+
+Duplicates are allowed and insertion order is preserved then we must go for this interface.
+
+List is the child interface of Collection.
+
+Implementation classes: ArryaList(1.2 v), LinkedList(1.2 v), Vector (1.0 v), Stack(1.0 v).
+
+Legacy classes are Vector and Stack.
+
+3) Set Interface(1.2 v):
+
+Duplicates are not allowed.
+
+Insertion order is not preserved.
+
+Child interface of collection.
+
+Implementation classes: HashSet (1.2 v) and LinkedHashSet(1.4 v).
+
+4) SortedSet Interface (1.2 v):
+
+Child interface of Set.
+
+Duplicates are not allowed.
+
+Insertion order is preserved.
+
+5) Navigable Set Interface:(1.6 v)
+
+Child interface of SortedSet.
+
+Implementation class: TreeSet (1.6 v).
+
+6) Queue Interface:(1.5 v)
+
+Child Interface of Collection.
+
+A group of objects prior to process this can be used.
+
+Implementation class: PriorityQueue, BlockingQueue, LinkedBlockingQueue, PriorityBlockingQueue.
+
+All the above interfaces are ment for represent a group of individual objects.
+
+When need to represent key value pairs then below interfaces.
+
+7) Map Interface: (key, value) (1.2 v)
+
+Not a child interface of collection.
+
+A group of objects as key value pairs.
+
+Duplicate keys are not allowed but values can be allowed.
+
+Implementation classes: HashMap(1.2 v), LinkedHashMap(1.4 v), WeekHashMap(1.2), IdentityHashMap(1.4), Hashtable, Properties.
+
+Dictionary(1.0 v) is the parent class for Hashtable followed by Properties. These are called legacy classes.
+
+8) SortedMap Interface: (1.2 v)
+
+A group of objects key value pairs according to some sorting method.
+
+Child interface of Map.
+
+9) NavigableMap Interface:(1.6 v)
+
+Child interface of SortedMap.
+
+Defines several utility methods for navigation.
+
+Implementation class: TreeMap. (1.2 v)
+~~~~~~~~~~~~~~~~
+Q)Failfast and Fail safe:
+
+A)When one or more thread is iterating over the collection,
+
+in between, one thread changes the structure of the collection
+
+(either adding the element to the collection or by deleting the element in the collection or
+
+by updating the value at particular position in the collection) is known as Concurrent Modification
+
+or failfast.
+
+created on a clone of that collection. One example which supports failsafe iterator is ConcurrentHashMap.
+
+modification in the collection Fail-fast iterators throw ConcurrentModificationException
+
+Example for fail fast iterators are ArrayList, Vector, HashSet
+
+~~~~~~~~~~~~~~~~
+Q)Difference of vector and arraylist::
+
+A)Vector: Vector is similar to ArrayList but the differences are,
+
+it is synchronized and its default initial size is 10 and when the size exceeds
+
+its size increases to double of the original size that means the new size will be 20.
+
+Vector is the only class other than ArrayList to implement RandomAccess.
+
+~~~~~~~~~~~~~~~~
+Q)Difference of Hashmap and Hashtable:
+
+A)1)Hashtable is synchronized whereas hashmap is not.
+
+2)Another difference is that iterator in the HashMap is fail-safe while the enumerator for the Hashtable isn't. If you change
+
+the map while iterating, you'll know.
+
+3)HashMap permits null values in it, while Hashtable doesn't.
+~~~~~~~~~~~~~~~~~
+Category: Exceptions
+Q) Exceptions:
+
+A) checked Exceptions::(complietime)::IO,SQL,AssertionError
+
+unchecked Exceptions(Runtime)::arithmetic,nullpointer,numberformat
+
+Checked exception(like nullpointer) cannot be propagated using throw.but throws it will handle checked exception
+
+The keyword throw is used inside method body to invoke an exception and
+
+throws clause is used in method declaration (signature).
+
+Example ::userdefined exception
+
+first table gani query lo gani edaina modifications chesi.avi ee type of exceptions vastunayo chudali(like querysyntax,sql grammer exceptions)
+
+aa vachina exceptions catch lo pettukoni like catch(QuerysyntaxException q){throw new ApplicationExeption("ikada manamu create chesina userdefined object ni
+
+throw cheyali.")}
+
+public class CAExceptions extends NestedRuntimeException{
+
+private static final long serialVersionUid=1L;
+
+public CAExceptions(String msg) {
+
+super(msg);
+
+// TODO Auto-generated constructor stub
+
+}
+
+public CAExceptions(String msg, Throwable cause) {
+
+super(msg);
+
+// TODO Auto-generated constructor stub
+
+}
+
+//manamu create chesina exception msg constructor nundi tesukoni aa msg ni super(exception)class ki send chestundi.
+
+so again nuvvu aa msg ni tesukovalante catch(ApplicationExcepton ae){"message",ae.getmessage()}ila aunte malli manaku manamu set
+
+chesina msg display chestundi.
+
+throw ae annapudu..aa method throws lo (ApplicationExcepton vundali. okna)
+
+public class Myexception extends Exception {
+
+private String message;
+
+Myexception(String message)
+
+{
+
+this.message=message;
+
+}
+
+public String toString(){
+
+return ("Output String = "+message) ;
+
+}
+
+}
+
+public class MyownException {
+
+public static void main(String[] args) {
+
+try{
+
+throw new Myexception("Custom");
+
+}
+
+catch(Myexception me){
+
+System.out.println(me);
+
+me.printStackTrace();
+
+}
+
+}
+
+Output:
+
+Hi this is my catch block
+
+Output String = Custom
+
+checked exceptions are checked at compile time.
+
+it means if a method is throwing a checked exception
+
+we need to handle byusing try catch or throws keyword
+
+for example:fis = new FileInputStream("B:/myfile.txt");
+
+unchecked exceptions::
+
+Unchecked exceptions are not checked at compile time.
+
+Most of the times these exception occurs due to the bad
+
+data provided by user during the user-program interaction.
+
+int arr[] ={1,2,3,4,5};
+
+ArrayIndexOutOfBoundsException*/
+
+System.out.println(arr[7]);
+
+
+
+ExceptionHandling with MethodOverriding in Java ::
+
+ref:: https://www.javatpoint.com/exception-handling-with-method-overriding
+
+1) Rule: If the superclass method does not declare an exception, subclass overridden method cannot declare the checked exception.
+
+2) Rule: If the superclass method does not declare an exception, subclass overridden method cannot declare the checked exception but can declare unchecked exception.
+
+3) Rule : If the superclass method declares an exception, subclass overridden method can declare same, subclass exception or no exception but cannot declare parent exception.
+
+next →← prev
+
+-->super has checked exception declare same checked exception in sub class also
+
+-->super has checked no exception declare unchecked exception.
+
+super lo exception vunte child lo exception vundavachu.
+
+super lo Exception vunte child lo unchecked is possible.
+
+super lo Exception vunte child lo no exception is possible.
+
+1.super lo exception ledu kani sub lo no checked .
+
+unchecked vundavachu.
+
+2.super lo exception unchecked vundi.sub lo unchecked vundali.
+
+parentclass(Exception) vundakudadu.
+
+Example ::Example in case subclass overridden method declares same exception
+
+class Parent{
+
+void msg()throws Exception{System.out.println("parent");}
+
+}
+
+class TestExceptionChild3 extends Parent{
+
+void msg()throws Exception{System.out.println("child");}
+
+Output:child
+
+Example 2 : by using controler advice
+
+from CTS videos::
+
+@ControllerAdvice
+
+@RestController
+
+public class CustomResponseExceptionHandler extends ResponseEntityExceptionHandler {
+
+@ExceptionHandler(OldLaptapIdException.class)
+
+public final ResponseEntity Object> handleProjectIdException(OldLaptapIdException ol, WebRequest req) {
+
+OldLaptapIdException oldLaptapIdExceptionResponse = new OldLaptapIdException(ol.getMessage());
+
+return new ResponseEntity(oldLaptapIdExceptionResponse, HttpStatus.BAD_REQUEST);
+
+}
+
+(++++++++or+++++++)
+
+@ExceptionHandler(ResourceNotFoundException.class)
+
+@ResponseStatus(value = HttpStatus.NOT_FOUND)
+
+public @ResponseBody ExceptionResponse handleResourceNotFound(final ResourceNotFoundException exception,
+
+final HttpServletRequest request) {
+
+ExceptionResponse error = new ExceptionResponse();
+
+error.setErrorMessage(exception.getMessage());
+
+error.callerURL(request.getRequestURI());
+
+return error;
+
+}
+
+}
+
+@Service
+
+public class OldLapService {
+
+@Autowired
+
+private OldLapRepository olp;
+
+public OldLaptapDetails saveOldLap(OldLaptapDetails old) {
+
+try {
+
+OldLaptapDetails saveLap = olp.save(old);
+
+return saveLap;
+
+} catch (Exception e) {
+
+throw new OldLaptapIdException("OldLaptap ID'" + old.getOldLaptapId() + "'already exist");
+
+}
+
+}
+
+}
+
+Exceptions Handling by using catch blocks
+
+catch(Exception e){//here unrechable catch error showing.
+
+e.printstacktrace();
+
+}
+
+catch(NUllpointerException ne){
+
+ne.printstacktrace();
+
+}
+
+Note:: Exception class is must mention at last only.
+
+
+
+Exception class Methods(6)::
+
+public String getMessage()
+
+public Throwable getCause()
+
+public String toString()
+
+public void printStackTrace()
+
+public StackTraceElement[]getStackTrace()
+
+public Throwable fillInStackTracae()
+
+~~~~~~~~~~~~~~
+Category: Stringclass
+Q) about Stringclass
+
+A) String class::methods::chatAt,intern(obj to pool),lenth(),replace
+
+string is immutable
+
+stringBuffer(synchronized),mutable
+
+reverse();,append();
+
+SCP-->string s="abc"-->saved into pool
+
+String s="xyz"-->saved into pool and content is xyz,but abc is garabe collected.
+
+Sting s="abc"-->saved to pool
+
+String s1="abc"-->saved to pool memory but abc content having two references.duplicates not allowed
+
+s=s1-->o/p:is true because content cheking
+
+s==s1-->o/p:false because reference checking
+
+interviewr asked diff of final and immutable?
+
+so ans is : final reference not changed but imutable reference has changed.
+
+What is the purpose of method parseInt defined in Integer class.
+
+The method is used to convert String to an integer,
+
+assuming that the String represents an integer.
+
+We can convert String to int in java using Integer.parseInt() method.
+
+int i=Integer.parseInt("200");
+
+output::
+
+200
+
+
+how to create immutable class
+
+below rules are followed for create immutable class
+
+1.final class
+
+2.private variable
+
+3.constructor in deep copy
+
+4.only getter methods.
+
+
+interviewr asked ?how to sort the below array.
+
+string data[] ={asd,sdfs,werewr};
+
+so ans is : with arr[i].compareto(arr[j])>0 )then swap the elements. so compareto follows by natural(by alphabets)sorting also.
+
+import java.util.Arrays;
+
+public class StringArrayInOrder {
+
+public static void main(String args[]) {
+
+String[] myArray = {"JavaFX", "HBase", "OpenCV", "Java", "Hadoop", "Neo4j"};
+
+int size = myArray.length;
+
+for(int i = 0; i
+
+for (int j = i+1; j
+
+if(myArray[i].compareTo(myArray[j])>0) {
+
+String temp = myArray[i];
+
+myArray[i] = myArray[j];
+
+myArray[j] = temp;
+
+}
+
+}
+
+}
+
+System.out.println(Arrays.toString(myArray));
+
+}
+
+}
+
+5 2 7 8
+
+i>j=flase then swap
+
+2 5 7 8
+
+
+
+public final class String
+
+extends Object
+
+implements Serializable, Comparable, CharSequence
+
+The String class represents character strings. All string literals in Java programs, such as "abc", are implemented as instances of this class.
+
+Strings are constant; their values cannot be changed after they are created. String buffers support mutable strings. Because String objects are immutable they can be
+
+shared. For example:
+
+String str = "abc";
+
+is equivalent to:
+
+char data[] = {'a', 'b', 'c'};
+
+String str = new String(data);
+
+Here are some more examples of how strings can be used:
+
+System.out.println("abc");
+
+String cde = "cde";
+
+System.out.println("abc" + cde);
+
+String c = "abc".substring(2,3);
+
+String d = cde.substring(1, 2);
+
+The class String includes methods for examining individual characters of the sequence, for comparing strings, for searching strings, for extracting substrings, and for
+
+creating a copy of a string with all characters translated to uppercase or to lowercase. Case mapping is based on the Unicode Standard version specified by the
+
+Character class.
+
+
+
+@FunctionalInterface
+
+public interface Comparator
+
+A comparison function, which imposes a total ordering on some collection of objects. Comparators can be passed to a sort method (such as Collections.sort or
+
+Arrays.sort) to allow precise control over the sort order. Comparators can also be used to control the order of certain data structures (such as sorted sets or sorted
+
+maps), or to provide an ordering for collections of objects that don't have a natural ordering.
+
+The ordering imposed by a comparator c on a set of elements S is said to be consistent with equals if and only if c.compare(e1, e2)==0 has the same boolean value as
+
+e1.equals(e2) for every e1 and e2 in S.
+
+Caution should be exercised when using a comparator capable of imposing an ordering inconsistent with equals to order a sorted set (or sorted map). Suppose a sorted
+
+set (or sorted map) with an explicit comparator c is used with elements (or keys) drawn from a set S. If the ordering imposed by c on S is inconsistent with equals,
+
+the sorted set (or sorted map) will behave "strangely." In particular the sorted set (or sorted map) will violate the general contract for set (or map), which is
+
+defined in terms of equals.
+
+For example, suppose one adds two elements a and b such that (a.equals(b) && c.compare(a, b) != 0) to an empty TreeSet with comparator c. The second add operation will
+
+return true (and the size of the tree set will increase) because a and b are not equivalent from the tree set's perspective, even though this is contrary to the
+
+specification of the Set.add method.
+
+
+
+next »« prev
+
+Java String compareTo()
+
+The java string compareTo() method compares the given string with current string lexicographically. It returns positive number, negative number or 0.
+
+It compares strings on the basis of Unicode value of each character in the strings.
+
+If first string is lexicographically greater than second string, it returns positive number (difference of character value). If first string is less than second string
+
+lexicographically, it returns negative number and if first string is lexicographically equal to second string, it returns 0.
+
+Internal implementation
+
+public boolean equals(Object anObject) {
+
+if (this == anObject) {
+
+return true;
+
+}
+
+if (anObject instanceof String) {
+
+String anotherString = (String) anObject;
+
+int n = value.length;
+
+if (n == anotherString.value.length) {
+
+char v1[] = value;
+
+char v2[] = anotherString.value;
+
+int i = 0;
+
+while (n-- != 0) {
+
+if (v1[i] != v2[i])
+
+return false;
+
+i++;
+
+}
+
+return true;
+
+}
+
+}
+
+return false;
+
+}
+
+
+
+Java String equals()
+
+The java string equals() method compares the two given strings based on the content of the string. If any character is not matched, it returns false. If all characters
+
+are matched, it returns true.
+
+The String equals() method overrides the equals() method of Object class.
+
+Internal implementation
+
+public boolean equals(Object anObject) {
+
+if (this == anObject) {
+
+return true;
+
+}
+
+if (anObject instanceof String) {
+
+String anotherString = (String) anObject;
+
+int n = value.length;
+
+if (n == anotherString.value.length) {
+
+char v1[] = value;
+
+char v2[] = anotherString.value;
+
+int i = 0;
+
+while (n-- != 0) {
+
+if (v1[i] != v2[i])
+
+return false;
+
+i++;
+
+}
+
+return true;
+
+}
+
+}
+
+return false;
+
+}
+
+Signature
+
+public boolean equals(Object anotherObject)
+
+~~~~~~~~~~~~~~~~~~~~~~~~

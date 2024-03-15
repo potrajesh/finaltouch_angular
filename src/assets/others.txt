@@ -1,0 +1,4 @@
+Category: Others
+Q ) what is others?
+A ) read data from others.
+~~~~~~~

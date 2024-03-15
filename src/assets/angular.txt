@@ -1,0 +1,101 @@
+Category: angular
+Q) Angular
+
+A) Angular
+
+Angular
+
+our application is start at main.ts file.here we have booststrap method .so it calls to
+
+@ng module is the node module container .here we declare bootstrap array as the our component file.
+
+this bootstrap is call to our component with help of selector .
+
+The App component is a container with router-outlet. It has navbar that links to routes paths via routerLink.ex
+
+const routes: Routes = [
+
+{ path: 'first-component', component: FirstComponent },
+
+{ path: 'second-component', component: SecondComponent },
+
+];
+
+For example /tutorial is the request..when we click on button.like (click)=saveOrder() this mehod .is called to component inside saveOrder() method and this ,component
+
+get data from service via http client .this http responce passed to component .in component based on
+
+Template html name it will go to that file and displayed data with help of *ngFor{{}}
+
+
+
+step 1 :main.ts -->bootstrap(AppMOdule)
+
+step 2: search file for AppModule.ts
+
+in appmodule.ts we declare AppComponent at imports[ bootstrap: [AppComponent]].
+
+so in AppComponent.ts class having selector attribute name like
+
+selector: 'app-root so in app.componet.html having name like
+
+'
+
+step 3 : it calls to selector: 'app-savelaptaps' in SavelaptapsComponent class.
+
+@Component({
+
+selector: 'app-savelaptaps',
+
+templateUrl: './savelaptaps.component.html',
+
+styleUrls: ['./savelaptaps.component.css']
+
+})
+
+step4 : savelaptaps.component.html
+
+form (click)="saveLaptaps()"
+
+oldLaptapId: input type="text" [(ngModel)]= oldLaptapId name="oldLaptapId"
+
+brandName: input type="text" [(ngModel)]= brandName name="brandName"
+
+generation: input type="text" [(ngModel)]= generation name="generation"
+
+serialNumber: input type="text" [(ngModel)]= serialNumber name="serialNumber"
+
+sellDate: input type="text" [(ngModel)]= sellDate name="sellDate"
+
+button submit button
+
+form
+
+step 5 :
+
+private baseUrl = 'http://localhost:8090/goodsservice/saveOldLapTap';
+
+saveLaptaps(){
+
+var obj = {"oldLaptapId":this.oldLaptapId,"brandName":this.brandName,
+
+"generation":this.generation,"serialNumber":this.serialNumber,"sellDate":this.sellDate}
+
+this.http.post(this.baseUrl+obj,{})
+
+.subscribe(
+
+(data)=>{
+
+console.debug("saved sucessfully")
+
+},
+
+(error)=>{
+
+console.debug("Error")
+
+}
+
+);
+~~~~~~~~~~~~~~

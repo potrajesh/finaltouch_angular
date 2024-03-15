@@ -1,0 +1,6941 @@
+Category: angular
+Q) Angular
+
+A) Angular
+
+our application is start at main.ts file.here we have booststrap method .so it calls to
+
+@ng module is the node module container .here we declare bootstrap array as the our component file.
+
+this bootstrap is call to our component with help of selector .
+
+The App component is a container with router-outlet. It has navbar that links to routes paths via routerLink.ex
+
+const routes: Routes = [
+
+{ path: 'first-component', component: FirstComponent },
+
+{ path: 'second-component', component: SecondComponent },
+
+];
+
+For example /tutorial is the request..when we click on button.like (click)=saveOrder() this mehod .is called to component inside saveOrder() method and this ,component
+
+get data from service via http client .this http responce passed to component .in component based on
+
+Template html name it will go to that file and displayed data with help of *ngFor{{}}
+
+
+
+step 1 :main.ts -->bootstrap(AppMOdule)
+
+step 2: search file for AppModule.ts
+
+in appmodule.ts we declare AppComponent at imports[ bootstrap: [AppComponent]].
+
+so in AppComponent.ts class having selector attribute name like
+
+selector: 'app-root so in app.componet.html having name like
+
+'
+
+step 3 : it calls to selector: 'app-savelaptaps' in SavelaptapsComponent class.
+
+@Component({
+
+selector: 'app-savelaptaps',
+
+templateUrl: './savelaptaps.component.html',
+
+styleUrls: ['./savelaptaps.component.css']
+
+})
+
+step4 : savelaptaps.component.html
+
+form (click)="saveLaptaps()"
+
+oldLaptapId: input type="text" [(ngModel)]= oldLaptapId name="oldLaptapId"
+
+brandName: input type="text" [(ngModel)]= brandName name="brandName"
+
+generation: input type="text" [(ngModel)]= generation name="generation"
+
+serialNumber: input type="text" [(ngModel)]= serialNumber name="serialNumber"
+
+sellDate: input type="text" [(ngModel)]= sellDate name="sellDate"
+
+button submit button
+
+form
+
+step 5 :
+
+private baseUrl = 'http://localhost:8090/goodsservice/saveOldLapTap';
+
+saveLaptaps(){
+
+var obj = {"oldLaptapId":this.oldLaptapId,"brandName":this.brandName,
+
+"generation":this.generation,"serialNumber":this.serialNumber,"sellDate":this.sellDate}
+
+this.http.post(this.baseUrl+obj,{})
+
+.subscribe(
+
+(data)=>{
+
+console.debug("saved sucessfully")
+
+},
+
+(error)=>{
+
+console.debug("Error")
+
+}
+
+);
+~~~~~~~~~~~~~~
+Category: aws
+Q) what is aws
+A) it is having own services
+
+~~~~~~~~~~~~~~
+Category: CoreJava
+
+Q) what is oops?
+A) 1.jvm loads .class byte into memory(static blocks are executed)
+
+2.after loads it calls to main method to start execution.
+
+class contains 5 variables
+
+1.variables =>local,instance,static variable
+
+2.methods--instance{},static{}
+
+3.constructor--default,user defined constructor
+
+4.instance blocks
+
+5.static blocks(executed during .class loading)
+
+note:instance blocks are executed first compare to constructor blocks is executed
+
+Object class in Java
+
+ref:https://www.javatpoint.com/object-class.
+
+object is instance of a class
+
+The Object class is the parent class of all the classes in java by default
+
+object class methods(11)::
+
+boolean equals(object o)
+
+class getclass()
+int hashcode;
+
+void notify();
+
+void notifyall();
+
+String toString();
+
+public final void wait();//wait lo ne inka 2 methods vunnayi but parameters are
+
+public final void wait(long timeout,int nanos)throws InterruptedException
+
+protected object clone()throws cloneNotSupportedException
+
+protected void finalize()throws throwable;
+~~~~~~~~~~~~~~~~~
+Q) How many Ways to Create an Object in Java
+
+A) 5 ways
+
+1.Java new Operator.
+
+2.Java Class. newInstance() method.
+
+3.Java newInstance() method of constructor.
+
+4.Java Object. clone() method.
+
+5.Java Object Serialization and Deserialization.
+
+1.Java new Operator
+
+A new operator is also followed by a call to constructor which
+
+initializes the new object. While we create an object it occupies
+
+space in the heap.
+
+Java Class.newInstance() method
+
+public class NewInstanceExample
+
+{
+    String str="hello";
+
+public static void main(String args[])
+
+{
+
+try
+
+{
+
+//creating object of class
+
+NewInstanceExample obj= NewInstanceExample.class.newInstance();
+
+System.out.println(obj.str);
+
+}
+
+Java newInstance() method of constructor
+
+import java.lang.reflect.Constructor;
+
+public class NewInstanceExample1
+
+{
+
+String str="hello";
+
+public static void main(String args[])
+
+{
+
+try
+
+{
+
+Constructor obj
+
+=NewInstanceExample1.class.getConstructor();
+
+NewInstanceExample1 obj1 = obj.newInstance();
+
+Java Object.clone() method
+
+public class CloneExample implements Cloneable
+
+{
+
+//creates and returns a copy of this object
+
+protected Object clone() throws CloneNotSupportedException
+
+{
+
+return super.clone();
+
+}
+
+String name = "Microprocessor";
+
+public static void main(String[] args)
+
+{
+
+CloneExample obj1 = new CloneExample(); //creating object of
+
+class
+
+try
+
+{
+
+CloneExample obj2 = (CloneExample) obj1.clone();
+
+Java Object Serialization and Deserialization
+
+import java.io.*;
+
+class Demo implements Serializable
+
+{
+
+public int i;
+
+public String s;
+
+public Demo(int i, String s) //default constructor
+
+{
+
+this.i = i;
+
+this.s = s;
+
+}
+
+}
+
+public class DeserializationExample
+
+{
+
+public static void main(String[] args)
+
+{
+
+Demo object = new Demo(8, "javatpoint");
+
+String filename = "Demofile.ser"; //specified file name (must
+
+have extension .ser)
+
+/*-----------------Serialization----------*/
+
+try
+
+{
+
+FileOutputStream file = new FileOutputStream(filename); //Saving of
+
+object in the file
+
+ObjectOutputStream out = new ObjectOutputStream(file);
+
+out.writeObject(object); //serialize object
+
+out.close(); //closes the ObjectOutputStream
+
+file.close(); //closes the file
+
+System.out.println("Object serialized");
+
+}
+
+catch(IOException e)
+
+{
+
+e.printStackTrace();
+
+}
+
+Demo obj = null;
+
+/*-----------------Deserialization--------*/
+
+try
+
+{
+
+FileInputStream file = new FileInputStream(filename); // reading an
+
+object from a file
+
+ObjectInputStream is = new ObjectInputStream(file);
+
+obj = (Demo)is.readObject(); //deserialize object
+
+is.close(); //closes the ObjectInputStream
+
+file.close(); //closes the file
+
+System.out.println("Object deserialized ");
+
+System.out.println("number = " + obj.i);
+
+System.out.println("string = " + obj.s);
+
+}
+
+catch(IOException e)
+
+{
+
+System.out.println("IOException is caught");
+
+}
+
+catch(ClassNotFoundException e)
+
+{
+
+System.out.println("ClassNotFoundException is caught");
+
+}
+
+}
+
+}
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Q) upendra sir told:about hashcode and equals method in hashset.
+
+A) samehash code vunte apude mathrame equals ki cal avuthundi.
+
+so its override the object with new object.
+
+samehashcode aunte meaning is 2 objects having same data.
+
+pubic int hashcode(){
+
+return name.hashcode()+age.hashcode.sirname.hashcode();//if hshcode
+
+is same then it cals to equals method.
+
+}
+
+hashset lo duplicate data ni set chesi print chesthe ..duplicate
+
+data kuda print avuthundi.ila duplicate print avakunda vundalante
+
+we need to override hashcode and equals by our own methods.
+
+ila override cheyakapothe inbuilt ga vunna object class methods cal
+
+avuthundi ok na.object class equals method lo dummy logic vundi
+
+equals comparison logic ledu.
+
+~~~~~~~~~~~~~~~~~~~~
+
+Q) Locking in java ?
+A) Class level lock is achieved by keyword Sychronized(DemoClass.class)
+
+where as object level is achieved only by synchronized(this)
+
+keyword.
+
+Class level locking ::
+
+it prevents multiple threads to enter in synchronized block
+
+in any of all available instances on runtime. This means if in
+
+runtime there are 100
+
+instances of DemoClass, then only one thread will be able to
+
+execute demoMethod()
+
+in any one of instance at a time, and all other instances will be
+
+locked for other threads.
+
+This should always be done to make static data thread safe.
+
+public class DemoClass
+
+{
+
+public void demoMethod(){
+
+synchronized (DemoClass.class)
+
+{
+
+//other thread safe code
+
+}
+
+}
+
+}
+
+object level locking::
+
+public class DemoClass
+
+{
+
+public void demoMethod(){
+
+synchronized (this)
+
+{
+
+//other thread safe code
+
+}
+
+}
+
+}
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Q) what is Hashcode?
+A) by nageswararao
+
+Hashcode:
+
+it is unique identification number allotted to the objects by jvm
+
+it is also reference number location of objects,except for string
+
+objects.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Q) Cloning:
+
+A) In Simple Terms, a Shallow Copy is similar to Call By Reference and
+
+a Deep Copy is similar to Call By Value
+
+In Call By Reference, Both formal and actual parameters of a
+
+function refers to same memory location and the value.
+
+In Call By Value, Both formal and actual parameters of a functions
+
+refers to different memory location but having the same value.
+
+copy of object
+
+In shallow copy main or parent object is copied,
+
+but they share same fields or children if fields are modified in one
+
+parent object other parent fields have automatic same changes occur,
+
+but in deep copy this is not the case.
+
+shallow copy::
+
+makes a copy of the reference to A into B
+
+think about it as a copy of A's address.so the
+
+address of A and B will be the same
+
+means they will be point to same memorylocation means data contents.
+
+deep copy:: stored in two diiferent entities in the memory space.
+
+clone object and original object will be 100% disjoint.
+
+They will be 100% independent of each other.
+
+Any changes made to clone object will not be reflected in original
+
+object.
+
+public class Language implements Cloneable{
+
+String name;
+
+public Language(String name){
+
+this.name=name;
+
+}
+
+public String getName() {
+
+return name;
+
+}
+
+@Override
+
+protected Object clone() throws CloneNotSupportedException {
+
+return super.clone();
+
+}
+
+}
+
+main class is following-
+
+public static void main(String args[]) throws
+
+ClassNotFoundException, CloneNotSupportedException{
+
+ArrayList list=new ArrayList();
+
+list.add(new Language("C"));
+
+list.add(new Language("JAVA"));
+
+ArrayList shallow=(ArrayList) list.clone
+
+();
+
+//We used here clone since this always shallow copied.
+
+System.out.println(list==shallow);
+
+for(int i=0;i
+
+System.out.println(list.get(i)==shallow.get(i));//true
+
+ArrayList deep=new ArrayList();
+
+for(Language language:list){
+
+deep.add((Language) language.clone());
+
+}
+
+System.out.println(list==deep);
+
+for(int i=0;i
+
+System.out.println(list.get(i)==deep.get(i));//false
+
+}
+
+class Course
+
+{
+
+String subject1;
+
+String subject2;
+
+String subject3;
+
+public Course(String sub1, String sub2, String sub3)
+
+{
+
+this.subject1 = sub1;
+
+this.subject2 = sub2;
+
+this.subject3 = sub3;
+
+}
+
+}
+
+class Student implements Cloneable
+
+{
+
+int id;
+
+String name;
+
+Course course;
+
+public Student(int id, String name, Course course)
+
+{
+
+this.id = id;
+
+this.name = name;
+
+this.course = course;
+
+}
+
+//Default version of clone() method. It creates shallow copy of
+
+an object.
+
+protected Object clone() throws CloneNotSupportedException
+
+{
+
+return super.clone();
+
+}
+
+}
+
+public class ShallowCopyInJava
+
+{
+
+public static void main(String[] args)
+
+{
+
+Course science = new Course("Physics", "Chemistry",
+
+"Biology");
+
+Student student1 = new Student(111, "John", science);
+
+Student student2 = null;
+
+try
+
+{
+
+//Creating a clone of student1 and assigning it to
+
+student2
+
+student2 = (Student) student1.clone();
+
+}
+
+catch (CloneNotSupportedException e)
+
+{
+
+e.printStackTrace();
+
+}
+
+//Printing the subject3 of 'student1'
+
+System.out.println(student1.course.subject3);
+
+//Output : Biology
+
+//Changing the subject3 of 'student2'
+
+student2.course.subject3 = "Maths";
+
+//This change will be reflected in original student
+
+'student1'
+
+System.out.println(student1.course.subject3); //Output
+
+: Maths
+
+}
+
+}
+
+output::
+
+student1 Biology
+
+------------------------
+
+student2 Maths
+
+-----------------------------------
+
+deep copy example::(has a relationship)
+
+Deep copy is preferred if an object has references to other objects
+
+as fields.
+
+To create the deep copy of an object, you have to override clone
+
+method.
+
+class course implements cloneable(subject1,2,3)
+
+class sutdent implements cloneable(id,name,course)
+
+class Course implements Cloneable
+
+{
+
+String subject1;
+
+String subject2;
+
+String subject3;
+
+public Course(String sub1, String sub2, String sub3)
+
+{
+
+this.subject1 = sub1;
+
+this.subject2 = sub2;
+
+this.subject3 = sub3;
+
+}
+
+protected Object clone() throws CloneNotSupportedException
+
+{
+
+return super.clone();
+
+}
+
+}
+
+class Student implements Cloneable
+
+{
+
+int id;
+
+String name;
+
+Course course;
+
+public Student(int id, String name, Course course)
+
+{
+
+this.id = id;
+
+this.name = name;
+
+this.course = course;
+
+}
+
+//Overriding clone() method to create a deep copy of an object.
+
+protected Object clone() throws CloneNotSupportedException
+
+{
+
+Student student = (Student) super.clone();
+
+student.course = (Course) course.clone();
+
+return student;
+
+}
+
+}
+
+public class DeepCopyInJava
+
+{
+
+public static void main(String[] args)
+
+{
+
+Course science = new Course("Physics", "Chemistry",
+
+"Biology");
+
+Student student1 = new Student(111, "John", science);
+
+Student student2 = null;
+
+try
+
+{
+
+//Creating a clone of student1 and assigning it to
+
+student2
+
+student2 = (Student) student1.clone();
+
+}
+
+catch (CloneNotSupportedException e)
+
+{
+
+e.printStackTrace();
+
+}
+
+//Printing the subject3 of 'student1'
+
+System.out.println(student1.course.subject3);
+
+//Output : Biology
+
+//Changing the subject3 of 'student2'
+
+student2.course.subject3 = "Maths";
+
+//This change will not be reflected in original student
+
+'student1'
+
+System.out.println(student1.course.subject3); //Output
+
+: Biology
+
+}
+
+}
+
+output::
+
+Biology
+
+Biology
+
+~~~~~~~~~~~~~~
+Category: Polymorphism
+Q) Polymorphism
+
+A) Ratan says below
+
+Polymorphism::
+
+poly means (many) morphism (forms)
+
+method overloading (static binding)
+
+method overriding(dynamic binding)
+
+3 types of overloading
+
+1.method overloading
+
+2.constructor overloading
+
+3.operator ovreloading
+
+1.method overloading
+
+class contain morethan one method with same name but diff no of arguments
+
+class contain morethan one method with same name but diff datatypes
+
+for ex:
+
+m1(int a){
+
+}
+
+m1(int a,int b){
+
+}
+
+m1(char ch){
+
+}
+
+main(){
+
+new Test().m1()//compile time checking on which method is called
+
+is called compiletime polymorphism.
+
+}
+
+2.constructor overload
+
+its like method overloading.
+
+Test(int a){
+
+}
+
+Test(int a,int b){
+
+}
+
+Test(Char ch){
+
+}
+
+operator overloading::
+
+Syso(10+"ratan");
+
+Syso(10+"ratan"+"anu"+10+20)
+
+overriding:
+
+previous content is gone,new content is loaded.
+
+to achieve overrridng 2 classes is required with inheritance realtionship required.
+
+class Parent{
+
+//overriden method
+
+void marry(){
+
+sop("block girl")
+
+}
+
+class Child extends Parent{
+
+//if child accepts ok .or write your own impl.
+
+//overrding method
+
+void marry(){
+
+//to write our own implementation.
+
+syso("red")
+
+}
+
+}
+
+}
+
+8 rules :
+
+1.overriden and overriding method signature must be same.
+
+2.in overriden and overriding return type must be same at primitive level in method signature.
+
+but in class level its possible to change return type.
+
+class Animal{
+
+A m1(){
+
+}
+
+}
+
+//mainly to change return type is not posiible.but it is possible to covariant returntype only.
+
+//return must be sub class type is possible is called covariant return type.
+
+class Dog extends Animal {
+
+Dog m1(){
+
+}
+
+}
+
+}
+
+3.If an overridden method is final it is not possible to override that method in child class.
+
+final variables reference are not changed
+
+class Test
+
+{ public static void main(String[] args)
+
+{ final int a=10;
+
+a=a+10; //trying to modify a value it will generate error
+
+System.out.println(a);
+
+}
+
+};
+
+class Test
+
+{ final int a; //instance variable
+
+final static int b; //static variable
+
+};
+
+
+Polymorphism::
+
+method overloding::
+
+There are two ways to overload the method in java
+
+**By changing number of arguments
+
+void sum(int a,int b)
+
+void sum(int a,int b,int c)
+
+**By changing the data type.
+
+void sum(int a,int b){System.out.println(a+b);}
+
+void sum(double a,double b)
+
+Why Method Overloaing is not possible by changing the return type of method
+
+because of ambiguity,
+
+class Calculation3{
+
+int sum(int a,int b){System.out.println(a+b);}
+
+double sum(int a,int b){System.out.println(a+b);}
+
+public static void main(String args[]){
+
+Calculation3 obj=new Calculation3();
+
+int result=obj.sum(20,20); //Compile Time Error
+
+}
+
+}
+
+Can we overload main() method?
+
+Yes, by method overloading it is possible.
+~~~~~~~~~~~~~~~~
+Category: Java 8
+Q) what is Java 8 features?
+
+A) --> Lambda expressions,
+
+--> Method references,
+
+--> Functional interfaces,
+
+--> Stream API,
+
+--> Default methods,
+
+--> Base64 Encode Decode,
+
+--> Optional class,
+
+--> Collectors class,
+
+--> ForEach() method,
+
+--> Parallel array sorting,
+
+--> Nashorn JavaScript Engine,
+
+--> Parallel Array Sorting,
+
+--> Type and Repating Annotations,
+
+--> IO Enhancements,
+
+--> Concurrency Enhancements,
+
+--> JDBC Enhancements etc.
+~~~~~~~~~~~~~~~~
+Q) how to use comparator in java 8
+
+A) list.sort(Comparator.comparing(DentalMasterDTOList::getLastUpdateDttm.reversed()));
+
+//you can create constructor in the abstract class whereas you can't do this in interface.
+
+//checking in ternary operator
+
+///*int val1 = 10;
+
+int val2 = 20;
+
+int max = val1 >= val2 ? val1 : val2;
+
+*/
+~~~~~~~~~~~~~~~~
+Q) about Lambda expression:
+
+A) step 1:
+
+it is an ananynomous function(name less function and it is not having name,modifier,return type)
+
+for example :
+
+public void test(){
+
+syso("hello");
+
+}
+
+//Lambda expression style is so here no method name and modifier and return type so we write below
+
+but we add some extra symbol like -->
+
+()-->{syso("hello");}
+
+step 2:
+
+body having multiple stmts then we use curly braces.
+
+step 3:
+
+type inference -->means based on situation compiler assign type
+
+ex: public void sum(int a,int b){
+
+syso(a+b);
+
+}
+
+//Lambda expression style
+
+(int a,int b)->syso(a+b);
+
+in above no need to mention type of a,b ,so the compiler identify based on its context and assigned.so
+
+(a,b)->syso(a+b);
+
+step 4 :
+
+it wil return single data like int size = s.length(); here braces is optional.
+
+so we write s->s.length();
+
+
+
+Java Lambda Expression Syntax :
+
+(argument-list) -> {body}
+
+Java lambda expression is consisted of three components.
+
+1) Argument-list: It can be empty or non-empty as well.
+
+2) Arrow-token: It is used to link arguments-list and body of expression.
+
+3) Body: It contains expressions and statements for lambda expression.
+
+No Parameter Syntax
+
+() -> {
+
+//Body of no parameter lambda
+
+}
+
+~~~~~~~~~~~~~~~~
+
+Q) functional interface(having single abstract method)
+
+A) step 1:
+
+oka abstract method vundali.enni default method,static methods ayina vunda vachhu.
+
+ex:
+
+inteface A{
+
+public void test();
+
+default void m1(){}
+
+public static void test(){}
+
+}
+
+~~~~~~~~~~~~~~~~
+
+
+Q) method references ::
+
+A) The double colon (::) operator, also known as method reference operator in Java,
+
+is used to call a method by referring to it with the help of its class directly. They behave exactly as the lambda expressions.
+
+for Ex:
+
+Predicate p = String::isEmpty;
+~~~~~~~~~~~~~~~~
+Q) functional interfaces :(SAM)
+
+
+A) from (oracle)
+Functional interfaces provide target types for lambda expressions and method references.
+
+Each functional interface has a single abstract method, called the functional method for that functional interface,
+
+to which the lambda expression's parameter and return types are matched or adapted. Functional interfaces can provide a target type in multiple contexts,
+
+such as assignment context, method invocation, or cast context:
+~~~~~~~~~~~~~~~~
+Q) about streams?
+A) streams :(java.util.stream)(we can find (aggregate operations like) max,min value &count value also &we can convert list to set also byusing Collectors.toset() method)
+
+You can use stream by importing java.util.stream package.
+
+Stream obtained from a collection produces a new Stream without the filtered elements, rather than removing elements from the source collection.
+
+You can use stream to filter, collect, print, and convert from one data structure to other etc.
+
+In the following examples, we have apply various operations with the help of stream.
+
+package com.java8.streams;
+
+import java.util.stream.Collectors;
+
+import java.util.stream.Stream;
+
+import com.java8.model.Person;
+
+public class StreamsTestUsingList {
+
+public static void main(String[] args) {
+
+ArrayList plist = null;
+
+Person p = new Person();
+
+p.setAge(12);
+
+Person p1 = new Person();
+
+p.setAge(1);
+
+Person p2 = new Person();
+
+p2.setAge(2);
+
+Person p3 = new Person();
+
+p3.setAge(3);
+
+plist = new ArrayList();
+
+plist.add(p);
+
+plist.add(p1);
+
+plist.add(p2);
+
+plist.add(p3);
+
+//plist.stream().filter((Person)->p.getAge()<10).forEach((plist)->(p.age));
+
+//stream return collection
+
+//old approach
+
+/* for (Person plistdata : plist) {
+
+if (plistdata.getAge()<10) {
+
+int age = plistdata.getAge();
+
+System.out.println("age ::"+age);
+
+newagelist.add(age);
+
+}
+
+}
+
+/below is for stream approach for above
+
+//usage of strams on the below step1 get age <10 data from list
+
+System.out.println("newagelist ::"+newagelist);*/
+
+//condition //output ?
+
+//Integer person2 = plist.stream().filter((Person)->p.getAge()<10).map((Person)->p.getAge()).findAny().get();
+
+//System.out.println(person2);
+
+//to fetch distinct age from list
+
+//Optional findFirst = plist.stream().distinct().findFirst();
+
+//usage of strams on the below step2 usage of foreach
+
+//plist.stream().filter((Person)->p.getAge()<10).forEach((Person)->System.out.println(p.age));
+
+//usage of strams on the below step3 usage of list set convert
+
+//Set collect = plist.stream().filter((Peson)->p.getAge()<10).map((person)->p.age).collect(Collectors.toSet());
+
+//System.out.println(collect);
+
+//find min and max value form list by using stream().max()
+
+//plist.stream().filter(plist->Person.getAge()==10).max(plist->plist.getAge());
+
+//Person person3 = plist.stream().filter((Person)->p.getAge()<10)
+
+// .max((Person1,Person2)->Person1.age < Person2.age ? 1: -1).get();
+
+//System.out.println(person3.age);
+
+}
+
+}
+
+public class HashMapUsingStreams {
+
+@SuppressWarnings("unchecked")
+
+public static void main(String[] args) {
+
+HashMap hm = new HashMap<>();
+
+hm.put(10, "acda");
+
+hm.put(10, "acd");
+
+hm.put(11, "data1");
+
+hm.put(12, "data2");
+
+//get data greater than 5
+
+Map entrySet =hm.entrySet().stream().
+
+filter(map->map.getKey()>=5).collect(Collectors.toMap(map->map.getKey(),map->map.getValue()));
+
+System.out.println(entrySet);
+
+//output {10=dataa, 11=data1, 12=data2}
+
+//get values by using .equals
+
+Map entrySet2 = hm.entrySet().stream().filter(map->"data".equals(map.getValue()))
+
+.collect(Collectors.toMap(map->map.getKey(),map->map.getValue()));
+
+System.out.println(entrySet2);
+
+//startsWith
+
+Map result = hm.entrySet()
+
+.stream()
+
+//.filter(p -> p.getKey().intValue() <= 2) //filter by key
+
+.filter(map -> map.getValue().startsWith("ac")) //filter by value
+
+.collect(Collectors.toMap(map -> map.getKey(), map -> map.getValue()));
+
+System.out.println(result);
+
+MultiMap map = new MultiValueMap();
+
+map.put("key1", "value1");
+
+map.put("key1", "value2");
+
+System.out.println(map);
+
+Map maps = new HashMap();
+
+maps.put(1,new Employee(1,"",12));
+
+Map maps1 = new HashMap();
+
+maps1.put(1,"a");
+
+ArrayList> al = new ArrayList>();
+
+// al.add((Entry) maps1);
+
+HashMap> Items = new HashMap>();
+
+/*
+
+System.out.println(maps1);
+
+private synchronized void addToList(String mapKey,Employee myItem) {
+
+List itemsList = items.get(mapKey);
+
+// if list does not exist create it
+
+if(itemsList == null) {
+
+itemsList = new ArrayList();
+
+itemsList.add(myItem);
+
+items.put(mapKey, itemsList);
+
+} else {
+
+// add if item is not already in list
+
+if(!itemsList.contains(myItem)) itemsList.add(myItem);
+
+}
+
+}*/
+
+String str="abc";
+
+int strlength = str.length()-1;
+
+System.out.println(str.length()-1);
+
+System.out.println(str.length());
+
+for (int i = 0; i < str.length(); i++) {
+
+System.out.println("str::"+str.charAt(i));
+
+}
+
+for (int i = 0; i < str.length()-1; i++) {
+
+System.out.println("str-1::"+str.charAt(i));
+
+}
+
+}
+
+}
+
+~~~~~~~~~~~~~~~~
+Q) Default Methods?
+A) defaut is a keyword.. its applicable only for interfaces but must provide body also
+
+we can use static methods also but its having body
+~~~~~~~~~~~~~~~~
+Q) Optional class 
+
+A)for avoid nullpointer exception we are using
+
+public static void main(String[] args) {
+
+String[] data = new String[10];
+
+// data[0]="A";
+
+Optional ofNullable = Optional.ofNullable(data[0]);
+
+if (ofNullable.isPresent()) {
+
+System.out.println("value in array");
+
+} else {
+
+System.out.println("no value in array");
+
+}
+~~~~~~~~~~~~~~~~
+Q) Base64 ?
+A):for encrypt or decrypt we are using
+
+// Getting encoder
+
+Base64.Encoder decoder = Base64.getMimeDecoder();
+
+// Decoding string
+
+String str = "JavaTpoint";
+
+String dStr = new String(decoder.decode(str));
+
+System.out.println("Decoded string: "+dStr);
+
+}
+
+//output
+
+Decoded string: JavaTpoint
+
+what is asynchronous programming in java 8
+
+ans is :: through CompletableFuture class we can achieve aynchronous .it is comes from util.concurrent package
+
+pls refer https://www.callicoder.com/java-8-completablefuture-tutorial/
+
+~~~~~~~~~~~~~~~~
+Category: Collection
+Q) what is Collection?
+
+A) Collection is an Interface which can used to Represent a Group of Individual object as a single Entity.
+
+Collections is an utility class to Define several Utility Methods for Collection object.
+
+
+List ArrayList,LinkedList,Vector,Stack
+
+Set Hashset,LinkedHashset
+
+note:: oka hashset lo string data ni send chesthe idi direct ga string lo vunna .equals call ayi duplicate ni remove chestundi.
+
+so ade customized object ni send chesthe like new Hashset lo hs.add(1,r);new hashset lo hs.add (1,r) idi size 2 ani duplecate data print avuthundi
+
+so denni overcome cheyalante nuvvu tesukunna aa pojo lo ..need to override hashcode and equals.then it gives no duplicates data.
+
+sortedset,Treeset
+
+Map sortedmap,treemap
+
+hashmap,linkedhashmap
+
+
+time complexity are commonly found in operations on binary trees or when using binary search. An O(log n) algorithm is considered highly .
+
+add remove get contains
+
+ArrayList O(1) O(n) O(1) O(n)
+
+LinkedList o(1)
+
+caopyon arraylist 0(n)
+~~~~~~~~~~~~~~~~
+Q) what is arrylist?
+A)The ArrayList class is a resizable array, which can be found in the java.util package.
+
+The ArrayList class has a regular array inside it. When an element is added, it is placed into the array. If the array is not big enough, a new, larger array is
+
+created to replace the old one and the old one is removed.
+
+Iterable-->Collection-->List-->AbstractList-->ArrayList
+
+Java ArrayList class can contain duplicate elements.
+
+Java ArrayList class maintains insertion order.
+
+Java ArrayList class is non synchronized.
+
+Java ArrayList allows random access because array works at the index basis.
+
+In ArrayList, manipulation is little bit slower than the LinkedList in Java because a lot of shifting needs to occur if any element is removed from the array list.
+
+how the arraylist copy and growable nature shown on below pgm.
+
+default size is 10
+
+once its reaches to load factor the size got dubbeled.so here it will create new object to copy old elements..
+
+from java API ::
+
+/**
+
+* Increases the capacity to ensure that it can hold at least the
+
+* number of elements specified by the minimum capacity argument.
+
+*
+
+* @param minCapacity the desired minimum capacity
+
+*/
+
+private void grow(int minCapacity) {
+
+// overflow-conscious code
+
+int oldCapacity = elementData.length;
+
+int newCapacity = oldCapacity + (oldCapacity >> 1);(or)int newCapacity = (oldCapacity * 3)/2 + 1;
+
+if (newCapacity - minCapacity < 0)
+
+newCapacity = minCapacity;
+
+if (newCapacity - MAX_ARRAY_SIZE > 0)
+
+newCapacity = hugeCapacity(minCapacity);
+
+// minCapacity is usually close to size, so this is a win:
+
+elementData = Arrays.copyOf(elementData, newCapacity);
+
+}
+
+private static int hugeCapacity(int minCapacity) {
+
+if (minCapacity < 0) // overflow
+
+throw new OutOfMemoryError();
+
+return (minCapacity > MAX_ARRAY_SIZE) ?
+
+Integer.MAX_VALUE :
+
+MAX_ARRAY_SIZE;
+
+}
+
+Remove duplicates from arraylist without using collections
+
+package arrayListRemoveduplicateElements;
+
+import java.util.ArrayList;
+
+public class RemoveDuplicates {
+
+public static void main(String[] args){
+
+ArrayList Object al = new ArrayList Object()
+
+al.add("java")
+
+al.add('a');
+
+System.out.println("Before Remove Duplicate elements:"+al);
+
+for(int i=0;i al.size();i++){
+
+for(int j=i+1;j al.size();j++){
+
+if(al.get(i).equals(al.get(j))){
+
+al.remove(j);
+
+j--;
+
+}
+
+}
+
+}
+
+System.out.println("After Removing duplicate elements:"+al);
+
+}
+
+}
+
+~~~~~~~~~~~~~~~~
+Q) what is LnkedList?
+A) linked list class contains 3 fields 1.link(prev)2.data3.(link (next nodes))..
+
+LinkedList : Iterable--->Collection-->List-->AbstractSequentialList-->LinkedList
+
+The LinkedList class is a collection which can contain many objects of the same type, just like the ArrayList.
+
+The LinkedList class has all of the same methods as the ArrayList class because they both implement the List interface. This means that you can add items, change
+
+items, remove items and clear the list in the same way.
+
+Java LinkedList class uses a doubly linked list to store the elements. It provides a linked-list data structure. It inherits the AbstractList class and implements List
+
+and Deque interfaces.
+
+The important points about Java LinkedList are:
+
+Java LinkedList class can contain duplicate elements.
+
+Java LinkedList class maintains insertion order.
+
+Java LinkedList class is non synchronized.
+
+In Java LinkedList class, manipulation is fast because no shifting needs to occur.
+
+Java LinkedList class can be used as a list, stack or queue.
+
+Doubly Linked List:
+
+In the case of a doubly linked list, we can add or remove elements from both sides.
+
+public class LinkedList1{
+
+public static void main(String args[]){
+
+LinkedList al=new LinkedList();
+
+al.add("Ravi");
+
+al.add("Vijay");
+
+al.add("Ravi");
+
+al.add("Ajay");
+
+Iterator itr=al.iterator();
+
+while(itr.hasNext()){
+
+System.out.println(itr.next());
+
+}
+
+}
+
+}
+~~~~~~~~~~~~~~~~
+Q) diff of ArrayList and LinkedList or When To Use
+
+A) It is best to use an ArrayList when:
+
+You want to access random items frequently
+
+You only need to add or remove elements at the end of the list
+
+It is best to use a LinkedList when:
+
+You only use the list by looping through it instead of accessing random items
+
+You frequently need to add and remove items from the beginning or middle of the
+
+list
+
+it is fast because no shifting is required.
+~~~~~~~~~~~~~~~~
+Q) about Hashset ?
+A) Hashset : iterable-->collection-->set-->abstractSet-->Hashset
+
+A HashSet is a collection of items where every item is unique, and it is found in the java.util package:
+
+Java HashSet class is used to create a collection that uses a hash table for storage. It inherits the AbstractSet class and implements Set interface.
+
+The important points about Java HashSet class are:
+
+HashSet stores the elements by using a mechanism called hashing.
+
+HashSet contains unique elements only.
+
+HashSet allows null value.
+
+HashSet class is non synchronized.
+
+HashSet doesn't maintain the insertion order. Here, elements are inserted on the basis of their hashcode.
+
+HashSet is the best approach for search operations.
+
+The initial default capacity of HashSet is 16, and the load factor is 0.75
+
+How to add Duplicate elements in Set?
+
+Any Set implementations in Java Collections don't allow to do that.
+
+Consider using MultiSet from Apache Commons Collections.
+
+import org.apache.commons.collections4.MultiSet;
+
+import org.apache.commons.collections4.multiset.HashMultiSet;
+
+public class Test {
+
+public static void main(String[] args) {
+
+MultiSet set = new HashMultiSet<>();
+
+set.add(1);
+
+set.add(1);
+
+set.add(3);
+
+set.add(4);
+
+set.add(5);
+
+set.add(6);
+
+set.forEach(s -> System.out.println(s));
+
+}
+
+}
+
+Result:
+
+1
+
+1
+
+3
+
+4
+
+5
+
+6
+
+
+how to sort custom hashset object in java
+
+class Test{
+
+public static void main(String args[])
+
+{
+
+// Creating a HashSet
+
+HashSet set = new HashSet();
+
+// Adding elements into HashSet using add()
+
+set.add("geeks");
+
+set.add("practice");
+
+set.add("contribute");
+
+set.add("ide");
+
+System.out.println("Original HashSet: "
+
++ set);
+
+// Sorting HashSet using List
+
+List list = new ArrayList(set);
+
+Collections.sort(list);
+
+// Print the sorted elements of the HashSet
+
+System.out.println("HashSet elements "
+
++ "in sorted order "
+
++ "using List: "
+
++ list);
+
+}
+
+}
+
+}
+
+Output:
+
+Original HashSet: [practice, geeks, contribute, ide]
+
+HashSet elements in sorted order using List: [contribute, geeks, ide, practice]
+
+
+hashset lo customized objects duplicate remove cheyalante.
+
+aa pojo loki velli right click chesi we need to override hashcode and equals ivvali.
+
+Example 1::
+
+Person p5 = p4
+
+hs = new Hashset();
+
+hs.add(new Person(1,"adat"));
+
+hs.add(new Person(2,"adct"));
+
+hs.add(new Person(3,"advt"));
+
+hs.add(new Person(1,"adat"));
+
+hs.add(p5);//here set is working properly.
+
+system.out.println(hs.size());//o/p is :: 4
+
+easy way to add hashcode method inyour class:
+
+public int hashcode(){
+
+return this.id+this.age+this.name.hashcode();
+
+}
+
+step 2 :
+
+hashset lo customized objects duplicate remove cheyalante.
+
+HashSet hs = hashset();
+
+hs.add("a");
+
+hs.add("b");
+
+hs.add("a");
+
+o/p: is b because it calls to comparison logic of string class thats y its remove duplicates.
+
+HashSet hs = hashset();
+
+Person p = new Person(1,"d");
+
+Person p1 = new Person(2,"a");
+
+Person p2 = new Person(1,"d");
+
+hs.add(p);
+
+hs.add(p1);
+
+hs.add(p2);
+
+syso(hs.getId())
+
+o/p is :: 1,1,2 because
+
+nuvvu override logic provide lcheyakapothe object class equals ki call avuthundi.
+
+below code provide equlas logic in your class.
+
+public class Person{
+
+public boolean equals(Object obj){
+
+if(obj==this){
+
+return true;
+
+}
+
+if(obj==null){
+
+return false;
+
+}
+
+//sametype of this class or not
+
+if(!(obj instance of Person)){
+
+return false;
+
+}
+
+//manamu create chesina method lo vunna cal avvalante type cast cheyali.
+
+//Person p = (Person)obj
+
+if(!this.name.equals(p.getName())){
+
+return flase;
+
+}
+
+return true;
+
+}
+
+}
+
+~~~~~~~~~~~~~~~~
+Q)about HashMap?
+A)Hashmap:: Map-->AbstractMap-->HashMap
+
+In the ArrayList chapter, you learned that Arrays store items as an ordered collection, and you have to access them with an index number (int type). A HashMap however, store items in "key/value" pairs, and you can access them by an index of another type (e.g. a String).
+
+One object is used as a key (index) to another object (value). It can store different types: String keys and Integer values, or the same type, like: String keys and String values:
+
+Points to remember
+
+Java HashMap contains values based on the key.
+
+Java HashMap contains only unique keys.
+
+Java HashMap may have one null key and multiple null values.
+
+Java HashMap is non synchronized.
+
+Java HashMap maintains no order.
+
+The initial default capacity of Java HashMap class is 16 with a load factor of 0.75.
+
+what is internal implementation
+
+Each bucket contains a linked list of Map.Entry object,
+
+which contains both Key and Value. Now Java will take the Key object
+
+from each entry and compare with this new key using equals() method,
+
+if that return true then value object in that entry will be replaced by new value
+
+if hash collision is occured(like same hashcode)then it will be called to internally hashcode and equals n method.
+
+duplicate value is removed and latest value is stored by using equals method.
+
+how to get keys and values from hashmap
+
+package com.test;
+
+import java.util.HashMap;
+
+import java.util.Map.Entry;
+
+import java.util.Set;
+
+public class Student {
+
+//finally by using keyset() we get the keys
+
+//from keys we get the values by using get() method.
+
+//or
+
+//by using entryset method ofter for each we get each key and values
+
+//entryset returns Set>
+
+// for(Entry entry:entrySet){
+
+//from entry.getkeys we get key and entry.getValue we get value
+
+public static void main(String[] args) {
+
+HashMap hashmap = new HashMap();
+
+hashmap.put(1, "a");
+
+hashmap.put(2, "b");
+
+/*Setkeys=hashMap.keySet();
+
+System.out.println(keys);
+
+for(Integer allkeys:keys){
+
+System.out.println("keys::"+allkeys);
+
+String value = hashMap.get(allkeys);
+
+System.out.println("values::"+value);*/
+
+Set> entrySet = hashmap.entrySet();
+
+for(Entry entry:entrySet){
+
+System.out.println(entry.getKey());
+
+System.out.println(entry.getValue());
+
+}
+
+}
+
+}
+
+link::http://javaconceptoftheday.com/java-hashmap-programs-and-examples/
+
+
+how to maintain insertion order in HashMap?
+
+We can use LinkedHashMap for maintain insertion and retrieve order must be same:
+
+If you truly are unable to switch to another Map implementation (LinkedHashMap is exactly what you want), then the only other possibility is to retain the original
+
+List, and use it to create the new List from the Map.
+
+public T ListT listFromMapInOrder(final MapT, T map, final ListT order) {
+
+ListT result = new ArrayListT();
+
+for (T key : order) {
+
+if (map.containsKey(key)) {
+
+result.add(key);
+
+result.add(map.get(key));
+
+}
+
+}
+
+return result;
+
+}
+
+But I would refactor the code until it was possible to switch to a LinkedHashMap.
+
+~~~~~~~~~~~~~~~~
+Q)interviewr asked for diff of identity hashmap and hashmap
+
+A)identity hashmap refers == for storing map entry into buckets
+
+hashmap uses .equals for storing map entry into buckets.
+
+~~~~~~~~~~~~~~~~
+Q)about Hashtable ?
+A)it is synchronized by defult.
+
+multiple thread it is advisable,in single thread it is slow
+
+does not allow null keys or values
+
+it is not failfast,means if concurrent updations are done to hashtable,there will not be
+
+any incorrect results produced by the enumeration.
+
+Hasmap::(key should be unique(means wecannot use duplicate data for keys,it is not synchronized))
+
+we can make hashmap is synchronized using synchronized map
+
+collections.synchronizedmap(new hashmap());
+
+difference of set and list
+
+a set represents a collection of elements order of the elements may change in the set.
+
+not allow duplicate values to be stored.
+
+acess elements by their index based.it is not posiible in case of sets.
+
+not allow null elements.
+~~~~~~~~~~~~~~~~
+
+Q)difference of set and list
+
+a set represents a collection of elements order of the elements may change in the set.
+
+not allow duplicate values to be stored.
+
+acess elements by their index based.it is not posiible in case of sets.
+
+not allow null elements.
+~~~~~~~~~~~~~~~~
+
+Q)difference of arraylist and vector
+
+A)Vector: Vector is similar to ArrayList but the differences are,
+
+it is synchronized and its default initial size is 10 and when the size exceeds
+
+its size increases to double of the original size that means the new size will be 20.
+
+Vector is the only class other than ArrayList to implement RandomAccess.
+
+it is not synchronized by defult vector is synchrozied by default
+
+we make it synchrozied using synchronizedList
+
+Collections.synchronizedList(new ArrayList());
+
+2.incase of single thread,using arrylist multithread is advisable,
+
+is faster than vector in single thread ,its slow
+
+3.Arraylist increases its size everytime by 50 percent(half) its size everytime by doubling it.
+
+~~~~~~~~~~~~~~~~
+Q)Difference of Hashmap and Hashtable:
+A)1)Hashtable is synchronized whereas hashmap is not.
+
+2)Another difference is that iterator in the HashMap is fail-safe while the enumerator for the Hashtable isn't. If you change
+
+the map while iterating, you'll know.
+
+3)HashMap permits null values in it, while Hashtable doesn't.
+~~~~~~~~~~~~~~~~
+Q)about Collection framework(9 key interfaces)
+A)Interfaces: An Interface provides much information than classes. Class is the implementation of an interface.
+
+1) Collection:
+
+When we should go for collection: To represent a group of elements as one entity.
+
+collection interface is the root interface of all interfaces.
+
+2) List Interface: (1.2 v)
+
+Duplicates are allowed and insertion order is preserved then we must go for this interface.
+
+List is the child interface of Collection.
+
+Implementation classes: ArryaList(1.2 v), LinkedList(1.2 v), Vector (1.0 v), Stack(1.0 v).
+
+Legacy classes are Vector and Stack.
+
+3) Set Interface(1.2 v):
+
+Duplicates are not allowed.
+
+Insertion order is not preserved.
+
+Child interface of collection.
+
+Implementation classes: HashSet (1.2 v) and LinkedHashSet(1.4 v).
+
+4) SortedSet Interface (1.2 v):
+
+Child interface of Set.
+
+Duplicates are not allowed.
+
+Insertion order is preserved.
+
+5) Navigable Set Interface:(1.6 v)
+
+Child interface of SortedSet.
+
+Implementation class: TreeSet (1.6 v).
+
+6) Queue Interface:(1.5 v)
+
+Child Interface of Collection.
+
+A group of objects prior to process this can be used.
+
+Implementation class: PriorityQueue, BlockingQueue, LinkedBlockingQueue, PriorityBlockingQueue.
+
+All the above interfaces are ment for represent a group of individual objects.
+
+When need to represent key value pairs then below interfaces.
+
+7) Map Interface: (key, value) (1.2 v)
+
+Not a child interface of collection.
+
+A group of objects as key value pairs.
+
+Duplicate keys are not allowed but values can be allowed.
+
+Implementation classes: HashMap(1.2 v), LinkedHashMap(1.4 v), WeekHashMap(1.2), IdentityHashMap(1.4), Hashtable, Properties.
+
+Dictionary(1.0 v) is the parent class for Hashtable followed by Properties. These are called legacy classes.
+
+8) SortedMap Interface: (1.2 v)
+
+A group of objects key value pairs according to some sorting method.
+
+Child interface of Map.
+
+9) NavigableMap Interface:(1.6 v)
+
+Child interface of SortedMap.
+
+Defines several utility methods for navigation.
+
+Implementation class: TreeMap. (1.2 v)
+~~~~~~~~~~~~~~~~
+Q)Failfast and Fail safe:
+
+A)When one or more thread is iterating over the collection,
+
+in between, one thread changes the structure of the collection
+
+(either adding the element to the collection or by deleting the element in the collection or
+
+by updating the value at particular position in the collection) is known as Concurrent Modification
+
+or failfast.
+
+created on a clone of that collection. One example which supports failsafe iterator is ConcurrentHashMap.
+
+modification in the collection Fail-fast iterators throw ConcurrentModificationException
+
+Example for fail fast iterators are ArrayList, Vector, HashSet
+
+~~~~~~~~~~~~~~~~
+Q)Difference of vector and arraylist::
+
+A)Vector: Vector is similar to ArrayList but the differences are,
+
+it is synchronized and its default initial size is 10 and when the size exceeds
+
+its size increases to double of the original size that means the new size will be 20.
+
+Vector is the only class other than ArrayList to implement RandomAccess.
+
+~~~~~~~~~~~~~~~~
+Q)Difference of Hashmap and Hashtable:
+
+A)1)Hashtable is synchronized whereas hashmap is not.
+
+2)Another difference is that iterator in the HashMap is fail-safe while the enumerator for the Hashtable isn't. If you change
+
+the map while iterating, you'll know.
+
+3)HashMap permits null values in it, while Hashtable doesn't.
+~~~~~~~~~~~~~~~~~
+Category: Exceptions
+Q) Exceptions:
+
+A) checked Exceptions::(complietime)::IO,SQL,AssertionError
+
+unchecked Exceptions(Runtime)::arithmetic,nullpointer,numberformat
+
+Checked exception(like nullpointer) cannot be propagated using throw.but throws it will handle checked exception
+
+The keyword throw is used inside method body to invoke an exception and
+
+throws clause is used in method declaration (signature).
+
+Example ::userdefined exception
+
+first table gani query lo gani edaina modifications chesi.avi ee type of exceptions vastunayo chudali(like querysyntax,sql grammer exceptions)
+
+aa vachina exceptions catch lo pettukoni like catch(QuerysyntaxException q){throw new ApplicationExeption("ikada manamu create chesina userdefined object ni
+
+throw cheyali.")}
+
+public class CAExceptions extends NestedRuntimeException{
+
+private static final long serialVersionUid=1L;
+
+public CAExceptions(String msg) {
+
+super(msg);
+
+// TODO Auto-generated constructor stub
+
+}
+
+public CAExceptions(String msg, Throwable cause) {
+
+super(msg);
+
+// TODO Auto-generated constructor stub
+
+}
+
+//manamu create chesina exception msg constructor nundi tesukoni aa msg ni super(exception)class ki send chestundi.
+
+so again nuvvu aa msg ni tesukovalante catch(ApplicationExcepton ae){"message",ae.getmessage()}ila aunte malli manaku manamu set
+
+chesina msg display chestundi.
+
+throw ae annapudu..aa method throws lo (ApplicationExcepton vundali. okna)
+
+public class Myexception extends Exception {
+
+private String message;
+
+Myexception(String message)
+
+{
+
+this.message=message;
+
+}
+
+public String toString(){
+
+return ("Output String = "+message) ;
+
+}
+
+}
+
+public class MyownException {
+
+public static void main(String[] args) {
+
+try{
+
+throw new Myexception("Custom");
+
+}
+
+catch(Myexception me){
+
+System.out.println(me);
+
+me.printStackTrace();
+
+}
+
+}
+
+Output:
+
+Hi this is my catch block
+
+Output String = Custom
+
+checked exceptions are checked at compile time.
+
+it means if a method is throwing a checked exception
+
+we need to handle byusing try catch or throws keyword
+
+for example:fis = new FileInputStream("B:/myfile.txt");
+
+unchecked exceptions::
+
+Unchecked exceptions are not checked at compile time.
+
+Most of the times these exception occurs due to the bad
+
+data provided by user during the user-program interaction.
+
+int arr[] ={1,2,3,4,5};
+
+ArrayIndexOutOfBoundsException*/
+
+System.out.println(arr[7]);
+
+
+
+ExceptionHandling with MethodOverriding in Java ::
+
+ref:: https://www.javatpoint.com/exception-handling-with-method-overriding
+
+1) Rule: If the superclass method does not declare an exception, subclass overridden method cannot declare the checked exception.
+
+2) Rule: If the superclass method does not declare an exception, subclass overridden method cannot declare the checked exception but can declare unchecked exception.
+
+3) Rule : If the superclass method declares an exception, subclass overridden method can declare same, subclass exception or no exception but cannot declare parent exception.
+
+next →← prev
+
+-->super has checked exception declare same checked exception in sub class also
+
+-->super has checked no exception declare unchecked exception.
+
+super lo exception vunte child lo exception vundavachu.
+
+super lo Exception vunte child lo unchecked is possible.
+
+super lo Exception vunte child lo no exception is possible.
+
+1.super lo exception ledu kani sub lo no checked .
+
+unchecked vundavachu.
+
+2.super lo exception unchecked vundi.sub lo unchecked vundali.
+
+parentclass(Exception) vundakudadu.
+
+Example ::Example in case subclass overridden method declares same exception
+
+class Parent{
+
+void msg()throws Exception{System.out.println("parent");}
+
+}
+
+class TestExceptionChild3 extends Parent{
+
+void msg()throws Exception{System.out.println("child");}
+
+Output:child
+
+Example 2 : by using controler advice
+
+from CTS videos::
+
+@ControllerAdvice
+
+@RestController
+
+public class CustomResponseExceptionHandler extends ResponseEntityExceptionHandler {
+
+@ExceptionHandler(OldLaptapIdException.class)
+
+public final ResponseEntity Object> handleProjectIdException(OldLaptapIdException ol, WebRequest req) {
+
+OldLaptapIdException oldLaptapIdExceptionResponse = new OldLaptapIdException(ol.getMessage());
+
+return new ResponseEntity(oldLaptapIdExceptionResponse, HttpStatus.BAD_REQUEST);
+
+}
+
+(++++++++or+++++++)
+
+@ExceptionHandler(ResourceNotFoundException.class)
+
+@ResponseStatus(value = HttpStatus.NOT_FOUND)
+
+public @ResponseBody ExceptionResponse handleResourceNotFound(final ResourceNotFoundException exception,
+
+final HttpServletRequest request) {
+
+ExceptionResponse error = new ExceptionResponse();
+
+error.setErrorMessage(exception.getMessage());
+
+error.callerURL(request.getRequestURI());
+
+return error;
+
+}
+
+}
+
+@Service
+
+public class OldLapService {
+
+@Autowired
+
+private OldLapRepository olp;
+
+public OldLaptapDetails saveOldLap(OldLaptapDetails old) {
+
+try {
+
+OldLaptapDetails saveLap = olp.save(old);
+
+return saveLap;
+
+} catch (Exception e) {
+
+throw new OldLaptapIdException("OldLaptap ID'" + old.getOldLaptapId() + "'already exist");
+
+}
+
+}
+
+}
+
+Exceptions Handling by using catch blocks
+
+catch(Exception e){//here unrechable catch error showing.
+
+e.printstacktrace();
+
+}
+
+catch(NUllpointerException ne){
+
+ne.printstacktrace();
+
+}
+
+Note:: Exception class is must mention at last only.
+
+
+
+Exception class Methods(6)::
+
+public String getMessage()
+
+public Throwable getCause()
+
+public String toString()
+
+public void printStackTrace()
+
+public StackTraceElement[]getStackTrace()
+
+public Throwable fillInStackTracae()
+
+~~~~~~~~~~~~~~
+Category: about thread class
+Q) about thread class
+
+A) A thread is a lightweight sub-process, the smallest unit of processing. 
+Multiprocessing and multithreading, both are used to achieve multitasking.
+
+2threads are waiting eachother is caled deadlock..means all arein waiting state.
+
+t1.join.t2 because t1 is waiting upto t2 is completed.
+
+if you are use join current thread is used join method.up to main method will wait.
+
+private Thread t1=null;
+
+private thread t2 =null;
+
+t1.join(t2);
+
+diff of wait and sleep
+
+wait(1000)ani aunte notify method thread ni wait cheyanivadu
+
+sleep(1000)ani aunte thread executes will come after 1000 seconds after.because it having lock
+
+yield:: it comes back to runnable state
+
+A thread is a lightweight sub-process, the smallest unit of processing. Multiprocessing and multithreading, both are used to achieve multitasking.
+
+However, we use multithreading than multiprocessing because threads use a shared memory area. They don't allocate separate memory area so saves memory, and context-
+
+switching between the threads takes less time than process.
+
+
+
+upendra sir says
+
+thread anagane oka job .job having no.of statements.
+
+th = new OurThread()
+
+th.start();//it calls run method.//also known as thread creation.
+
+2 ways to create thread .
+
+1. extends thread
+
+2.runnable interface
+
+class Multi extends Thread{
+
+public void run(){
+
+System.out.println("thread is running...");
+
+}
+
+public static void main(String args[]){
+
+Multi t1=new Multi();
+
+t1.start();
+
+}
+
+}
+
+2) Java Thread Example by implementing Runnable interface
+
+class Multi3 implements Runnable{
+
+public void run(){
+
+System.out.println("thread is running...");
+
+}
+
+public static void main(String args[]){
+
+Multi3 m1=new Multi3();
+
+Thread t1 =new Thread(m1);
+
+t1.start();
+
+}
+
+}
+
+synchronization in threads::
+
+public class Person{
+
+public synchronized void test1(){
+
+}
+
+}
+
+public class mainTest{
+
+Thread1 t1 = new Thread(new Person());
+
+Thread1 t2 = new Thread(new Person());
+
+t1.start();
+
+}
+
+ee time lo delay chesina apudu interrrupted exception vastundi.
+
+
+
+extends aunte adi oka thread extends ee posible..vere class ni extend cheyalemu.
+
+ade runnable lo ayithe another clas ni kuda extends thread cheya vachu.
+
+ee thread Thread.currentthread.getname()//ee thread exe chestundo cheptundi.
+
+public class
+
+integer endTime = System.currentmilliseconds
+
+integer starttime= System.currentmilliseconds
+
+syso(starttime-endtime)
+
+threadpool means some threads are exist in queue
+
+callable = new Threadcallabe();
+
+we need to mention size is like new fixed threadpool(2)
+
+ExecutorService es = new fixed threadpool(2)
+
+es.submit(callable);
+
+2 thread types
+
+1.sequential execution 2.parallel execution
+
+1.sequential execution
+
+main(){
+
+for(int i=1;i<1000;i++){}//first it execute next below for is executing so is called sequential flow.
+
+for(int i=1;i<1000;i++){}
+
+job means its having statements execution by thread
+
+paralel threads are means threads are executing statements paralley(means one into another)
+
+}
+
+
+
+ref :: https://www.javatpoint.com/java-executorservice
+
+Java ExecutorService by upendra sir::
+
+data return from thread to thread
+
+so all threads data to main method.
+
+callable data return chestundi to threads.
+
+public class ThreadCallable implements Callable Integer> {
+
+public Integer call(){
+
+Thread.sleep(2000);
+
+return 200;
+
+}
+
+}
+
+classMain{
+
+ThreadCallable callable = new ThreadCallable();
+
+Thread th new Thread(callable)//it does not work.
+
+ExecutorService es = Executor.newFixedhreadPool(2);
+
+Fututurefi = es.submit(callable);
+
+try{
+
+Integer data1 = fi.get();
+
+}
+
+catch(Exception e){
+
+e.printStacktrace();
+
+}
+
+}
+
+long starTime =syste.currenttimemillseconds;
+
+long endTime =syste.currenttimemillseconds
+
+syso(endtime-starttime);
+
+ExecutorService having threadpools.so its having multiple threads.
+
+
+
+The Java ExecutorService is the interface which allows us to execute tasks on threads asynchronously. The Java ExecutorService interface is present in the
+
+java.util.concurrent package. The ExecutorService helps in maintaining a pool of threads and assigns them tasks. It also provides the facility to queue up tasks until
+
+there is a free thread available if the number of tasks is more than the threads available.
+
+1.2. Callable and Future
+
+Another important advantage of the Executor framework was the Callable interface. It’s similar to the Runnable interface with two benefits:
+
+It’s call() method returns a result after the thread execution is complete.
+
+When we send a Callable object to an executor, we get a Future object’s reference. We can use this object to query the status of thread and the result of the Callable
+
+object.
+
+A simple program of Java ExecutorService
+
+public class ExecutorServiceExample {
+
+public static void main(String[] args) {
+
+ExecutorService executorService = Executors.newFixedThreadPool(10);
+
+executorService.execute(new Runnable() {
+
+@Override
+
+public void run() {
+
+System.out.println("ExecutorService");
+
+}
+
+});
+
+executorService.shutdown();
+
+}
+
+}
+
+
+
+2.1. Executors class
+
+Executors is a utility class that provides factory methods for creating the implementations of the interface.
+
+//Executes only one thread
+
+ExecutorService es = Executors.newSingleThreadExecutor();
+
+//Internally manages thread pool of 2 threads
+
+ExecutorService es = Executors.newFixedThreadPool(2);
+
+//Internally manages thread pool of 10 threads to run scheduled tasks
+
+ExecutorService es = Executors.newScheduledThreadPool(10);
+
+
+
+Assigning tasks to ExecutorServices
+
+To assign a task to ExecutorService, we can use the following methods-
+
+execute(Runnable task)
+
+submit(Runnable task) / submit(Callable task)
+
+invokeAny(Collection> tasks)
+
+invokeAll(Collection> tasks)
+
+public class ExecutorServiceExample {
+
+public static void main(String[] args) {
+
+ExecutorService executorService = Executors.newSingleThreadExecutor();
+
+executorService.submit(new Runnable() {
+
+@Override
+
+public void run() {
+
+System.out.println("ExecutorService");
+
+}
+
+});
+
+}
+
+}
+
+
+
+public class ExecutorServiceExample {
+
+public static void main(String[] args) throws InterruptedException, ExecutionException {
+
+ExecutorService executorService = Executors.newSingleThreadExecutor();
+
+Set> callables = new HashSet>();
+
+callables.add(new Callable() {
+
+public String call() throws Exception {
+
+return "Task 1";
+
+}
+
+});
+
+callables.add(new Callable() {
+
+public String call() throws Exception {
+
+return "Task 2";
+
+}
+
+});
+
+callables.add(new Callable() {
+
+public String call() throws Exception {
+
+return "Task 3";
+
+}
+
+});
+
+java.util.List> futures = executorService.invokeAll(callables);
+
+for(Future future : futures){
+
+System.out.println("future.get = " + future.get());
+
+}
+
+executorService.shutdown();
+
+}
+
+}
+
+Output:
+
+future.get = Task 1
+
+future.get = Task 3
+
+future.get = Task 2
+
+
+
+example 2 ::
+
+ExecutorService Runnable Example
+
+import java.time.LocalDateTime;
+
+import java.util.concurrent.ExecutionException;
+
+import java.util.concurrent.ExecutorService;
+
+import java.util.concurrent.Executors;
+
+import java.util.concurrent.Future;
+
+import java.util.concurrent.TimeUnit;
+
+public class Main
+
+{
+
+public static void main(String[] args)
+
+{
+
+//Demo task
+
+Runnable runnableTask = () -> {
+
+try {
+
+TimeUnit.MILLISECONDS.sleep(1000);
+
+System.out.println("Current time :: " + LocalDateTime.now());
+
+} catch (InterruptedException e) {
+
+e.printStackTrace();
+
+}
+
+};
+
+//Executor service instance
+
+ExecutorService executor = Executors.newFixedThreadPool(10);
+
+//1. execute task using execute() method
+
+executor.execute(runnableTask);
+
+//2. execute task using submit() method
+
+Future result = executor.submit(runnableTask, "DONE");
+
+while(result.isDone() == false)
+
+{
+
+try
+
+{
+
+System.out.println("The method return value : " + result.get());
+
+break;
+
+}
+
+catch (InterruptedException | ExecutionException e)
+
+{
+
+e.printStackTrace();
+
+}
+
+//Sleep for 1 second
+
+try {
+
+Thread.sleep(1000L);
+
+} catch (InterruptedException e) {
+
+e.printStackTrace();
+
+}
+
+}
+
+//Shut down the executor service
+
+executor.shutdownNow();
+
+}
+
+}
+
+Program output.
+
+Console
+
+Current time :: 2019-05-21T17:52:53.274
+
+Current time :: 2019-05-21T17:52:53.274
+
+The method return value : DONE
+
+
+
+Threadlifecycle
+
+interviewr asked how to come thread from running to runnable::
+
+ans :: is t.start()//it calls to run ()method.then only it comes from running to runnable.
+
+start() run() wait();
+
+yield()<- sleep()
+
+new ------>runnable------>running------->waiting--------->dead
+
+yield()-->currently running thread is forcebly excuted.remain are wait
+
+sleep()-->pause the thread and it held lock with pause
+
+daemon->running contineusly.it run in background only.
+
+notify ,notify all--->suddenly came to runnable stage.
+
+t1.join.t2 because t1 is waiting upto t2 is completed.
+
+if you are use join current thread is used join method.up to main method will wait.
+
+private Thread t1=null;
+
+private thread t2 =null;
+
+t1.join(t2);
+
+
+
+diff of wait and sleep
+
+wait(1000)ani aunte notify method thread ni wait cheyanivadu
+
+sleep(1000)ani aunte thread executes will come after 1000 seconds after.because it having lock
+
+yield:: it comes back to runnable state
+
+2threads are waiting eachother is caled deadlock..means all are in waiting state.
+
+
+
+hread class methods(7)::
+
+String getName();
+
+void start();
+
+void run();
+
+void sleep(int sleeptime);
+
+void yield();
+
+void join();
+
+boolean isAlive();
+
+Exception class Methods(6)::
+
+public String getMessage()
+
+public Throwable getCause()
+
+public String toString()
+
+public void printStackTrace()
+
+public StackTraceElement[]getStackTrace()
+
+public Throwable fillInStackTracae()
+~~~~~~~~~~~~~~~~~~~~~~
+Category: Stringclass
+Q) about Stringclass
+
+A) String class::methods::chatAt,intern(obj to pool),lenth(),replace
+
+string is immutable
+
+stringBuffer(synchronized),mutable
+
+reverse();,append();
+
+SCP-->string s="abc"-->saved into pool
+
+String s="xyz"-->saved into pool and content is xyz,but abc is garabe collected.
+
+Sting s="abc"-->saved to pool
+
+String s1="abc"-->saved to pool memory but abc content having two references.duplicates not allowed
+
+s=s1-->o/p:is true because content cheking
+
+s==s1-->o/p:false because reference checking
+
+interviewr asked diff of final and immutable?
+
+so ans is : final reference not changed but imutable reference has changed.
+
+What is the purpose of method parseInt defined in Integer class.
+
+The method is used to convert String to an integer,
+
+assuming that the String represents an integer.
+
+We can convert String to int in java using Integer.parseInt() method.
+
+int i=Integer.parseInt("200");
+
+output::
+
+200
+
+
+how to create immutable class
+
+below rules are followed for create immutable class
+
+1.final class
+
+2.private variable
+
+3.constructor in deep copy
+
+4.only getter methods.
+
+
+interviewr asked ?how to sort the below array.
+
+string data[] ={asd,sdfs,werewr};
+
+so ans is : with arr[i].compareto(arr[j])>0 )then swap the elements. so compareto follows by natural(by alphabets)sorting also.
+
+import java.util.Arrays;
+
+public class StringArrayInOrder {
+
+public static void main(String args[]) {
+
+String[] myArray = {"JavaFX", "HBase", "OpenCV", "Java", "Hadoop", "Neo4j"};
+
+int size = myArray.length;
+
+for(int i = 0; i
+
+for (int j = i+1; j
+
+if(myArray[i].compareTo(myArray[j])>0) {
+
+String temp = myArray[i];
+
+myArray[i] = myArray[j];
+
+myArray[j] = temp;
+
+}
+
+}
+
+}
+
+System.out.println(Arrays.toString(myArray));
+
+}
+
+}
+
+5 2 7 8
+
+i>j=flase then swap
+
+2 5 7 8
+
+
+
+public final class String
+
+extends Object
+
+implements Serializable, Comparable, CharSequence
+
+The String class represents character strings. All string literals in Java programs, such as "abc", are implemented as instances of this class.
+
+Strings are constant; their values cannot be changed after they are created. String buffers support mutable strings. Because String objects are immutable they can be
+
+shared. For example:
+
+String str = "abc";
+
+is equivalent to:
+
+char data[] = {'a', 'b', 'c'};
+
+String str = new String(data);
+
+Here are some more examples of how strings can be used:
+
+System.out.println("abc");
+
+String cde = "cde";
+
+System.out.println("abc" + cde);
+
+String c = "abc".substring(2,3);
+
+String d = cde.substring(1, 2);
+
+The class String includes methods for examining individual characters of the sequence, for comparing strings, for searching strings, for extracting substrings, and for
+
+creating a copy of a string with all characters translated to uppercase or to lowercase. Case mapping is based on the Unicode Standard version specified by the
+
+Character class.
+
+
+
+@FunctionalInterface
+
+public interface Comparator
+
+A comparison function, which imposes a total ordering on some collection of objects. Comparators can be passed to a sort method (such as Collections.sort or
+
+Arrays.sort) to allow precise control over the sort order. Comparators can also be used to control the order of certain data structures (such as sorted sets or sorted
+
+maps), or to provide an ordering for collections of objects that don't have a natural ordering.
+
+The ordering imposed by a comparator c on a set of elements S is said to be consistent with equals if and only if c.compare(e1, e2)==0 has the same boolean value as
+
+e1.equals(e2) for every e1 and e2 in S.
+
+Caution should be exercised when using a comparator capable of imposing an ordering inconsistent with equals to order a sorted set (or sorted map). Suppose a sorted
+
+set (or sorted map) with an explicit comparator c is used with elements (or keys) drawn from a set S. If the ordering imposed by c on S is inconsistent with equals,
+
+the sorted set (or sorted map) will behave "strangely." In particular the sorted set (or sorted map) will violate the general contract for set (or map), which is
+
+defined in terms of equals.
+
+For example, suppose one adds two elements a and b such that (a.equals(b) && c.compare(a, b) != 0) to an empty TreeSet with comparator c. The second add operation will
+
+return true (and the size of the tree set will increase) because a and b are not equivalent from the tree set's perspective, even though this is contrary to the
+
+specification of the Set.add method.
+
+
+
+next »« prev
+
+Java String compareTo()
+
+The java string compareTo() method compares the given string with current string lexicographically. It returns positive number, negative number or 0.
+
+It compares strings on the basis of Unicode value of each character in the strings.
+
+If first string is lexicographically greater than second string, it returns positive number (difference of character value). If first string is less than second string
+
+lexicographically, it returns negative number and if first string is lexicographically equal to second string, it returns 0.
+
+Internal implementation
+
+public boolean equals(Object anObject) {
+
+if (this == anObject) {
+
+return true;
+
+}
+
+if (anObject instanceof String) {
+
+String anotherString = (String) anObject;
+
+int n = value.length;
+
+if (n == anotherString.value.length) {
+
+char v1[] = value;
+
+char v2[] = anotherString.value;
+
+int i = 0;
+
+while (n-- != 0) {
+
+if (v1[i] != v2[i])
+
+return false;
+
+i++;
+
+}
+
+return true;
+
+}
+
+}
+
+return false;
+
+}
+
+
+
+Java String equals()
+
+The java string equals() method compares the two given strings based on the content of the string. If any character is not matched, it returns false. If all characters
+
+are matched, it returns true.
+
+The String equals() method overrides the equals() method of Object class.
+
+Internal implementation
+
+public boolean equals(Object anObject) {
+
+if (this == anObject) {
+
+return true;
+
+}
+
+if (anObject instanceof String) {
+
+String anotherString = (String) anObject;
+
+int n = value.length;
+
+if (n == anotherString.value.length) {
+
+char v1[] = value;
+
+char v2[] = anotherString.value;
+
+int i = 0;
+
+while (n-- != 0) {
+
+if (v1[i] != v2[i])
+
+return false;
+
+i++;
+
+}
+
+return true;
+
+}
+
+}
+
+return false;
+
+}
+
+Signature
+
+public boolean equals(Object anotherObject)
+
+~~~~~~~~~~~~~~~~~~~~~~~~
+ee 
+ee below format lo notepad lo data vundali.
+
+Category: Ploymorphism
+Q) Ploymorphism
+
+A) Ploymorphism
+~~~~~~~~~~
+//data of Ploymorphism
+Category: hibernate
+Q) what is hibernate
+A) it is ORM
+
+~~~~~~~~~~~~~~
+Category: logical programmes
+
+Q) Fibonacci Logic 1
+
+A)//0 1 1 2 3
+
+f3 f2 f
+
+f3 f2 f
+
+f3=f2;
+
+f2=f;
+
+f3=f2+f1;
+~~~~~~~~~~~~~~~~~
+Q) Fibonacci Logic 2::
+
+A)//Logic:take number=5,fact=1 and use for loop
+
+//factorial 4!=4*3*2*1
+
+public class Factorial {
+
+public static void main(String[] args) {
+
+int number=5;
+
+int fact=1;
+
+// for(initilization;if condition true block of code is executed;i++){}
+
+for(int i=1;i
+
+{
+
+fact = fact * i;
+
+System.out.println("Factorial Number::"+fact);
+
+}
+
+}
+
+}
+~~~~~~~~~~~~~~~~~
+Q) even or odd::
+
+A)odd numbers:: 2, 4, 6, 8
+
+int i=10;
+
+System.out.println("result is"+i/10);
+
+System.out.println("remainder"+i%10);
+
+output is:result is1
+
+remainder0
+
+int result=10;
+
+int result=15;//output is:number is even
+
+int number=result/2;
+
+if(number==0)
+
+{
+
+System.out.println("number is even");
+
+}
+
+else{
+
+System.out.println("number is odd");
+
+}
+
+}
+
+output is::
+
+number is odd
+
+Q) even numbers up to 100
+
+A) for(int i=0;i<100;i++){
+
+if(i%2==0){
+
+system.out.println(i)
+
+}
+
+}
+~~~~~~~~~~~~~~~~~
+Q) print string lo even numbers
+
+A) public static void main(String[] args) {
+
+String s="abcd";
+
+for(int i=0;i
+
+if(i%2==0){
+
+System.out.println(s.charAt(i));
+
+}
+
+output:: a
+
+c
+
+if(i%2==1)//get odd numbers
+
+n%4//0,1,2,3
+
+n%10//0-9
+~~~~~~~~~~~~~~~~~
+Q) find Armstrong number
+A) Logic::Armstrong number is a number that is equal to the sum of
+
+cubes of its digits for example 0, 1, 153, 370, 371, 407 etc.
+
+example::153 = (1*1*1)+(5*5*5)+(3*3*3)
+
+class ArmstrongExample{
+
+public static void main(String[] args) {
+
+int c=0,a,temp;
+
+int n=153;//It is the number to check armstrong
+
+temp=n;
+
+while(n>0)
+
+{
+
+a=n%10; //15.3
+
+n=n/10; //15.3
+
+c=c+(a*a*a);
+
+}
+
+if(temp==c)
+
+System.out.println("armstrong number");
+
+else
+
+System.out.println("Not armstrong number");
+
+}
+
+}
+~~~~~~~~~~~~~~~~~
+Q) find palindrom number
+A) Palindrome number in java: A palindrome number is
+
+a number that is same after reverse. For example 545, 151
+
+Get the number to check for palindrome
+
+Hold the number in temporary variable
+
+Reverse the number
+
+Compare the temporary number with reversed number
+
+If both numbers are same, print "palindrome number"
+
+Else print "not palindrome number"
+
+class PalindromeExample{
+
+public static void main(String args[]){
+
+int r,sum=0,temp;
+
+int n=454;//It is the number variable to be checked for palindrome
+
+temp=n;
+
+while(n>0){
+
+r=n%10; //getting remainder 4
+
+n=n/10;//45
+
+sum=(sum*10)+r; //454
+
+}
+
+if(temp==sum)
+
+System.out.println("palindrome number ");
+
+else
+
+System.out.println("not palindrome");
+
+}
+
+}
+~~~~~~~~~~~~~~~~~
+Q) comparator sorting::
+
+A) 1.create arraylist pass employee object al.add(new Employee(12,"abc"));
+
+ofter collections.sort,iterator
+
+2.create Student class with parametrized constructor
+
+3.Namecomparator
+
+import java.util.*;
+
+class NameComparator implements Comparator{
+
+public int compare(Object o1,Object o2){
+
+Student s1=(Student)o1;
+
+Student s2=(Student)o2;
+
+return s1.name.compareTo(s2.name);
+
+}
+
+4.import java.util.*;
+
+class AgeComparator implements Comparator{
+
+public int compare(Object o1,Object o2){
+
+Student s1=(Student)o1;
+
+Student s2=(Student)o2;
+
+if(s1.age==s2.age)
+
+return 0;
+
+else if(s1.age>s2.age)
+
+return 1;
+
+else
+
+return -1;
+
+}
+
+}
+~~~~~~~~~~~~~~~~~
+Q) You can't sort a HashMap, but you can sort its entries obtained with entrySet().
+
+A) public class SortingusingMap {
+
+	public static void main(String[] args) {
+		// Create a HashMap
+		HashMap<Integer, String> hashMap = new HashMap<>();
+		hashMap.put(3, "hello");
+		hashMap.put(1, "rajesh");
+		hashMap.put(2, "are");
+
+		// Get the entry set
+		Set<Map.Entry<Integer, String>> entrySet = hashMap.entrySet();
+
+		// Convert the entry set to a list for sorting
+		List<Map.Entry<Integer, String>> entryList = new ArrayList<>(entrySet);
+
+		Collections.sort(entryList, new Comparator<Map.Entry<Integer, String>>() {
+
+			@Override
+			public int compare(Entry<Integer, String> o1, Entry<Integer, String> o2) {
+				// TODO Auto-generated method stub
+				return o1.getValue().compareTo(o2.getValue());
+			}
+		});
+		for (Map.Entry<Integer, String> entry : entryList) {
+			System.out.println(entry.getKey() + ": " + entry.getValue());
+		}
+	}
+o/p:
+2: are
+3: hello
+1: rajesh
+~~~~~~~~~~~~~~~~~
+Q) public class PrintDuplicateLetteorInString 
+
+A) public static void main(String[] args) {
+
+//String ip="navneet";
+
+String ip="aaaa";
+
+int count=0;
+
+char [] input = ip.toCharArray();
+
+System.out.println("Duplicate Characters are as follows:");
+
+for(int i=0;i
+
+{
+
+for(int j=i+1;j
+
+{
+
+if(input[i]==input[j])
+
+{
+
+System.out.println(input[j]);
+
+count ++;
+
+break;
+
+}
+
+}
+
+}
+~~~~~~~~~~~~~~~~~
+Q)2nd approach using Duplicate Elements FindinString UsingMap
+
+public class DuplicateElementsFindinStringUsingMap {
+
+public static void main(String[] args) {
+
+String str = "abcabcabcl";
+
+char[] characters = str.toCharArray();
+
+HashMap hm = new HashMap<>();
+
+for(int i =0; i
+
+if(hm.containsKey(characters[i])){
+
+hm.put(characters[i], hm.get(characters[i])+1);
+
+}
+
+else
+
+{
+
+hm.put(characters[i],1);
+
+}
+
+}
+
+System.out.println("find dupilcates in string :: "+hm.entrySet());
+
+Set> entrySet = hm.entrySet();
+
+for (Entry entry : entrySet) {
+
+if(entry.getValue()>1){
+
+System.out.println("string lo ee charecter enni times duplicate vachindi ");
+
+System.out.println("key :: "+entry.getKey()+" :: value::"+entry.getValue());
+
+}
+
+}
+
+}
+
+}
+
+output ::
+
+find dupilcates in string :: [a=3, b=3, c=3, l=1]
+
+string lo ee charecter enni times duplicate vachindi
+
+key :: a :: value::3
+
+string lo ee charecter enni times duplicate vachindi
+
+key :: b :: value::3
+
+string lo ee charecter enni times duplicate vachindi
+
+key :: c :: value::3
+
+~~~~~~~~~~~~~~~~~
+Q) PrintonlyStars
+
+A) Logic:first print i=1 to 5 ee loop lo ne inko j loop ravali kani j
+
+Logic: 1 2 3 4 5
+
+j i
+
+space is taken as one charecter
+
+public class PrintonlyStars {
+
+public static void main(String[] args) {
+
+for (int i=0;i<=5;i++) {
+
+for (int j=0;j
+
+System.out.print("* ");
+
+}
+
+System.out.print("\n");
+
+}
+
+}
+
+}
+
+output::
+
+*
+
+* *
+
+* * *
+
+* * * *
+
+~~~~~~~~~~~~~~~~~
+Q) PrintNumbers 
+
+A) public class Print12345Numbers {
+
+public static void main(String[] args)
+
+{
+
+for(int i =0;i<=5;i++)
+
+{
+
+for(int j=0;j
+
+{
+
+System.out.print(" "+i);
+
+}
+
+System.out.println("\n");
+
+}
+
+}
+
+}
+
+output::
+
+1
+
+1 2
+
+2 2 3
+
+1 2 3 4
+
+~~~~~~~~~~~~~~~~~
+Q) String logics
+
+A) String s="abc";
+
+//s.length()//output:2
+
+//s.charAt(c);output is 2
+
+lastnumber i want so
+
+//s.length()-1 so output is 2
+
+for(int i=0;i
+
+{
+
+sop(s.charAt(i))
+
+}
+
+}
+
+output is:a
+
+b
+
+c
+
+String str = "abc ";
+
+for (int i = str.length(); i >= 0; i--) //here array index of bound exception is coming
+
+for (int i = str.length() - 1; i >= 0; i--) {
+
+System.out.print(str.charAt(i));
+
+}
+
+output is:c
+
+b
+
+a
+
+//count words by using split method based on space
+
+//string contains length() method..String[]contains length variable no length()
+
+String s = "abc abc abc";
+
+String[] s1 = s.split(" ");
+
+System.out.println(s1.length);//output is:: 3//based on words not index 0
+
+for (int i = 0; i < s1.length; i++) {
+
+System.out.println(s1[i]);
+
+}
+
+output is:: 3
+
+abc
+
+abc
+
+abc
+
+//print reverse words using split method.
+
+String values= "abc abc def";
+
+String[] values= s.split(" ");
+
+system.out.println(values[values.length-1]); output is: def
+
+for (int i = values.length()-1; i>0; i++) {
+
+System.out.println(values[i]);
+
+}
+
+system.out.println(values[i]); output is: def
+
+abc
+
+abc
+
+~~~~~~~~~~~~~~~~~
+Q) String reverse without using inbuilt methods
+
+A) Class ReversewothoutinbuiltString{
+
+static int i,c=0,res;
+
+static void stringreverse(String s)
+
+{
+
+char ch[]=new char[s.length()];
+
+for(i=0;i < s.length();i++)
+
+ch[i]=s.charAt(i);
+
+for(i=s.length()-1;i>=0;i--)
+
+System.out.print(ch[i]);
+
+}
+
+public static void main (String args[])
+
+{
+
+System.out.println("Original String is : ");
+
+System.out.println(" manchester united is also known as red devil ");
+
+ReversewothoutinbuiltString.stringreverse(" manchester united is also known as red devil ");
+
+}
+
+}
+
+}
+
+output::
+
+Original String is :
+
+manchester united is also known as red devil
+
+lived der sa nwonk osla si detinu retsehcnam
+
+~~~~~~~~~~~~~~~~~
+Q) String reverse 
+
+A) public class Stringreverse {
+
+string s=abc;
+
+sop(s.length())//output is 2 because range starts from 0,1,2
+
+sop(s.length()-1)//we can get last value.
+
+length() gives total sizes including space also it counts.it starts from 0
+
+length()-1 gives
+
+public static void main(String[] args) {
+
+String str = "Hello Java";
+
+for (int i = str.length() - 1; i >= 0; i--) {
+
+System.out.print(str.charAt(i));
+
+}
+
+}
+
+}
+~~~~~~~~~~~~~~~~~
+Q) Binary Search
+
+A) If the keys match, then a matching element has been found
+
+so its index, or position, is returned.
+
+Otherwise,
+
+if the key is less than the middle element's key,
+
+then the algorithm repeats its action on the sub-array
+
+to the left of the middle element.
+
+if the input key is greater,
+
+on the sub-array to the right.
+
+If the remaining array to be searched
+
+is reduced to zero, then the key cannot be found in the array and
+
+a special "Not found" indication is returned.
+
+Every iteration eliminates half of the remaining possibilities.
+
+This makes binary searches very efficient - even for large collections.
+
+Binary search requires a sorted collection.
+
+Also, binary searching can only be applied to a collection that allows random access (indexing).
+
+Worst case performance: O(log n)
+
+Best case performance: O(1)
+
+package com.logicalporams1;
+
+public class BinarySearch{
+
+public int binarySearch(int[] inputArr,int key) {
+
+int start = 0;
+
+int end = inputArr.length - 1;//o/p::7
+
+System.out.println("end"+end);
+
+while (start <= end) {
+
+int mid = (start + end) / 2;//0+7/2=3.5;
+
+System.out.println("mid"+mid);
+
+if (key == inputArr[mid]) {//key 8==//3.5
+
+return mid;
+
+}
+
+if (key < inputArr[mid]) {
+
+end = mid - 1;
+
+} else {
+
+start = mid + 1;
+
+}
+
+}
+
+return -1;
+
+}
+
+public static void main(String[] args) {
+
+BubbleSortExample mbs = new BubbleSortExample();
+
+int[] arr = {2, 4, 6, 8, 10, 12, 14, 16};
+
+System.out.println("Key 14's position: "+mbs.binarySearch(arr, 8));
+
+int[] arr1 = {6,34,78,123,432,900};
+
+System.out.println("Key 432's position: "+mbs.binarySearch(arr1, 432));
+
+}
+
+}
+
+output::
+
+end7
+
+mid3
+
+Key 8's position: 3
+
+end5
+
+mid2
+
+mid4
+
+Key 432's position: 4
+
+~~~~~~~~~~~~~~~~~
+
+Q) Bubble Sort in Java
+
+A) We can create a java program to sort array elements using bubble sort.
+
+Bubble sort algorithm is known as the simplest sorting algorithm.
+
+In bubble sort algorithm, array is traversed from first element to last element.
+
+Here, current element is compared with the next element.
+
+If current element is greater than the next element, it is swapped.
+
+public class BubbleSortExample {
+
+static void bubbleSort(int[] arr) {
+
+int n = arr.length;
+
+int temp = 0;
+
+for(int i=0; i < n; i++){
+
+for(int j=1; j < (n-i); j++){
+
+if(arr[j-1] > arr[j]){
+
+//swap elements
+
+temp = arr[j-1];
+
+arr[j-1] = arr[j];
+
+arr[j] = temp;
+
+}
+
+}
+
+}
+
+}
+
+public static void main(String[] args) {
+
+int arr[] ={3,60,35,2,45,320,5};
+
+System.out.println("Array Before Bubble Sort");
+
+for(int i=0; i < arr.length; i++){
+
+System.out.print(arr[i] + " ");
+
+}
+
+System.out.println();
+
+bubbleSort(arr);//sorting array elements using bubble sort
+
+System.out.println("Array After Bubble Sort");
+
+for(int i=0; i < arr.length; i++){
+
+System.out.print(arr[i] + " ");
+
+}
+
+}
+
+}
+
+Output:
+
+Array Before Bubble Sort
+
+3 60 35 2 45 320 5
+
+Array After Bubble Sort
+
+2 3 5 35 45 60 320
+
+~~~~~~~~~~~~~~~~~
+
+Q) cloning ?
+
+A)//Cloning in Java refers to the process of creating a copy of an object. 
+//Java provides a mechanism for object cloning using the clone() method, 
+//which is defined in the Cloneable interface. There are two types of cloning: shallow copy and deep copy.
+
+//clonedStudent, the changes also affected the originalStudent 
+//because both objects share a reference to the same Subject object. This demonstrates shallow copy behavior.
+
+//In the deep copy example, 
+//changes to the clonedStudent do not affect the originalStudent, demonstrating the independence of deep copies.
+
+public class Student implements Cloneable {
+		private String name;
+		private Subject subject;
+		public Student(String name, Subject subject) {
+			super();
+			this.name = name;
+			this.subject = subject;
+		}
+		
+		// for example of Deep copy we need this constructor
+	 //   public Student(Student other) {
+	 //       this.name = other.name;
+	 //       this.subject = new Subject(other.subject.getName());
+	 //   }
+		public String getName() {
+			return name;
+		}
+
+		public void setName(String name) {
+			this.name = name;
+		}
+
+		public Subject getSubject() {
+			return subject;
+		}
+
+		public void setSubject(Subject subject) {
+			this.subject = subject;
+		}
+
+		
+		@Override
+		public Object clone() throws CloneNotSupportedException {
+			return super.clone();
+		}
+		@Override
+	    public String toString() {
+	        return "Student{name='" + name + "', subject='" + subject.getName() + "'}";
+	    }
+
+	
+	public static void main(String[] args) throws CloneNotSupportedException {
+		
+		 Subject math = new Subject("Math");
+	        Student originalStudent = new Student("Alice", math);
+
+	        // Create a shallow copy
+	        Student clonedStudent = (Student) originalStudent.clone();
+
+	        // Modify the clonedStudent's name
+	        clonedStudent.setName("Bob");
+
+	        // Modify the subject of the clonedStudent
+	        clonedStudent.setSubject(new Subject("History"));
+
+	        System.out.println("Original Student: " + originalStudent);
+	        System.out.println("Cloned Student: " + clonedStudent);
+        
+
+	}
+
+}
+
+o/p:
+Original Student: Student{name='Alice', subject='Math'}
+Cloned Student: Student{name='Bob', subject='History'}
+~~~~~~~~~~~~~~~~~
+Q) Exceptions in detail ?
+
+A) 2types they are 1.builtin(checked,unchecked) 2.userdefined exceptions.
+exception details fetch from exception stack and displayed.
+
+->Myexception class:
+
+take string as a parametr in constructor
+and extend the Exception class(E is caps).
+and to string method for display userdefined message
+
+-->in main class
+
+try{throw messsage display object}
+catch(Myexception me)
+me.printstacktrace();
+
+public class CustomException extends Exception {
+	
+	private static final long serialVersionUID = 1L;
+	private String CustomException;
+	CustomException(String message){
+		super(message);
+		this.CustomException = message;
+	}
+	public static void main(String[] args) throws CustomException {
+		
+		int a =0;
+		try {
+			int b = a/0;
+		} catch (ArithmeticException e) {
+			throw new CustomException("custom"+e.getMessage());
+		}
+	}
+
+}
+
+o/p:
+
+Exception in thread "main" com.strings.CustomException: custom/ by zero
+	at com.strings.CustomException.main(CustomException.java:17)
+~~~~~~~~~~~~~~~~~
+Q) write Asingleton ?
+A) public class Asingleton {
+	private static Asingleton instance=null;
+	private Asingleton() {
+	}
+	public static Asingleton getInstance(){
+		if(instance==null) {
+			instance =new Asingleton();
+		}
+		return instance;
+		
+	}
+	public static void main(String[] args) {
+		Asingleton firstInstance =   Asingleton.getInstance();
+		Asingleton secondInstance =  Asingleton.getInstance();
+
+		System.out.println(firstInstance);
+		System.out.println(secondInstance);
+		
+	}
+
+}
+//output:
+//com.strings.Asingleton@15db9742
+//com.strings.Asingleton@15db9742
+
+~~~~~~~~~~~~~~~~~
+
+Q ) FindNonRepeatedChars 
+A ) package com.strings;
+
+public class FindNonRepeatedChars {
+//Logic :
+	// string lo vunna data ni int array lo store cheyali.
+	//int array lo okasari vachina strings ni mathrame print cheyali.
+	public static void main(String[] args) {
+		String s = "hydedrabad";
+		int[] charCount = new int[256];
+		for (int i = 0; i < s.length(); i++) {
+			char currentChar = s.charAt(i);
+			charCount[currentChar]++;
+		}
+		
+        StringBuilder results = new StringBuilder();
+		for(int i=0;i<s.length();i++) {
+			char charAt = s.charAt(i);
+			if(charCount[charAt]==1) {
+				results.append(charAt);
+			}
+		}
+		System.out.println(results.toString());
+	}
+}
+
+//  Note :
+
+	//1. We create an integer array charCount to store character frequencies, assuming ASCII characters (256 possible characters).
+	//We initialize the frequency array by iterating through the input string and incrementing the count for each character.
+	//We then create a StringBuilder called result to store the non-repeated characters.
+	//We iterate through the input string again and check if the charCount of each character is 1. If it is, we append that character to the result StringBuilder.
+	//Finally, we return the result as a string.
+~~~~~~~~~~~~~~~~~
+
+Q ) SwapTwoNumers 
+A ) public class SwapTwoNumers {
+
+	public static void main(String[] args) {
+
+		int x,y;
+		x=1;y=0;
+		
+		x = x+y;//1
+		y= x-y;//1
+		x=x-y;//1
+		
+		System.out.println(x);
+		System.out.println(y);
+	
+	}
+o/p : x : 0
+      y : 1
+~~~~~~~~~~
+Q ) CountNoOfWordsInArray UsingHashMap
+A ) package com.strings;
+
+import java.util.HashMap;
+
+public class CountNoOfWordsInArray {
+
+	public static void main(String[] args) {
+
+		String[] str = { "hyd", "hyd", "viz", "ant", "ant" };
+
+		HashMap<String, Integer> citysList = new HashMap<String, Integer>();
+		for (String citys : str) {
+			if (citysList.containsKey(citys)) {
+				citysList.put(citys, citysList.get(citys) + 1);
+			} else {
+				citysList.put(citys, 1);
+
+			}
+
+		}
+		System.out.println(citysList.toString());
+	}
+
+}
+o/p: {hyd=2, viz=1, ant=2}
+~~~~~~~~~~~~~~~~~
+
+Q) CallableStatement interface is used to call the stored procedures and functions.
+
+A) We can have business logic on the database by the use of stored procedures and functions
+
+that will make the performance better because these are precompiled.
+
+mport java.sql.*;
+
+public class Proc {
+
+public static void main(String[] args) throws Exception{
+
+Class.forName("oracle.jdbc.driver.OracleDriver");
+
+Connection con=DriverManager.getConnection(
+
+"jdbc:oracle:thin:@localhost:1521:xe","system","oracle");
+
+CallableStatement stmt=con.prepareCall("{call insertR(?,?)}");
+
+stmt.setInt(1,1011);
+
+stmt.setString(2,"Amit");
+
+stmt.execute();
+
+System.out.println("success");
+
+}
+
+}
+
+~~~~~~~~~~~~~~~~~
+Q ) find MaxAndMinInArray ?
+A ) package com.strings;
+
+import java.util.Arrays;
+
+public class MaxAndMinInArray {
+
+	public static void main(String[] args) {
+		
+		Integer arr [] = {7,1,2,9,0};
+		int min =arr[0];
+		for (Integer i : arr) {
+			if(min<i) { // if if(min>i) //o/p: we get minimum value is : 0
+		         min =i;
+			}
+			
+		}
+		System.out.println(min);
+	}
+//o/p: 9
+~~~~~~~~~~~~~~~~~
+
+Q) Thymeleaf is a Java template engine for processing
+
+A) and creating HTML, XML, JavaScript, CSS, and text.
+
+~~~~~~~~~~~~~~~~~
+Q) for java website hosting into live
+
+A) https://www.youtube.com/watch?v=J1pViMfR7RA
+
+~~~~~~~~~~~~~~~~~
+
+Q) interviewer asked i want duplicate data in arraylist?
+
+A) answer is intersection(retainall())
+
+public static void main(String[] args) {
+
+ArrayList list = new ArrayList();
+
+list.add(1);
+
+list.add(2);
+
+list.add(3);
+
+list.add(4);
+
+ArrayList list1 = new ArrayList();
+
+list1.add(1);
+
+list1.add(3);
+
+list1.add(5);
+
+list.retainAll(list1);
+
+System.out.println(list);
+
+output is ::[1,3]
+
+the intersection A n B of two sets A and B is the set that contains all elements of A that also belong to B
+
+(or equivalently, all elements of B that also belong to A)
+
+The union of two sets A and B is the set of elements which are in A, in B, or in both A and B. In symbols,
+
+For example, if A = {1, 3, 5, 7} and B = {1, 2, 4, 6} then A ? B = {1, 2, 3, 4, 5, 6, 7}.
+
+~~~~~~~~~~~~~~~~~
+Q ) SortingStringArray 
+A ) public class SortingStringArray {
+
+	public static void main(String[] args) {
+
+		String[] arr = { "zz", "hyd","vij"};
+
+		for (int i = 0; i < arr.length; i++) {
+			String temp;
+			for (int j = i + 1; j < arr.length; j++) {
+				if (arr[i].compareTo(arr[j]) > 0) {
+					temp = arr[i];
+					arr[i] = arr[j];
+					arr[j] = temp;
+				}
+				System.out.println("j::"+arr[j]);
+
+			}
+			System.out.println(arr[i]);
+
+		}
+
+	}
+
+}
+
+with inbuilt functions we use arrays.sort(arr);
+~~~~~~~~~~~~~~
+Q ) SortingIntegerArray 
+A ) package com.strings;
+
+import java.util.Arrays;
+
+public class SortingIntegerArray {
+	public static void main(String[] args) {
+		
+		Integer arr [] = {0,1,1,0,1,0,1};
+		for (int i = 0; i < arr.length; i++) {
+			int temp=0;
+			for (int j = i+1; j < arr.length; j++) {
+				if(arr[i]>arr[j]) {
+				temp = arr[i];
+				arr[i]=arr[j];
+				arr[j]=temp;
+				}
+			}
+		}
+		for (int i=arr.length-1;i>0;i--) {
+			System.out.println(arr[i]);
+		}
+	}
+
+}
+
+//0/p: 1
+     //1
+     //1
+     //1
+     //0
+     //0
+
+Logic 2 :
+
+on 3/10/2023
+swap without using 3rd varaible;
+
+x = x+y;
+y= x-y
+x = x-y;
+
+desc on integer numbers?
+
+package com.strings;
+
+import java.util.Arrays;
+
+public class DesendingOfIntegers {
+
+	public static void main(String[] args) {
+		Integer[] arr = { 4, 1, 0, 2 };
+		boolean flag = true;
+		while (flag) {
+			flag = false;
+			for (int i=0;i<arr.length-1;i++) {
+				if (arr[i] < arr[i + 1]) {
+					int temp = arr[i];
+					arr[i] = arr[i + 1];
+					arr[i + 1] = temp;
+					flag = true;
+					System.out.println("----->" + Arrays.toString(arr));
+				}
+
+			}
+		}
+	}
+
+}
+o/p: 0 1 2 4
+~~~~~~~~~~~~~~~~~
+
+Q) Get the sum of numbers
+
+A0total = n*(n+1)/2
+
+2 Subtract all the numbers from sum and
+
+you will get the missing number.
+
+// Java program to find missing Number
+
+class Main
+
+{
+
+// Function to ind missing number
+
+static int getMissingNo (int a[], int n)
+
+{
+
+int i, total;
+
+total = (n+1)*(n+2)/2;
+
+for ( i = 0; i< n; i++)
+
+total -= a[i];
+
+return total;
+
+}
+
+/* program to test above function */
+
+public static void main(String args[])
+
+{
+
+int a[] = {1,2,4,5,6};
+
+int miss = getMissingNo(a,5);
+
+System.out.println(miss);
+
+}
+
+}
+
+//output is 3
+~~~~~~~~~~~~~~~~~
+Category: Microservices
+Q) Microservices
+
+A) below dependencys required from spring.io::
+
+web,Eureka Discovery,Feign,Hystrix,Config Client
+
+E:\angular Record\micro service
+
+microservice lo work chese tapudu ee below vi add cheyali.
+
+step 1: dependency add cheyali
+
+step 2 : annotation use cheyali.
+
+
+
+step 3 : property file add cheyali.
+
+eureka discovery ani tesukovali. spring.io lo eurekaclient @ work avalante
+
+
+
+spring-cloud-starter-netflix-eureka-server
+
+client ni server ki ela add chesthamante::
+
+spring-cloud-starter-netflix-eureka-server
+
+spring.application.name:eurekaClient1
+
+eureka.client.serviceUrl.defaultZone:http://localhost:2020/eureka
+
+spring.application.name-->ikada ichina name thone browser lo register avuthndi.
+
+
+
+Resttemplate resttemplate = new Resttemplate();
+
+ResponceEntity re= resttemplate.getForEntity("http://localhost",String.class);
+
+String responce = re.getBody();
+
+or
+
+spring boot main lo
+
+@Bean
+
+@Loadbalanced
+
+public Resttemplate getRestTempltae(){
+
+return new Resttemplate();
+
+}
+
+so ikada @loadbalanced aunte manamu ocalhost port number tho ayithe port number chnage chesthe prblem avuthundi.
+
+so danni avoid cheyalante getforEntity lo spring.application.name tesukovali. ila tesukoni resttemplate dagara @loadbalancer ani ivvali.
+
+
+
+@EnableFeignClient
+
+@FeignClient("http://aping.application.name/getData")
+
+interface FeignClientTest{
+
+}
+
+
+
+hystrix ::
+
+hystrix-dashboard
+
+fiegn
+
+properties file loki velli
+
+feign.hystrix.enabled=true
+
+ani ivvali.
+
+fail ayithe daniki fallback rayali.
+
+@FeignClient(name="TEST1",fallback=FeignFallBack.class)
+
+@Component
+
+public interface FeignClienttest{
+
+@RequestMapping("/controller100/data")
+
+public String getData();
+
+}
+
+@Component
+
+public class FeignFallBack impleents FeignCLientTest{
+
+public String getData(){
+
+syso("problem raised")
+
+}
+
+}
+
+}
+
+
+
+config server ::
+
+config server ane spring.io lo dependency tesukovali.
+
+main dagara @enableconfigserver tesukovali.
+
+resources lo config ane folder create cheyali.
+
+spring.cloud.config.uri : http://localhost:4444/so ikada vachi propery files ni tesukuntundi.
+
+git lo cofig folder/ lo spring.application.name ee name tho oka file git lo config folder create cheyali.
+
+git lo vunna files connect avalante.
+
+spring.cloud.config.server.git.uri:https://giuhub.com/rajesh
+
+spring.cloud.config.server.git.username : potrajes123
+
+spring.cloud.config.server.git.password: Service@12345
+
+spring.cloud.config.uri:http://loalhost:2222(bootstrap.properties lo ee line ivvali.)
+
+
+
+proxy or gateway or zuul or FrontController
+
+zuul ::
+
+spring.application.name:proxy
+
+eureka.client.serviceurl.defaultzone:http://localhost:8080
+
+zuul.routes.a.path:/client1/**
+
+zuul.routes.a.serviceId:eureksClient1
+
+zuul.rourtes.b.path:/client2/**
+
+zuul.routes.b.serviceId:eurekaClient2
+
+ee zuul lo vunayi anni git folder lo zuul.properties ani file create chesi.dantlo veyali.
+
+
+
+auth server::
+
+oka token generate avuthundi
+
+aa token ni resource server(@EnableResouceServer) ki send cheyali.
+
+aa token verify chesedi auth server.
+
+so auth server verify chesi.respone true or false aa ani resource server ki cheptundi.
+
+authorized person aa kada so apudu client id and secret key kavali.
+
+security lo username base chesukoni. aa userdetails ni istundi.
+
+authrozation-->login ayaka oka page ni acces cheyalante vediki acess vunda..(role based).
+
+authentication : verify username and pwd.
+
+filter loadUserbyUsername()ki cal chestndi by default.
+
+authenticationManager ni filter cal chestundi.
+
+user enter chesina loadbyuserbyusername cal chesi aa userdetais ni filter ki istundi..so ikada authentication mnger ila use avuthundi.
+
+clientid secret verify cheyalante.
+
+cientdetails-->loadClientByclient()
+
+cientdetailsService()
+
+ee rendu jarigithene token generate avuthundi.
+
+
+
+oauth code::
+
+@Configuration
+
+@EnableWebSecurity
+
+public class SecurityConfig extends WebSecurityConfigurerAdapter
+
+{
+
+@Bean
+
+public AuthenticationManager authenticationManagerBean(){
+
+return super.authenticationManagerBean();
+
+what is circuitbreaker?
+
+conclusion :Netflix Hystrix tolerance library dwara manamu application fail ayina sare exact data ni ivvagalamu.
+
+@HystrixComand anedi failayina same proxy method ni create chesukoni aa fail ayina method data ni istundi .
+
+deniki ee capability ravalante @Enablecircuitbreaker ani application class ki ivali.apude @HystrixComand failures ni monitor chestundi.
+
+
+
+details explonation in below ::
+
+we can apply circuit braker by using Netflix Hystrix tolerance library.
+
+
+org.springframework.cloud
+
+spring-cloud-starter-netflix-hystrix
+
+step 1 : @EnableCircuitBreaker for aplication class ki.
+
+failure ni Hystrix monitor chestundi.if failure is reaches certain threshold
+
+its open the circuit.while circuit is open it call to @Histrix (Fallbackmethod=ReadLIst)
+
+so here fall back method it will create proxy method its exactly same as original method. and returns it to specific caller.
+
+step2 :
+
+@HystrixCommand(fallbackMethod = "reliable")
+
+public String readingList() {
+
+URI uri = URI.create("http://localhost:8090/recommended");
+
+return this.restTemplate.getForObject(uri, String.class);
+
+}
+
+public String reliable() {
+
+return "Cloud Native Java (O'Reilly)";
+
+}
+
+
+
+@EnableCircuitBreaker. That annotation tells Spring Cloud that the reading application uses circuit breakers and to
+
+enable their monitoring, opening, and closing (behavior supplied, in our case, by Hystrix).
+
+output:
+
+Now stop the bookstore application. Your list source is gone, but thanks to Hystrix and Spring Cloud Netflix it gives original data from cache.
+
+
+
+unknownhostexception-->ee exception vasthe Resttemplate Bean create chesina aa method paina @loadbalaced ani use cheyali.otherweise we get error like unknownhostexception.
+
+
+
+video 3: about fiegn
+
+feignClient nundi kuda data ni send cheyavachu(like resttempltae)
+
+@FeignClient(name="TEST1")
+
+
+
+video 4 : fallback
+
+throw new ani userdefined ni send chesthamu normal ga java lo
+
+but here aa method class paina
+
+@FeignClient(name="Test",fallback=Customizedclass)
+
+public interface FallbackTest{
+
+public string getData();
+
+}
+
+public class CustomizedClass implements Fallbacktest{
+
+@override
+
+public string getData(){
+
+return "backup mesage"
+
+}
+
+}
+
+
+
+config folder ni resources lo tesukovali.dentlo all dev,qa ila vuntayi.
+
+src/main/resources aunte classpath lo file ani meaning.
+
+boottrap.properties aunte first ee files load avuthayi.load ayye kana munde
+
+bootstrap lo git aa svn aa mentionchesthe dani battti velthundi application.prop ki.
+
+config di default port is 8888 manamu dani ki bootstrap.prop lo mana port number ivakapothe adi default port(8888) ki cal avuthundi.
+
+video 5 : configurationServer(dependencies: web,configserver in spring.io lo)
+
+step 1 : spring.io nundi web,configserver ni ichi download chesi eclipse lo import cheyali.
+
+step 2 : main dagara @enableConfigserver anali.
+
+step 3: config ane folder ni resources tesukovali.
+
+step 4: spring.application.name aa filename tesukoni aafilename.properties ani create cheyali resources ane folder lo.
+
+Test1.properties:
+
+test.property = testvalue from 100
+
+step5:application.properties:spring.cloud.config.server.native.searchLocations:classpath:/config/
+
+step 6 : boptstrap.properties tesukovali.
+
+spring.cloud.config.uri:http://localhost:4444
+
+spring.profiles.active:native(look for step5 native word)
+
+step 7 :cloud.config.client ane dependency ni tesukovali.
+
+step 8: application.prop lo git uri.username,pwd ivali.
+
+ste p 9: spring.cloud.config.ur.:http://locahost:4444 -->client lo ivali.
+
+
+
+step 1: git lo configfolder lo Test1.properties
+
+app.mydata: git config configuration
+
+commit newfile anali.
+
+step 2 : eureka client lo
+
+@Value("${app.mydata:defaultData}")
+
+private String data;
+
+
+
+video 7;config client --BELOW vi spring.io nundi tesukovali.
+
+Web,eureka discovery,config client,FEIGN,HYSTRIX,HYSTRIX DASHBOARD
+
+}
+~~~~~~~~~~~~~~~~~~~
+Category: Others
+Q ) what is others?
+A ) read data from others.
+~~~~~~~
+Category: Queries
+Q) Queries
+
+A) Queries
+
+Sql joins::
+
+An SQL JOIN clause is used to combine rows from two or more tables, based on a common field between them.
+
+INNER JOIN: Returns all rows when there is at least one match in BOTH tables
+
+LEFT JOIN: Return all rows from the left table, and the matched rows from the right table
+
+RIGHT JOIN: Return all rows from the right table, and the matched rows from the left table
+
+FULL JOIN: Return all rows when there is a match in ONE of the tables
+
+SQL INNER JOIN Syntax::
+
+SELECT column_name(s)
+
+FROM table1
+
+INNER JOIN table2
+
+ON table1.column_name=table2.column_name;
+
+Example::
+
+SELECT Customers.CustomerName, Orders.OrderID
+
+FROM Customers
+
+INNER JOIN Orders
+
+ON Customers.CustomerID=Orders.CustomerID
+
+ORDER BY Customers.CustomerName;
+
+
+
+self join::
+
+hint :Emp_name ni 2 tables(e1,e2) lo tesukuntamu.ofter join 2 tables ofter id=mgrid aunthe.
+
+normal table::
+
+
+
+Emp_id Emp_name Manager_id
+
+
+
+1 rajesh 3
+
+
+
+2 suresh 1
+
+
+
+3 ratna 2
+
+
+
+syntax::
+
+select e1.columnname as dummyname,e2.columnname as dummy name(like mgr)
+
+from tablename e1
+
+inner join tablename e2 on e1.columnname= e2.columnname
+
+
+
+Updatequery
+
+
+
+Update::
+
+UPDATE table_name
+
+SET column1=value1,column2=value2,...
+
+WHERE some_column=some_value;
+
+Example::
+
+UPDATE Customers
+
+SET ContactName='Alfred Schmidt', City='Frankfurt'
+
+WHERE CustomerID=1;
+
+Maxsalary
+
+
+Write an SQL query to get third maximum salary of an employee from a table named employee_table.
+
+SELECT TOP 1 salary
+
+FROM (
+
+SELECT TOP 3 salary
+
+FROM employee_table
+
+ORDER BY salary DESC ) AS emp
+
+ORDER BY salary ASC;
+
+
+
+Selfjoin
+
+
+
+self join::
+
+hint :Emp_name ni 2 tables(e1,e2) lo tesukuntamu.ofter join 2 tables ofter id=mgrid aunthe.
+
+normal table::
+
+
+
+Emp_id Emp_name Manager_id
+
+
+
+1 rajesh 3
+
+
+
+2 suresh 1
+
+
+
+3 ratna 2
+
+
+
+syntax::
+
+select e1.columnname as dummyname,e2.columnname as dummy name(like mgr)
+
+from tablename e1
+
+inner join tablename e2 on e1.columnname= e2.columnname
+
+
+
+select e1.Emp_name as Employee_Name,e2.Emp_name as Manager_Name
+
+from f14.employee e1
+
+inner join f14.employee e2
+
+on e1.Manager_id = e2.Emp_Id;
+
+result is ::
+
+Employee_Name Manager_Name
+
+
+
+suresh rajesh
+
+
+
+ratna suresh
+
+
+
+rajesh ratna
+
+
+
+ref::https://www.youtube.com/watch?v=e6QrrN1AePs#t=582.591245
+
+Maxsalary
+
+
+
+second highest salary find.
+
+syntax::select MAx(columnname) from tablename where tablename<(select Max(columnname)from tablename)
+
+SELECT MAX(salary)
+
+From sbi.salary WHERE salary < ( SELECT Max(salary) FROM sbi.salary);
+
+example 3:
+
+select * from Emp e1 where 2=(select count(sal)from emp e2 where e2.sal>e1.sal)
+
+Joins
+
+joins vese tapudu input enti output enti ani think cheyali ok na.
+
+SELECT r.name from f14.user u
+
+inner join f14.user_roles ur on u.id = ur.uid
+
+inner join f14.role r on r.id=ur.rid
+
+where u.username='user1' and password='slokam';
+
+output::
+
+name
+
+
+
+ROLE_MANAGER
+
+ROLE_ADMIN
+
+
+
+
+
+SELECT f14.u.username from user u
+
+inner join user_roles ur on u.id=ur.uid
+
+inner join role r on r.id = ur.rid where r.name ='ROLE_ADMIN'
+
+output::
+
+username
+
+
+
+user1
+~~~~~~~~~~~~~~
+Category: ReactJs
+
+Q) ReactJs
+
+A) ReactJs
+
+
+{{ product.name }}
+{{ product.unitPrice | currency:'USD' }}
+Add to cart
+
+Description
+{{ product.description }}
+
+Back to Product List
+
+
+
+import { Component, OnInit } from '@angular/core';
+
+import { Product } from 'src/app/common/product';
+
+import { ProductService } from 'src/app/services/product.service';
+
+import { ActivatedRoute } from '@angular/router';
+
+import { CartService } from 'src/app/services/cart.service';
+
+import { CartItem } from 'src/app/common/cart-item';
+
+@Component({
+
+selector: 'app-product-details',
+
+templateUrl: './product-details.component.html',
+
+styleUrls: ['./product-details.component.css']
+
+})
+
+export class ProductDetailsComponent implements OnInit {
+
+product: Product = new Product();
+
+constructor(private productService: ProductService,
+
+private cartService: CartService,
+
+private route: ActivatedRoute) { }
+
+ngOnInit(): void {
+
+this.route.paramMap.subscribe(() => {
+
+this.handleProductDetails();
+
+})
+
+}
+
+handleProductDetails() {
+
+// get the "id" param string. convert string to a number using the "+" symbol
+
+const theProductId: number = +this.route.snapshot.paramMap.get('id')!;
+
+this.productService.getProduct(theProductId).subscribe(
+
+data => {
+
+this.product = data;
+
+}
+
+)
+
+}
+
+addToCart() {
+
+console.log(`Adding to cart: ${this.product.name}, ${this.product.unitPrice}`);
+
+let theCartItem = new CartItem(this.product.id, this.product.name, this.product.imageUrl, this.product.unitPrice);
+
+this.cartService.addToCart(theCartItem);
+
+}
+
+
+~~~~~~~~~~~~~~
+Category: Hibernate
+Q) Hibernate
+
+A) Hibernate
+
+request mapping used for map web request on to specific handler classes(or)methods.
+
+Entity bean used for store persistant data stored in db like @entity and it is a server side component.
+
+
+
+how to data receive data using hibernate
+
+create new configuration("hibernate.cfg.xml")
+
+conf.sessionfactory
+
+session open sesssion
+
+begintransaction,
+
+Query query=session.createQuery("from employee");
+
+
+
+HIbernate
+
+
+
+save(or)update evict()
+
+clear()
+
+transient------------>persistant-------->detached
+
+
+delete() merge()
+
+lock()(or)save or update no
+
+Transient means no id and no records in db,before session object created.
+
+persistance means records available in db.
+
+session session =create sessionfactory.getsession
+
+transaction tx=session.begintransaction();
+
+session.save(std)
+
+tx.commit();
+
+session.close();
+
+detached means session.close
+
+flush()->save but not commit
+
+evict()-->perticular object to clear(one object)
+
+merge--two more objects in same session containing same id is
+
+called nonunique object exception occur.
+
+it is also used for detached to persistance state used.
+
+save(or)update aunte update ayye mundu object vunda leda check chestundi.oka vela vunte update chestundi.
+
+
+
+Hibernate
+
+what is ORM?
+
+object relation mapping:
+
+object is instance of a class and relation is record in a table .
+
+so object and relation we need a tool called orm.
+
+both object and relation is holding data.
+
+object converting record is called orm.
+
+convert one framework to another framework required mapping .
+
+it solve 3 problems
+
+1.mismatch of data types
+
+2.mismatch of relationships
+
+3.storage types(classes and tables)
+
+Hibernate
+
+java is a programming area,db is a storage area
+
+our java object convert to record.record convert to object
+
+we are facing 3 challenges.
+
+1.java datatypes and db data types is different.
+
+there is no need to change pojo class .
+
+hibernate improve the performance.by using caching(1st level cache,2nd level cache)
+
+lazy loading implemented using proxy design patterns.
+
+dialet,driverclassname,url,username,password these are also changed .so configuration (bds) only changed.no change in coding.
+
+
+
+configuration conf=new annotation.configure()
+
+schemaexport export =new schemaexport(conf)
+
+export.create(true,true)
+
+it will create automatic table and columns in db by using schemaexport.
+
+
+
+explonation about get and load methods in session.
+
+class Person{
+
+private string getname;
+
+public string getName(){
+
+return getname;
+
+}
+
+}
+
+session.get(pojo.class,1) here only generate queries
+
+person person =(Person)session.load(Person.class,1);
+
+person.getname();
+
+in above person class we are not write any jdbc query stuff.and how it will generate query .
+
+means by using load method.
+
+so our class cretaed sub class called proxy ..
+
+lazy(or)load()-->when use that getname()method it is called lazy loading.so it is called to proxy(subclass).
+
+if record not ther it returns objectnot found exception.
+
+session.get(person.class,2)-->eager loading,record get returns null object.
+
+person.getname annapude idi db query generate chestundi.
+
+because load it wil create sub class for our person class and write getname()method and jdbc logic also written
+
+so thats y it will be generate query.this query coming from session load only.
+
+
+
+one to one mapping in hibernate::
+
+rule 1::keep the references in both classes.
+
+rule 2:keep @one to one like
+
+rule 3:write @joincolumn and mapped by in 2 classes
+
+fro ex::
+
+db table::
+
+salary table::
+
+id salary empid
+
+
+
+1 12000 2
+
+
+
+public class Salary{
+
+private int salary
+
+private Employee emp;
+
+}
+
+//getter and setter
+
+@one to one
+
+@joincolumn(name="empid")
+
+public Employee getEmployee(){
+
+return Employee;
+
+}
+
+public class Employee{
+
+private String name;
+
+private Salary salary;
+
+}
+
+//setter and getter
+
+@one to one(mapped By="emp")
+
+public Salary getSalary(){
+
+return Salary;
+
+}
+
+so session.get(Employee.class,1)
+
+aunte idi salary object ni kuda istundi.
+
+
+
+why orm .in spring already given orm ??
+
+jdbc vadetapudu evry time connection create,prepared,resultset chesthamu,
+
+ade bds vadetapudu idi no.of connection pool object ni istundi.so no need to create connection again again.
+
+only hibernate framework vadetapudu.manamu hibernate.cfg.xml,Employee.hbm.xml file create chestamu.with help of mapping resource
+
+it will idenify employee.hbm.xml file.
+
+manamu spring hibernate vadetapudu .no need hibernate.cfg.xml file
+
+and Creative.hbm.xml file.
+
+manaku automatic ga ade by classname query isthamu so ade queries ni generate
+
+chesukuntundi
+
+it gives the solution for mismatch data types,relationships with respecct to
+
+java class and database.
+
+
+
+below is for hibernate curd operations::
+
+shema export chesina ventane querybrowser restart chesthe apudu aa automatic tables vasthayi ok na.
+
+public class CreativeMain {
+
+public static void main(String[] args) {
+
+Configuration conf = new Configuration();
+
+Configuration configure = conf.configure("hibernate.cfg.xml");
+
+//it is for automatic tables creation in db lo noneed of manually
+
+/*1.SchemaExport export=new SchemaExport(configure);
+
+export.create(true,true);1*/
+
+SessionFactory sf = configure.buildSessionFactory();
+
+Session session = sf.openSession();
+
+Transaction tx = session.beginTransaction();
+
+//this is for save data in db using hibernate w/o commit .data is not saved in db
+
+/*2.Creative creative2 = new Creative();
+
+creative2.setId(1);
+
+creative2.setAge(12);
+
+creative2.setName("name");
+
+creative2.setQual("qual");
+
+session.save(creative2);
+
+2.*/
+
+//get name data from db here we are not write any jdbc query and logic but it follows internally.
+
+/*3 Creative creative=(Creative)session.get(Creative.class,1);
+
+creative.setId(1);
+
+session.update(creative);
+
+System.out.println("getId::"+creative.getId());3*/
+
+////get delete 2 row id from db here we are not write any jdbc query and logic but it follows internally.
+
+//query given like this Hibernate: delete from creative where id=?
+
+Creative creative=(Creative)session.get(Creative.class,2);
+
+session.delete(creative);
+
+tx.commit();
+
+session.close();
+
+System.out.println("sucessfully deleted");
+
+}
+
+}
+
+
+
+Springboothibernate
+
+java8 features of lambda expressions::
+
+Reference to an Instance Method of a Particular Object
+
+The following is an example of a reference to an instance method of a particular object:
+
+class ComparisonProvider {
+
+public int compareByName(Person a, Person b) {
+
+return a.getName().compareTo(b.getName());
+
+}
+
+public int compareByAge(Person a, Person b) {
+
+return a.getBirthday().compareTo(b.getBirthday());
+
+}
+
+}
+
+ComparisonProvider myComparisonProvider = new ComparisonProvider();
+
+Arrays.sort(rosterAsArray, myComparisonProvider::compareByName);
+~~~~~~~~~~~~~~~~~~
+
+Category: spring
+Q) spring
+
+A) spring
+
+The IoC container is responsible to instantiate, configure and assemble the objects.
+
+The IoC container gets informations from the XML file and works accordingly.
+
+The main tasks performed by IoC container are:
+
+to instantiate the application class to configure the object
+
+to assemble the dependencies between the objects
+
+There are two types of IoC containers. They are:
+
+BeanFactory
+
+ApplicationContext
+
+why spring is singleton?
+
+Singleton scope in spring means single instance in a Spring context ..
+
+Spring container merely returns the same instance again and again for subsequent calls to get the bean.
+
+how to default spring is singleton aunte.
+
+main(){
+
+ApplicationContext ac= new AnnotationConfigApplicationContext(spring.xml);
+
+Student std=ac.getBean("bean id name");
+
+Student std1=ac.getBean("bean id name");
+
+Student std2=ac.getBean("bean id name");
+
+system.out.println(std);
+
+system.out.println(std1);
+
+system.out.println(std2);
+
+system.out.println(std);
+
+}
+
+output is same hsahcode for 3 sop's ok na
+
+so it is singleton.
+
+bean scope?
+
+request ,session,prototype,globalsession,singleton.
+
+prototype aunte oka bean create chestamu.getbean ani denni cal chesinapudally diffrent hashcode ni istundi.
+
+The default scope is always singleton. However, when you need one and only one instance of a bean,
+
+you can set the scope property to singleton in the bean configuration file, as shown in the following code snippet -
+
+A bean definition with singleton scope
+
+bean id = "..." class = "..." scope = "singleton"
+
+collaborators and configuration for this bean go here
+
+bean
+
+
+
+Bean lifecycle::
+
+instantiate
+
+!!
+
+populate properties
+
+!!
+
+setbeanname()
+
+!!
+
+setBeanFactory
+
+!!
+
+pre initilization
+
+!!
+
+intilize ofter properties set
+
+!!
+
+post initilization
+
+!!
+
+Bean is Ready to use
+
+
+
+@component annaotation marks a java class as a bean so the component-scanning mechanism of spring can pick it up and pull it into the application context
+
+
+
+@Required annotation::
+
+you would like to check if particular set of properties have been set or not in some specific beans only.
+
+Spring’s dependency checking feature using “dependency-check” attribute,
+
+will not able to help you in this case. So solve this problem, you can use @Required annotation.
+
+
+
+what is @service ? how to create object the services?
+
+his annotation serves as a specialization of {@link Component @Component},
+
+* allowing for implementation classes to be autodetected through classpath scanning.
+
+ApplicationContext context = new ClassPathXmlApplicationContext("services.xml", "daos.xml");
+
+ans is ::
+
+in spring API service decompiler open cheyagane below laga vundi.
+
+@Target({ElementType.TYPE})
+
+@Retention(RetentionPolicy.RUNTIME)
+
+@Documented
+
+@Component
+
+public @interface Service {
+
+/**
+
+* The value may indicate a suggestion for a logical component name,
+
+* to be turned into a Spring bean in case of an autodetected component.
+
+* @return the suggested component name, if any
+
+*/
+
+String value() default "";
+
+}
+
+
+
+what is @repository? how to create object the @repository ?
+
+Indicates that an annotated class is a "Repository", originally defined by
+
+* Domain-Driven Design (Evans, 2003) as "a mechanism for encapsulating storage,
+
+* retrieval, and search behavior which emulates a collection of objects".
+
+*
+
+*
+
+Teams implementing traditional J2EE patterns such as "Data Access Object"
+
+* may also apply this stereotype to DAO classes,
+
+@Target({ElementType.TYPE})
+
+@Retention(RetentionPolicy.RUNTIME)
+
+@Documented
+
+@Component
+
+public @interface Repository {
+
+/**
+
+* The value may indicate a suggestion for a logical component name,
+
+* to be turned into a Spring bean in case of an autodetected component.
+
+* @return the suggested component name, if any
+
+*/
+
+String value() default "";
+
+}
+
+
+
+what is @controller?
+
+/**
+
+* Indicates that an annotated class is a "Controller" (e.g. a web controller).
+
+*
+
+*
+
+This annotation serves as a specialization of {@link Component @Component},
+
+* allowing for implementation classes to be autodetected through classpath scanning.
+
+* It is typically used in combination with annotated handler methods based on the
+
+* {@link org.springframework.web.bind.annotation.RequestMapping} annotation.
+
+*
+
+* @author Arjen Poutsma
+
+* @author Juergen Hoeller
+
+* @since 2.5
+
+* @see Component
+
+* @see org.springframework.web.bind.annotation.RequestMapping
+
+* @see org.springframework.context.annotation.ClassPathBeanDefinitionScanner
+
+*/
+
+@Target({ElementType.TYPE})
+
+@Retention(RetentionPolicy.RUNTIME)
+
+@Documented
+
+@Component
+
+public @interface Controller {
+
+/**
+
+* The value may indicate a suggestion for a logical component name,
+
+* to be turned into a Spring bean in case of an autodetected component.
+
+* @return the suggested component name, if any
+
+*/
+
+String value() default "";
+
+}
+
+
+
+what is component ?
+
+/**
+
+* Indicates that an annotated class is a "component".
+
+* Such classes are considered as candidates for auto-detection
+
+* when using annotation-based configuration and classpath scanning.
+
+*
+
+*
+
+Other class-level annotations may be considered as identifying
+
+* a component as well, typically a special kind of component:
+
+* e.g. the {@link Repository @Repository} annotation or AspectJ's
+
+* {@link org.aspectj.lang.annotation.Aspect @Aspect} annotation.
+
+*
+
+* @author Mark Fisher
+
+* @since 2.5
+
+* @see Repository
+
+* @see Service
+
+* @see Controller
+
+* @see org.springframework.context.annotation.ClassPathBeanDefinitionScanner
+
+*/
+
+@Target(ElementType.TYPE)
+
+@Retention(RetentionPolicy.RUNTIME)
+
+@Documented
+
+public @interface Component {
+
+/**
+
+* The value may indicate a suggestion for a logical component name,
+
+* to be turned into a Spring bean in case of an autodetected component.
+
+* @return the suggested component name, if any
+
+*/
+
+String value() default "";
+
+}
+
+
+
+what is @RestController ?
+
+**
+
+* A convenience annotation that is itself annotated with
+
+* {@link Controller @Controller} and {@link ResponseBody @ResponseBody}.
+
+*
+
+* Types that carry this annotation are treated as controllers where
+
+* {@link RequestMapping @RequestMapping} methods assume
+
+* {@link ResponseBody @ResponseBody} semantics by default.
+
+*
+
+*
+
+NOTE: {@code @RestController} is processed if an appropriate
+
+* {@code HandlerMapping}-{@code HandlerAdapter} pair is configured such as the
+
+* {@code RequestMappingHandlerMapping}-{@code RequestMappingHandlerAdapter}
+
+* pair which are the default in the MVC Java config and the MVC namespace.
+
+* In particular {@code @RestController} is not supported with the
+
+* {@code DefaultAnnotationHandlerMapping}-{@code AnnotationMethodHandlerAdapter}
+
+* pair both of which are also deprecated.
+
+*
+
+* @author Rossen Stoyanchev
+
+* @author Sam Brannen
+
+* @since 4.0
+
+*/
+
+@Target(ElementType.TYPE)
+
+@Retention(RetentionPolicy.RUNTIME)
+
+@Documented
+
+@Controller
+
+@ResponseBody
+
+public @interface RestController {
+
+/**
+
+* The value may indicate a suggestion for a logical component name,
+
+* to be turned into a Spring bean in case of an autodetected component.
+
+* @return the suggested component name, if any
+
+* @since 4.0.1
+
+*/
+
+String value() default "";
+
+}
+
+
+
+when we go for constructor and setter injection?
+
+https://stackoverflow.com/questions/27132348/when-to-use-constructor-injection-in-spring
+
+Q33) Explain different modes of auto wiring?
+
+byName: When autowiring byName, the Spring container looks at the properties of the beans on which autowireattribute is set to byName
+
+in the XML configuration file. It then tries to match and wire its properties with the beans defined by the same names in the configuration file.
+
+byType:set to byType in the XML configuration file. It then tries to match and wire a property if its type matches with
+
+exactly one of the beans name in configuration file. If more than one such beans exist, a fatal exception is thrown.
+
+constructor:This mode is similar to byType, but type applies to constructor arguments. If there is not exactly one bean of the
+
+constructor argument type in the container, a fatal error is raised.
+
+autodetect: Spring first tries to wire using autowire by constructor, if it does not work, Spring tries to autowire bybyType.
+
+Q53) Joinpoint
+
+The join point represents a point in an application where we can plug-in an AOP aspect.
+
+Q54) Advice
+
+The advice is the actual action that will be taken either before or after the method execution.
+
+Spring aspects can work with five kinds of advice:
+
+before: Run advice before the method execution.
+
+after: Run advice after the method execution regardless of its outcome.
+
+after-returning: Run advice after the method execution only if method completes successfully.
+
+after-throwing: Run advice after the method execution only if a method exits by throwing an exception.
+
+around: Run advice before and after the advised method is invoked.
+
+Q55) Pointcut
+
+The pointcut is a set of one or more joinpoints where an advice should be executed. You can specify pointcuts using expressions or patterns.
+
+Q25) Explain the bean scopes supported by Spring
+
+There are five scoped provided by the Spring Framework supports following five scopes:
+
+In singlet on scope, Spring scopes the bean definition to a single instance per Spring IoC container.
+
+In prototype scope, a single bean definition has any number of object instances.
+
+In request scope, a bean is defined to an HTTP request. This scope is valid only in a web-aware Spring ApplicationContext.
+
+In session scope, a bean definition is scoped to an HTTP session. This scope is also valid only in a web-aware Spring ApplicationContext.
+
+In global-session scope, a bean definition is scoped to a global HTTP session. This is also a case used in a web-aware Spring ApplicationContext.
+
+The default scope of a Spring Bean is Singleton.
+
+by upendra sir:
+
+spring lo singleton aunte oka class ki multiple beans create cheyavachu.
+
+oka bean ki oke object create avuthundi means if your calling getbean it return same hashcode.
+
+singleton design pattern aunte oka class oka object create avuthundi.
+
+throughout the application.
+
+prototype aunte oka bean create chestamu.getbean ani denni cal chesinapudally diffrent hashcode ni istundi.
+
+object creation in spring 3 ways
+
+1.beans in xml 2.steoreotypes(@controller,@service..)3.@configuration.
+
+@service
+
+public class UserDetailsService{
+
+}
+
+@configuration
+
+public class ApplicationConfig{
+
+@Bean
+
+public UserDetailsServiceImpl userDetailsServiceImpl(){
+
+return new UserDetailsServiceImpl();
+
+}
+
+}
+
+in above it will create object
+
+only one not two because bydefault it is singleton.
+
+
+
+ade prototype aunte inject annappudalla new object create avuthundi(prototype ni use chesinappudalla new object create avuthundi)
+
+@configuration
+
+public class ApplicationConfig{
+
+@Bean
+
+@scope("prototype")
+
+public UserDetailsServiceImpl userDetailsServiceImpl(){
+
+return new UserDetailsServiceImpl();
+
+}
+
+}
+
+
+
+cannot read/write exception vasthe run on server anali not run as java application.
+
+
+
+bydefault singleton is eager because aa object ni use chestunapude object create avuthundi.
+
+
+
+class StudentService{
+
+}
+
+
+
+@configuration
+
+class test{
+
+@Bean
+
+public StudentService studentService(){
+
+sop("StudentService object is created")
+
+return new StudentService();
+
+}
+
+}
+
+ila configuration,bean aunte deniki object create avuthundi.
+
+
+
+difference of beanfactory and application context.
+
+Application context used for events configuration,internationalization,load property file,external resources
+
+beanfcatory very low level memory
+
+
+
+Bean life cycle::
+
+below 5 are interfaces only(say example of multipleinheritance)
+
+class UserDeatilsService implements BeannameAware,BeanFacotoryAware,ApplicationcontextAware,InitializingBean,Beanpostprocessor(preprocessor,postprocessor).
+
+ila implements aunte beannameaware manaki ee bean ki cal avuthundo istundi
+
+@Bean(name="syudent2")
+
+public Student student(){
+
+return new Student();
+
+}
+
+beanfactory aware aunte beans anni ofterpropertyset ane method dwara beans ni
+
+factory lo peduthundi.
+
+every bean intilize mundu pre processor,post processor
+
+call avuthayi.
+
+internally inject ayina object ee first call avuthundi
+
+ofter mana class object ki call avuthundi.
+
+
+
+manamu inject cheyalante by using property or method ga kani cheya vachu.
+
+
+
+
+
+@configuration
+
+class A
+
+@Bean
+
+@scope("singleton")//enni sarlu call chesina same hashcode(ade object)istundi.
+
+@scope("prototype")//enni sarlu cal chesthe diffrent hashcode ni istundi
+
+//aunte oka bean ee diffferent objects ni istundi.
+
+public Student std(){
+
+return new Student();
+
+}
+
+@autowired
+
+@qualifier("mystudent")//oka class ki 2(or 2 diffrent beans) hashcode vunte .aunte ee bean ni inject cheyalo ivvali.otherwise getting error.
+
+public void setStd(Student std){
+
+system.out.println("student object::"+std);
+
+this.std=std;
+
+}
+
+so
+
+class and bean is diffrent
+
+object and bean is diffrent
+
+oka bean ki oka object vundavachu or multiple objects kuda vunda vachhu.
+
+Requirenemtsofspring
+
+pagenation in springboot::
+
+https://ankushs92.github.io/tutorial/2016/05/03/pagination-with-spring-boot.html
+
+
+
+pagenation in spring hibernate::
+
+gatall lo nundi sublist(0,3)display cheyi.idi static kada
+
+aunduke int start=(page-1)*3,int end = page*3 tesuko
+
+subList(start,end)ani ivvu.
+
+records end ki reach ayithe session.setttribute("rend",true)
+
+ee rend reference ga tesukoni jsp lo records ended anali, button disable
+
+cheyali.ok na.
+
+
+
+fileuploading in spring hibernate::
+
+pojo class lo multipartfile file ani property ga tesuko(FileUploadpojo)
+
+fileupload(Fileuploadpojo fileupload){
+
+MUltipartFile file=fileupload.getFile();
+
+File savehere=new File("C:\\uploadfiles\\")
+
+file.transferto(savehere);
+
+}
+
+public void downloadFile(String fileName,httpServletResponse resp){
+
+FileInputStream fis = new FileInputStream("C:\\uploadfiles\\"+fileName);
+
+resp.setHeader("content-disposition"+"attachment;file"+fileName);
+
+int read = fis.read();
+
+while(read!=-1)
+
+{
+
+fis.read();
+
+}
+
+throws new FileNotFoundException("file doe not exist");
+
+}
+
+
+
+~~~~~~~~~~~~~~
+Category: Securityandoauth
+Q) Securityandoauth
+
+A) Securityandoauth
+
+server.contextpath:auth
+
+aithentication avalante .clientid secretkey kavai.
+
+mana code lo vunna clientid secret key isthe apudu token generate avuthundi
+
+authorization lo beare and token ivvali.apude mana applocation loki enter avuthamu.
+
+
+
+application.prop::
+
+security.user.name=guest
+
+security.user.password=guest123
+
+keystore.password:mysecretKey
+
+sesrver.contextpath:/slokam
+
+
+
+@EnableGlobalMethodsecurity
+
+@EnableResourceServer
+
+
+
+http://localost:8989/slokam/oauth/token?username=guest&password=guest123&grant_type=password
+
+basic auth select chesukoni
+
+username: clientid from code method
+
+pwd: pwd from method.
+
+then it generates token.
+
+after aa token tesukoni.bearerani aatoken apudu able to load welcomepage.
+
+
+
+we are post this request
+
+http://localhost:8090/auth/oauth/token?username=root&password=&grant_type=password
+
+client id and secret key we get this info from our web security confugure methods.
+
+then token will be generated.after token generated we are select authorization and bearer + token then only we are able to acess our UrIs .
+
+
+
+we have 2 servers 1. auth server 2. resource server.
+
+in auth server we are get token through client id secret key
+
+from resource server it allows the access to application methods based on given token.
+
+mana application lo restcontroller lo a method naina access cheyalantee oka token generator cheyali clientid secretkey estene token generate avthadi
+
+aa token generate cheyali ante parameter evvali username password granttype evvali after clientid secretkey este token generate avtundi..
+
+aa token ni restcontroller lo e method ni access cheyalanna aa full uri evvali goto
+
+header
+
+autherization key lo autherization
+
+value bearrer tokengenerated copy
+
+
+
+Q) Security::
+
+A) mysql,data-jpa dependency kavali. after adding jars required
+
+eclipse:eclipse refresh chesthe mana classpath ki add avuthayi.
+
+clientid,sectertkys ki seperate ga pojos tesukvali.
+
+DelegatingFilterProxy-->dispatcherservlet
+
+user login dagari nundi username ,pwd tesukoni
+
+aa username ni mathramu loaduserbyusername ane method ki cal chestundi.
+
+
+
+@springbootapplication
+
+public class SecApplication{
+
+public static NoOpPasswordEncoder passwordEncoder(){
+
+return (NoOpPasswordEncoder).NoOpPasswordEncoder.getinstance();
+
+}
+
+}
+
+filter ee ee beow class ni call chestundi.
+
+@Component
+
+public class UserDetailsServiceImpl implements UserDetailsService{
+
+public UserDetails loadUserByUsername(String argo){
+
+UserDetailsImpl user = new UserDetailsImpl();
+
+user.setAccountNonexpired(true) all trues
+
+user.setUsername(argo);
+
+user.setpassword("slokam");
+
+GrantedAuthrotyimpl g1 = new GrantedAuimpl();
+
+g1.setAuthority("USER");
+
+GrantedAuthrotyimpl g2 = new GrantedAuimpl();
+
+g1.setAuthority("ADMIN");
+
+Collection c= new ArrayList();
+
+c.add(g1);
+
+c.add(g2);
+
+user.setAuthorities(c);
+
+return user;
+
+}
+
+}
+
+
+
+note:: boolean apudu return property ni return cheyali.
+
+spring,security.user.name=root
+
+spring,security.user.password=root
+
+spring,security.user.role=ADMIN
+
+
+
+@Entity
+
+@Table(name="userDetails ")
+
+poblic class UserDetailsImpl implements UserDetails{
+
+private Collectionauthorities
+
+//setter mthod for authorities
+
+//jointable(lo joincloumns array,inversejoincolumns array vuntayi)
+
+@ManyToMany
+
+@JoinTable(
+
+name="user_aithority",
+
+joinColumns={@joinColumn(name="uid")},
+
+inversejoinColumns={@joinColumn(name="aid")}
+
+)
+
+public ColectiongetAuthorities(){
+
+}
+
+@Id
+
+@generatedValue
+
+private Integer id;
+
+private String username;
+
+private String password;
+
+private boolean accountNonexpired
+
+}
+
+
+
+@Entity
+
+@Table(name="grantedAuthority")
+
+pubic class GrantedAuthorityImpl implements GrantedAuthority{
+
+@id
+
+@GeneratedValue
+
+private Integer id;
+
+private String authority;
+
+//write seeter method
+
+@override
+
+public String getAuthority(){
+
+}
+
+}
+
+
+
+login ayina user nundi aa details tesuku ravali from db nundi.
+
+
+
+granted_authority table:
+
+id authority
+
+1 USER
+
+2 ADMIN
+
+3 MANAGER
+
+
+
+user_details table::
+
+isert into user_details values(1,true,true,true,true,'SL','SL123')
+
+isert into user_details values(2,true,true,true,true,'SSS','SSS23')
+
+
+
+insert into user_authority values(1,1)
+
+insert into user_authority values(1,2)
+
+insert into user_authority values(1,3)
+
+insert into user_authority values(2,1)
+
+insert into user_authority values(2,2)
+
+insert into user_authority values(2,3)
+
+
+
+spring boot security lo we changed userdetailsservice clas and we use many to many
+
+@repository
+
+interface IUserDetailsDao extends jpaRepository{
+
+//username isthe userdetail ravali.
+
+public UserDetailsImpl findByUsername(String username);
+
+@query("select a from UserDetailsIMpl u join u.authorities a where u.username=?1")
+
+public ListgetAuthorityByUserName(String username);
+
+}
+
+
+
+public class UserdetailsserviceImpl implements UserdetailsService{
+
+private IUserDetailsDao userDetailsDao;
+
+public UserDetails loadUserByUsername(String arg0){
+
+UserDetailsImpl userDetails = userDetailsDao.findByusername()
+
+List authorities = userDetailsDao.getAuth();
+
+userDetails.setAuthorities(authorities)l
+
+return userDetails;
+
+}
+
+}
+
+check o/p:
+
+username:: SL123
+
+password:: SL
+
+error is appear lazyinit exception.
+
+filter we are not inject authorities so it will come lazy exception.
+
+because its get only userdetails
+
+
+
+user ni authorities ni below use chesi techukovali.
+
+String user = SecurityContextHolder.getContext().getAuthentication().getName();
+
+Collection col1 = (Collection)SecurityContextHolder.getContext().getAuthenticaion().getAuthorities();
+
+for(){
+
+syso(grantedauthimpl.getauthority())//we get all login user authorities
+
+}
+
+
+
+by using oauth we provide security for user/pwd as well as client id secret key also.
+~~~~~~~~~~~~~~~~~~~~~
+Category: Springboot
+Q) Springboot
+
+A) Springboot
+
+spring-boot-starter-parent is a special starter that provides useful Maven defaults.
+
+It also provides a dependency-management section so that you can omit version tags for “blessed” dependencies.
+
+ther “Starters” provide dependencies that you are likely to need when developing a specific type of application.
+
+Since we are developing a web application, we add a spring-boot-starter-web dependency.
+
+
+
+Many Spring Boot developers like their apps to use auto-configuration, component scan and be able to define extra configuration on their "application class".
+
+A single @SpringBootApplication annotation can be used to enable those three features, that is:
+
+@EnableAutoConfiguration: enable Spring Boot’s auto-configuration mechanism
+
+@ComponentScan: enable @Component scan on the package where the application is located (see the best practices)
+
+@Configuration: allow to register extra beans in the context or import additional configuration classes
+
+Starters and Auto-configuration
+
+Auto-configuration is designed to work well with “Starters”, but the two concepts are not directly tied.
+
+You are free to pick and choose jar dependencies outside of the starters. Spring Boot still does its best to auto-configure your application.
+
+@RequestMapping annotation provides “routing” information
+
+@RestCOntroller having @controller&requestbody
+
+This code uses Spring 4’s new @RestController annotation, which marks the class as a controller where every method returns a domain object instead of a view.
+
+It’s shorthand for @Controller and @ResponseBody rolled together.
+
+Springboot
+
+p>what is diffrent annotations used in spring boot??
+
+@ResponseStatus(HttpStatus.NOT_FOUND)
+
+@ResponseBody
+
+@RequestParam
+
+@Pathvariable
+
+pagenation in springboot::
+
+https://ankushs92.github.io/tutorial/2016/05/03/pagination-with-spring-boot.html
+
+
+
+pagenation in spring hibernate::
+
+gatall lo nundi sublist(0,3)display cheyi.idi static kada
+
+aunduke int start=(page-1)*3,int end = page*3 tesuko
+
+subList(start,end)ani ivvu.
+
+records end ki reach ayithe session.setttribute("rend",true)
+
+ee rend reference ga tesukoni jsp lo records ended anali, button disable
+
+cheyali.ok na.
+
+disadvantages of spring boot::
+
+need internet for update the maven project.
+
+beans creation and injection manually not seeing.
+
+if any dependency exception is raised.
+
+biggest chllenge is existing projects combine with springboot.
+~~~~~~~~~~~~~~
+Q)AggregateOperationsInJava8 
+
+	A) public static void main(String[] args) {
+
+		var list = new ArrayList<Employee>();
+		list.add(new Employee(1,"raj",22));
+		list.add(new Employee(1,"raja",2));
+		list.add(new Employee(1,"raji",1));
+		list.add(new Employee(1,"rajesh",222));
+		
+		list.stream().count();
+		//findmax
+		Optional<Employee> max = list.stream().max(Comparator.comparing(Employee::getAge));
+		System.out.println("max-->"+max);
+		//findmin
+		Optional<Employee> min = list.stream().min(Comparator.comparing(Employee::getAge));
+		System.out.println("min-->"+min);
+	
+		//avg
+		OptionalDouble average = list.stream().mapToDouble(Employee::getAge).average();
+		System.out.println("average-->"+average);
+		
+		//sum
+		double sum = list.stream().filter(emp->emp.getAge()>2).mapToInt(Employee::getAge).sum();
+		System.out.println("sum-->"+sum);
+	}
+
+}
+~~~~~~~~~~~~~~~~~

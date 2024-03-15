@@ -1,0 +1,236 @@
+Category: Queries
+Q) Queries
+
+A) Queries
+
+Sql joins::
+
+An SQL JOIN clause is used to combine rows from two or more tables, based on a common field between them.
+
+INNER JOIN: Returns all rows when there is at least one match in BOTH tables
+
+LEFT JOIN: Return all rows from the left table, and the matched rows from the right table
+
+RIGHT JOIN: Return all rows from the right table, and the matched rows from the left table
+
+FULL JOIN: Return all rows when there is a match in ONE of the tables
+
+SQL INNER JOIN Syntax::
+
+SELECT column_name(s)
+
+FROM table1
+
+INNER JOIN table2
+
+ON table1.column_name=table2.column_name;
+
+Example::
+
+SELECT Customers.CustomerName, Orders.OrderID
+
+FROM Customers
+
+INNER JOIN Orders
+
+ON Customers.CustomerID=Orders.CustomerID
+
+ORDER BY Customers.CustomerName;
+
+
+
+self join::
+
+hint :Emp_name ni 2 tables(e1,e2) lo tesukuntamu.ofter join 2 tables ofter id=mgrid aunthe.
+
+normal table::
+
+
+
+Emp_id Emp_name Manager_id
+
+
+
+1 rajesh 3
+
+
+
+2 suresh 1
+
+
+
+3 ratna 2
+
+
+
+syntax::
+
+select e1.columnname as dummyname,e2.columnname as dummy name(like mgr)
+
+from tablename e1
+
+inner join tablename e2 on e1.columnname= e2.columnname
+
+
+
+Updatequery
+
+
+
+Update::
+
+UPDATE table_name
+
+SET column1=value1,column2=value2,...
+
+WHERE some_column=some_value;
+
+Example::
+
+UPDATE Customers
+
+SET ContactName='Alfred Schmidt', City='Frankfurt'
+
+WHERE CustomerID=1;
+
+Maxsalary
+
+
+Write an SQL query to get third maximum salary of an employee from a table named employee_table.
+
+SELECT TOP 1 salary
+
+FROM (
+
+SELECT TOP 3 salary
+
+FROM employee_table
+
+ORDER BY salary DESC ) AS emp
+
+ORDER BY salary ASC;
+
+
+
+Selfjoin
+
+
+
+self join::
+
+hint :Emp_name ni 2 tables(e1,e2) lo tesukuntamu.ofter join 2 tables ofter id=mgrid aunthe.
+
+normal table::
+
+
+
+Emp_id Emp_name Manager_id
+
+
+
+1 rajesh 3
+
+
+
+2 suresh 1
+
+
+
+3 ratna 2
+
+
+
+syntax::
+
+select e1.columnname as dummyname,e2.columnname as dummy name(like mgr)
+
+from tablename e1
+
+inner join tablename e2 on e1.columnname= e2.columnname
+
+
+
+select e1.Emp_name as Employee_Name,e2.Emp_name as Manager_Name
+
+from f14.employee e1
+
+inner join f14.employee e2
+
+on e1.Manager_id = e2.Emp_Id;
+
+result is ::
+
+Employee_Name Manager_Name
+
+
+
+suresh rajesh
+
+
+
+ratna suresh
+
+
+
+rajesh ratna
+
+
+
+ref::https://www.youtube.com/watch?v=e6QrrN1AePs#t=582.591245
+
+Maxsalary
+
+
+
+second highest salary find.
+
+syntax::select MAx(columnname) from tablename where tablename<(select Max(columnname)from tablename)
+
+SELECT MAX(salary)
+
+From sbi.salary WHERE salary < ( SELECT Max(salary) FROM sbi.salary);
+
+example 3:
+
+select * from Emp e1 where 2=(select count(sal)from emp e2 where e2.sal>e1.sal)
+
+Joins
+
+joins vese tapudu input enti output enti ani think cheyali ok na.
+
+SELECT r.name from f14.user u
+
+inner join f14.user_roles ur on u.id = ur.uid
+
+inner join f14.role r on r.id=ur.rid
+
+where u.username='user1' and password='slokam';
+
+output::
+
+name
+
+
+
+ROLE_MANAGER
+
+ROLE_ADMIN
+
+
+
+
+
+SELECT f14.u.username from user u
+
+inner join user_roles ur on u.id=ur.uid
+
+inner join role r on r.id = ur.rid where r.name ='ROLE_ADMIN'
+
+output::
+
+username
+
+
+
+user1
+~~~~~~~~~~~~~~

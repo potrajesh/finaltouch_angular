@@ -1,0 +1,49 @@
+/* left-sidebar.component.css */
+
+/* Define the base font size */
+body {
+    font-size: 16px; /* Adjust as needed */
+}
+
+/* Apply different font sizes for different screen sizes */
+@media only screen and (max-width: 600px) {
+    /* Small devices (e.g., smartphones) */
+    body {
+        font-size: 14px;
+    }
+}
+
+@media only screen and (min-width: 601px) and (max-width: 1024px) {
+    /* Medium devices (e.g., tablets) */
+    body {
+        font-size: 16px;
+    }
+}
+
+@media only screen and (min-width: 1025px) {
+    /* Large devices (e.g., desktops) */
+    body {
+        font-size: 16px;
+    }
+}
+
+/* Your existing styles */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+a {
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+
+}
+
+a:hover {
+    color: #007bff;
+}

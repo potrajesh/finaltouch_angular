@@ -1,0 +1,5 @@
+Category: aws
+Q) what is aws
+A) it is having own services
+
+~~~~~~~~~~~~~~

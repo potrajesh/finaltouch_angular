@@ -1,0 +1,5 @@
+Category: hibernate
+Q) what is hibernate
+A) it is ORM
+
+~~~~~~~~~~~~~~

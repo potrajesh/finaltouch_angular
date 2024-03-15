@@ -1,0 +1,561 @@
+Category: about thread class
+Q) about thread class
+
+A) A thread is a lightweight sub-process, the smallest unit of processing. 
+Multiprocessing and multithreading, both are used to achieve multitasking.
+
+2threads are waiting eachother is caled deadlock..means all arein waiting state.
+
+t1.join.t2 because t1 is waiting upto t2 is completed.
+
+if you are use join current thread is used join method.up to main method will wait.
+
+private Thread t1=null;
+
+private thread t2 =null;
+
+t1.join(t2);
+
+diff of wait and sleep
+
+wait(1000)ani aunte notify method thread ni wait cheyanivadu
+
+sleep(1000)ani aunte thread executes will come after 1000 seconds after.because it having lock
+
+yield:: it comes back to runnable state
+
+A thread is a lightweight sub-process, the smallest unit of processing. Multiprocessing and multithreading, both are used to achieve multitasking.
+
+However, we use multithreading than multiprocessing because threads use a shared memory area. They don't allocate separate memory area so saves memory, and context-
+
+switching between the threads takes less time than process.
+
+
+
+upendra sir says
+
+thread anagane oka job .job having no.of statements.
+
+th = new OurThread()
+
+th.start();//it calls run method.//also known as thread creation.
+
+2 ways to create thread .
+
+1. extends thread
+
+2.runnable interface
+
+class Multi extends Thread{
+
+public void run(){
+
+System.out.println("thread is running...");
+
+}
+
+public static void main(String args[]){
+
+Multi t1=new Multi();
+
+t1.start();
+
+}
+
+}
+
+2) Java Thread Example by implementing Runnable interface
+
+class Multi3 implements Runnable{
+
+public void run(){
+
+System.out.println("thread is running...");
+
+}
+
+public static void main(String args[]){
+
+Multi3 m1=new Multi3();
+
+Thread t1 =new Thread(m1);
+
+t1.start();
+
+}
+
+}
+
+synchronization in threads::
+
+public class Person{
+
+public synchronized void test1(){
+
+}
+
+}
+
+public class mainTest{
+
+Thread1 t1 = new Thread(new Person());
+
+Thread1 t2 = new Thread(new Person());
+
+t1.start();
+
+}
+
+ee time lo delay chesina apudu interrrupted exception vastundi.
+
+
+
+extends aunte adi oka thread extends ee posible..vere class ni extend cheyalemu.
+
+ade runnable lo ayithe another clas ni kuda extends thread cheya vachu.
+
+ee thread Thread.currentthread.getname()//ee thread exe chestundo cheptundi.
+
+public class
+
+integer endTime = System.currentmilliseconds
+
+integer starttime= System.currentmilliseconds
+
+syso(starttime-endtime)
+
+threadpool means some threads are exist in queue
+
+callable = new Threadcallabe();
+
+we need to mention size is like new fixed threadpool(2)
+
+ExecutorService es = new fixed threadpool(2)
+
+es.submit(callable);
+
+2 thread types
+
+1.sequential execution 2.parallel execution
+
+1.sequential execution
+
+main(){
+
+for(int i=1;i<1000;i++){}//first it execute next below for is executing so is called sequential flow.
+
+for(int i=1;i<1000;i++){}
+
+job means its having statements execution by thread
+
+paralel threads are means threads are executing statements paralley(means one into another)
+
+}
+
+
+
+ref :: https://www.javatpoint.com/java-executorservice
+
+Java ExecutorService by upendra sir::
+
+data return from thread to thread
+
+so all threads data to main method.
+
+callable data return chestundi to threads.
+
+public class ThreadCallable implements Callable Integer> {
+
+public Integer call(){
+
+Thread.sleep(2000);
+
+return 200;
+
+}
+
+}
+
+classMain{
+
+ThreadCallable callable = new ThreadCallable();
+
+Thread th new Thread(callable)//it does not work.
+
+ExecutorService es = Executor.newFixedhreadPool(2);
+
+Fututurefi = es.submit(callable);
+
+try{
+
+Integer data1 = fi.get();
+
+}
+
+catch(Exception e){
+
+e.printStacktrace();
+
+}
+
+}
+
+long starTime =syste.currenttimemillseconds;
+
+long endTime =syste.currenttimemillseconds
+
+syso(endtime-starttime);
+
+ExecutorService having threadpools.so its having multiple threads.
+
+
+
+The Java ExecutorService is the interface which allows us to execute tasks on threads asynchronously. The Java ExecutorService interface is present in the
+
+java.util.concurrent package. The ExecutorService helps in maintaining a pool of threads and assigns them tasks. It also provides the facility to queue up tasks until
+
+there is a free thread available if the number of tasks is more than the threads available.
+
+1.2. Callable and Future
+
+Another important advantage of the Executor framework was the Callable interface. It’s similar to the Runnable interface with two benefits:
+
+It’s call() method returns a result after the thread execution is complete.
+
+When we send a Callable object to an executor, we get a Future object’s reference. We can use this object to query the status of thread and the result of the Callable
+
+object.
+
+A simple program of Java ExecutorService
+
+public class ExecutorServiceExample {
+
+public static void main(String[] args) {
+
+ExecutorService executorService = Executors.newFixedThreadPool(10);
+
+executorService.execute(new Runnable() {
+
+@Override
+
+public void run() {
+
+System.out.println("ExecutorService");
+
+}
+
+});
+
+executorService.shutdown();
+
+}
+
+}
+
+
+
+2.1. Executors class
+
+Executors is a utility class that provides factory methods for creating the implementations of the interface.
+
+//Executes only one thread
+
+ExecutorService es = Executors.newSingleThreadExecutor();
+
+//Internally manages thread pool of 2 threads
+
+ExecutorService es = Executors.newFixedThreadPool(2);
+
+//Internally manages thread pool of 10 threads to run scheduled tasks
+
+ExecutorService es = Executors.newScheduledThreadPool(10);
+
+
+
+Assigning tasks to ExecutorServices
+
+To assign a task to ExecutorService, we can use the following methods-
+
+execute(Runnable task)
+
+submit(Runnable task) / submit(Callable task)
+
+invokeAny(Collection> tasks)
+
+invokeAll(Collection> tasks)
+
+public class ExecutorServiceExample {
+
+public static void main(String[] args) {
+
+ExecutorService executorService = Executors.newSingleThreadExecutor();
+
+executorService.submit(new Runnable() {
+
+@Override
+
+public void run() {
+
+System.out.println("ExecutorService");
+
+}
+
+});
+
+}
+
+}
+
+
+
+public class ExecutorServiceExample {
+
+public static void main(String[] args) throws InterruptedException, ExecutionException {
+
+ExecutorService executorService = Executors.newSingleThreadExecutor();
+
+Set> callables = new HashSet>();
+
+callables.add(new Callable() {
+
+public String call() throws Exception {
+
+return "Task 1";
+
+}
+
+});
+
+callables.add(new Callable() {
+
+public String call() throws Exception {
+
+return "Task 2";
+
+}
+
+});
+
+callables.add(new Callable() {
+
+public String call() throws Exception {
+
+return "Task 3";
+
+}
+
+});
+
+java.util.List> futures = executorService.invokeAll(callables);
+
+for(Future future : futures){
+
+System.out.println("future.get = " + future.get());
+
+}
+
+executorService.shutdown();
+
+}
+
+}
+
+Output:
+
+future.get = Task 1
+
+future.get = Task 3
+
+future.get = Task 2
+
+
+
+example 2 ::
+
+ExecutorService Runnable Example
+
+import java.time.LocalDateTime;
+
+import java.util.concurrent.ExecutionException;
+
+import java.util.concurrent.ExecutorService;
+
+import java.util.concurrent.Executors;
+
+import java.util.concurrent.Future;
+
+import java.util.concurrent.TimeUnit;
+
+public class Main
+
+{
+
+public static void main(String[] args)
+
+{
+
+//Demo task
+
+Runnable runnableTask = () -> {
+
+try {
+
+TimeUnit.MILLISECONDS.sleep(1000);
+
+System.out.println("Current time :: " + LocalDateTime.now());
+
+} catch (InterruptedException e) {
+
+e.printStackTrace();
+
+}
+
+};
+
+//Executor service instance
+
+ExecutorService executor = Executors.newFixedThreadPool(10);
+
+//1. execute task using execute() method
+
+executor.execute(runnableTask);
+
+//2. execute task using submit() method
+
+Future result = executor.submit(runnableTask, "DONE");
+
+while(result.isDone() == false)
+
+{
+
+try
+
+{
+
+System.out.println("The method return value : " + result.get());
+
+break;
+
+}
+
+catch (InterruptedException | ExecutionException e)
+
+{
+
+e.printStackTrace();
+
+}
+
+//Sleep for 1 second
+
+try {
+
+Thread.sleep(1000L);
+
+} catch (InterruptedException e) {
+
+e.printStackTrace();
+
+}
+
+}
+
+//Shut down the executor service
+
+executor.shutdownNow();
+
+}
+
+}
+
+Program output.
+
+Console
+
+Current time :: 2019-05-21T17:52:53.274
+
+Current time :: 2019-05-21T17:52:53.274
+
+The method return value : DONE
+
+
+
+Threadlifecycle
+
+interviewr asked how to come thread from running to runnable::
+
+ans :: is t.start()//it calls to run ()method.then only it comes from running to runnable.
+
+start() run() wait();
+
+yield()<- sleep()
+
+new ------>runnable------>running------->waiting--------->dead
+
+yield()-->currently running thread is forcebly excuted.remain are wait
+
+sleep()-->pause the thread and it held lock with pause
+
+daemon->running contineusly.it run in background only.
+
+notify ,notify all--->suddenly came to runnable stage.
+
+t1.join.t2 because t1 is waiting upto t2 is completed.
+
+if you are use join current thread is used join method.up to main method will wait.
+
+private Thread t1=null;
+
+private thread t2 =null;
+
+t1.join(t2);
+
+
+
+diff of wait and sleep
+
+wait(1000)ani aunte notify method thread ni wait cheyanivadu
+
+sleep(1000)ani aunte thread executes will come after 1000 seconds after.because it having lock
+
+yield:: it comes back to runnable state
+
+2threads are waiting eachother is caled deadlock..means all are in waiting state.
+
+
+
+hread class methods(7)::
+
+String getName();
+
+void start();
+
+void run();
+
+void sleep(int sleeptime);
+
+void yield();
+
+void join();
+
+boolean isAlive();
+
+Exception class Methods(6)::
+
+public String getMessage()
+
+public Throwable getCause()
+
+public String toString()
+
+public void printStackTrace()
+
+public StackTraceElement[]getStackTrace()
+
+public Throwable fillInStackTracae()
+~~~~~~~~~~~~~~~~~~~~~~
+Q)about executors?
+
+A)fetch from readword.html file
+
+~~~~~~~~~~~~~~~

@@ -1,0 +1,410 @@
+Category: Securityandoauth
+Q) Securityandoauth
+
+A) Securityandoauth
+
+server.contextpath:auth
+
+aithentication avalante .clientid secretkey kavai.
+
+mana code lo vunna clientid secret key isthe apudu token generate avuthundi
+
+authorization lo beare and token ivvali.apude mana applocation loki enter avuthamu.
+
+
+
+application.prop::
+
+security.user.name=guest
+
+security.user.password=guest123
+
+keystore.password:mysecretKey
+
+sesrver.contextpath:/slokam
+
+
+
+@EnableGlobalMethodsecurity
+
+@EnableResourceServer
+
+
+
+http://localost:8989/slokam/oauth/token?username=guest&password=guest123&grant_type=password
+
+basic auth select chesukoni
+
+username: clientid from code method
+
+pwd: pwd from method.
+
+then it generates token.
+
+after aa token tesukoni.bearerani aatoken apudu able to load welcomepage.
+
+
+
+we are post this request
+
+http://localhost:8090/auth/oauth/token?username=root&password=&grant_type=password
+
+client id and secret key we get this info from our web security confugure methods.
+
+then token will be generated.after token generated we are select authorization and bearer + token then only we are able to acess our UrIs .
+
+
+
+we have 2 servers 1. auth server 2. resource server.
+
+in auth server we are get token through client id secret key
+
+from resource server it allows the access to application methods based on given token.
+
+mana application lo restcontroller lo a method naina access cheyalantee oka token generator cheyali clientid secretkey estene token generate avthadi
+
+aa token generate cheyali ante parameter evvali username password granttype evvali after clientid secretkey este token generate avtundi..
+
+aa token ni restcontroller lo e method ni access cheyalanna aa full uri evvali goto
+
+header
+
+autherization key lo autherization
+
+value bearrer tokengenerated copy
+
+
+
+Q) Security::
+
+A) mysql,data-jpa dependency kavali. after adding jars required
+
+eclipse:eclipse refresh chesthe mana classpath ki add avuthayi.
+
+clientid,sectertkys ki seperate ga pojos tesukvali.
+
+DelegatingFilterProxy-->dispatcherservlet
+
+user login dagari nundi username ,pwd tesukoni
+
+aa username ni mathramu loaduserbyusername ane method ki cal chestundi.
+
+
+
+@springbootapplication
+
+public class SecApplication{
+
+public static NoOpPasswordEncoder passwordEncoder(){
+
+return (NoOpPasswordEncoder).NoOpPasswordEncoder.getinstance();
+
+}
+
+}
+
+filter ee ee beow class ni call chestundi.
+
+@Component
+
+public class UserDetailsServiceImpl implements UserDetailsService{
+
+public UserDetails loadUserByUsername(String argo){
+
+UserDetailsImpl user = new UserDetailsImpl();
+
+user.setAccountNonexpired(true) all trues
+
+user.setUsername(argo);
+
+user.setpassword("slokam");
+
+GrantedAuthrotyimpl g1 = new GrantedAuimpl();
+
+g1.setAuthority("USER");
+
+GrantedAuthrotyimpl g2 = new GrantedAuimpl();
+
+g1.setAuthority("ADMIN");
+
+Collection c= new ArrayList();
+
+c.add(g1);
+
+c.add(g2);
+
+user.setAuthorities(c);
+
+return user;
+
+}
+
+}
+
+
+
+note:: boolean apudu return property ni return cheyali.
+
+spring,security.user.name=root
+
+spring,security.user.password=root
+
+spring,security.user.role=ADMIN
+
+
+
+@Entity
+
+@Table(name="userDetails ")
+
+poblic class UserDetailsImpl implements UserDetails{
+
+private Collectionauthorities
+
+//setter mthod for authorities
+
+//jointable(lo joincloumns array,inversejoincolumns array vuntayi)
+
+@ManyToMany
+
+@JoinTable(
+
+name="user_aithority",
+
+joinColumns={@joinColumn(name="uid")},
+
+inversejoinColumns={@joinColumn(name="aid")}
+
+)
+
+public ColectiongetAuthorities(){
+
+}
+
+@Id
+
+@generatedValue
+
+private Integer id;
+
+private String username;
+
+private String password;
+
+private boolean accountNonexpired
+
+}
+
+
+
+@Entity
+
+@Table(name="grantedAuthority")
+
+pubic class GrantedAuthorityImpl implements GrantedAuthority{
+
+@id
+
+@GeneratedValue
+
+private Integer id;
+
+private String authority;
+
+//write seeter method
+
+@override
+
+public String getAuthority(){
+
+}
+
+}
+
+
+
+login ayina user nundi aa details tesuku ravali from db nundi.
+
+
+
+granted_authority table:
+
+id authority
+
+1 USER
+
+2 ADMIN
+
+3 MANAGER
+
+
+
+user_details table::
+
+isert into user_details values(1,true,true,true,true,'SL','SL123')
+
+isert into user_details values(2,true,true,true,true,'SSS','SSS23')
+
+
+
+insert into user_authority values(1,1)
+
+insert into user_authority values(1,2)
+
+insert into user_authority values(1,3)
+
+insert into user_authority values(2,1)
+
+insert into user_authority values(2,2)
+
+insert into user_authority values(2,3)
+
+
+
+spring boot security lo we changed userdetailsservice clas and we use many to many
+
+@repository
+
+interface IUserDetailsDao extends jpaRepository{
+
+//username isthe userdetail ravali.
+
+public UserDetailsImpl findByUsername(String username);
+
+@query("select a from UserDetailsIMpl u join u.authorities a where u.username=?1")
+
+public ListgetAuthorityByUserName(String username);
+
+}
+
+
+
+public class UserdetailsserviceImpl implements UserdetailsService{
+
+private IUserDetailsDao userDetailsDao;
+
+public UserDetails loadUserByUsername(String arg0){
+
+UserDetailsImpl userDetails = userDetailsDao.findByusername()
+
+List authorities = userDetailsDao.getAuth();
+
+userDetails.setAuthorities(authorities)l
+
+return userDetails;
+
+}
+
+}
+
+check o/p:
+
+username:: SL123
+
+password:: SL
+
+error is appear lazyinit exception.
+
+filter we are not inject authorities so it will come lazy exception.
+
+because its get only userdetails
+
+
+
+user ni authorities ni below use chesi techukovali.
+
+String user = SecurityContextHolder.getContext().getAuthentication().getName();
+
+Collection col1 = (Collection)SecurityContextHolder.getContext().getAuthenticaion().getAuthorities();
+
+for(){
+
+syso(grantedauthimpl.getauthority())//we get all login user authorities
+
+}
+
+
+
+by using oauth we provide security for user/pwd as well as client id secret key also.
+~~~~~~~~~~~~~~~~~~~~~
+Category: Springboot
+Q) Springboot
+
+A) Springboot
+
+spring-boot-starter-parent is a special starter that provides useful Maven defaults.
+
+It also provides a dependency-management section so that you can omit version tags for “blessed” dependencies.
+
+ther “Starters” provide dependencies that you are likely to need when developing a specific type of application.
+
+Since we are developing a web application, we add a spring-boot-starter-web dependency.
+
+
+
+Many Spring Boot developers like their apps to use auto-configuration, component scan and be able to define extra configuration on their "application class".
+
+A single @SpringBootApplication annotation can be used to enable those three features, that is:
+
+@EnableAutoConfiguration: enable Spring Boot’s auto-configuration mechanism
+
+@ComponentScan: enable @Component scan on the package where the application is located (see the best practices)
+
+@Configuration: allow to register extra beans in the context or import additional configuration classes
+
+Starters and Auto-configuration
+
+Auto-configuration is designed to work well with “Starters”, but the two concepts are not directly tied.
+
+You are free to pick and choose jar dependencies outside of the starters. Spring Boot still does its best to auto-configure your application.
+
+@RequestMapping annotation provides “routing” information
+
+@RestCOntroller having @controller&requestbody
+
+This code uses Spring 4’s new @RestController annotation, which marks the class as a controller where every method returns a domain object instead of a view.
+
+It’s shorthand for @Controller and @ResponseBody rolled together.
+
+Springboot
+
+p>what is diffrent annotations used in spring boot??
+
+@ResponseStatus(HttpStatus.NOT_FOUND)
+
+@ResponseBody
+
+@RequestParam
+
+@Pathvariable
+
+pagenation in springboot::
+
+https://ankushs92.github.io/tutorial/2016/05/03/pagination-with-spring-boot.html
+
+
+
+pagenation in spring hibernate::
+
+gatall lo nundi sublist(0,3)display cheyi.idi static kada
+
+aunduke int start=(page-1)*3,int end = page*3 tesuko
+
+subList(start,end)ani ivvu.
+
+records end ki reach ayithe session.setttribute("rend",true)
+
+ee rend reference ga tesukoni jsp lo records ended anali, button disable
+
+cheyali.ok na.
+
+disadvantages of spring boot::
+
+need internet for update the maven project.
+
+beans creation and injection manually not seeing.
+
+if any dependency exception is raised.
+
+biggest chllenge is existing projects combine with springboot.
+~~~~~~~~~~~~~~

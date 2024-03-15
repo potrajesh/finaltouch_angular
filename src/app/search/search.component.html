@@ -1,0 +1,30 @@
+<app-navbar></app-navbar>
+<h1>Search</h1>
+<div class="search-container">
+  <mat-form-field class="google-search-bar" appearance="fill">
+    <input type="search" matInput [formControl]="searchControl" (input)="onInputChange($event)" [matAutocomplete]="auto" placeholder="Search">
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onOptionSelected($event)">
+      <mat-option *ngFor="let option of filteredOptions | async" [value]="option" style="font-size: 16px;">
+        {{ option }}
+      </mat-option>
+    </mat-autocomplete>
+    <button mat-icon-button matSuffix (click)="clearSearchInput()" style="width: 50px; height: 26px;">
+      clear
+    </button>
+  </mat-form-field>
+</div>
+
+<!-- Search History List -->
+<div *ngIf="searchHistory.length > 0">
+  <h2>Search History</h2>
+  <ul>
+    <li *ngFor="let query of searchHistory">
+      {{ query }}
+    </li>
+  </ul>
+</div>
+
+<!-- Display the selected answer when it's not empty -->
+<div class="selected-answer-container" *ngIf="selectedAnswer">
+  <pre style="font-size: 13px;">{{ selectedAnswer }}</pre>
+</div>

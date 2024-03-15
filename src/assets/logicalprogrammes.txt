@@ -1,0 +1,1265 @@
+Category: logical programmes
+
+Q) Fibonacci Logic 1
+
+A)//0 1 1 2 3
+
+f3 f2 f
+
+f3 f2 f
+
+f3=f2;
+
+f2=f;
+
+f3=f2+f1;
+~~~~~~~~~~~~~~~~~
+Q) Fibonacci Logic 2::
+
+A)//Logic:take number=5,fact=1 and use for loop
+
+//factorial 4!=4*3*2*1
+
+public class Factorial {
+
+public static void main(String[] args) {
+
+int number=5;
+
+int fact=1;
+
+// for(initilization;if condition true block of code is executed;i++){}
+
+for(int i=1;i
+
+{
+
+fact = fact * i;
+
+System.out.println("Factorial Number::"+fact);
+
+}
+
+}
+
+}
+~~~~~~~~~~~~~~~~~
+Q) even or odd::
+
+A)odd numbers:: 2, 4, 6, 8
+
+int i=10;
+
+System.out.println("result is"+i/10);
+
+System.out.println("remainder"+i%10);
+
+output is:result is1
+
+remainder0
+
+int result=10;
+
+int result=15;//output is:number is even
+
+int number=result/2;
+
+if(number==0)
+
+{
+
+System.out.println("number is even");
+
+}
+
+else{
+
+System.out.println("number is odd");
+
+}
+
+}
+
+output is::
+
+number is odd
+
+Q) even numbers up to 100
+
+A) for(int i=0;i<100;i++){
+
+if(i%2==0){
+
+system.out.println(i)
+
+}
+
+}
+~~~~~~~~~~~~~~~~~
+Q) print string lo even numbers
+
+A) public static void main(String[] args) {
+
+String s="abcd";
+
+for(int i=0;i
+
+if(i%2==0){
+
+System.out.println(s.charAt(i));
+
+}
+
+output:: a
+
+c
+
+if(i%2==1)//get odd numbers
+
+n%4//0,1,2,3
+
+n%10//0-9
+~~~~~~~~~~~~~~~~~
+Q) find Armstrong number
+A) Logic::Armstrong number is a number that is equal to the sum of
+
+cubes of its digits for example 0, 1, 153, 370, 371, 407 etc.
+
+example::153 = (1*1*1)+(5*5*5)+(3*3*3)
+
+class ArmstrongExample{
+
+public static void main(String[] args) {
+
+int c=0,a,temp;
+
+int n=153;//It is the number to check armstrong
+
+temp=n;
+
+while(n>0)
+
+{
+
+a=n%10; //15.3
+
+n=n/10; //15.3
+
+c=c+(a*a*a);
+
+}
+
+if(temp==c)
+
+System.out.println("armstrong number");
+
+else
+
+System.out.println("Not armstrong number");
+
+}
+
+}
+~~~~~~~~~~~~~~~~~
+Q) find palindrom number
+A) Palindrome number in java: A palindrome number is
+
+a number that is same after reverse. For example 545, 151
+
+Get the number to check for palindrome
+
+Hold the number in temporary variable
+
+Reverse the number
+
+Compare the temporary number with reversed number
+
+If both numbers are same, print "palindrome number"
+
+Else print "not palindrome number"
+
+class PalindromeExample{
+
+public static void main(String args[]){
+
+int r,sum=0,temp;
+
+int n=454;//It is the number variable to be checked for palindrome
+
+temp=n;
+
+while(n>0){
+
+r=n%10; //getting remainder 4
+
+n=n/10;//45
+
+sum=(sum*10)+r; //454
+
+}
+
+if(temp==sum)
+
+System.out.println("palindrome number ");
+
+else
+
+System.out.println("not palindrome");
+
+}
+
+}
+~~~~~~~~~~~~~~~~~
+Q) comparator sorting::
+
+A) 1.create arraylist pass employee object al.add(new Employee(12,"abc"));
+
+ofter collections.sort,iterator
+
+2.create Student class with parametrized constructor
+
+3.Namecomparator
+
+import java.util.*;
+
+class NameComparator implements Comparator{
+
+public int compare(Object o1,Object o2){
+
+Student s1=(Student)o1;
+
+Student s2=(Student)o2;
+
+return s1.name.compareTo(s2.name);
+
+}
+
+4.import java.util.*;
+
+class AgeComparator implements Comparator{
+
+public int compare(Object o1,Object o2){
+
+Student s1=(Student)o1;
+
+Student s2=(Student)o2;
+
+if(s1.age==s2.age)
+
+return 0;
+
+else if(s1.age>s2.age)
+
+return 1;
+
+else
+
+return -1;
+
+}
+
+}
+~~~~~~~~~~~~~~~~~
+Q) You can't sort a HashMap, but you can sort its entries obtained with entrySet().
+
+A) public class SortingusingMap {
+
+	public static void main(String[] args) {
+		// Create a HashMap
+		HashMap<Integer, String> hashMap = new HashMap<>();
+		hashMap.put(3, "hello");
+		hashMap.put(1, "rajesh");
+		hashMap.put(2, "are");
+
+		// Get the entry set
+		Set<Map.Entry<Integer, String>> entrySet = hashMap.entrySet();
+
+		// Convert the entry set to a list for sorting
+		List<Map.Entry<Integer, String>> entryList = new ArrayList<>(entrySet);
+
+		Collections.sort(entryList, new Comparator<Map.Entry<Integer, String>>() {
+
+			@Override
+			public int compare(Entry<Integer, String> o1, Entry<Integer, String> o2) {
+				// TODO Auto-generated method stub
+				return o1.getValue().compareTo(o2.getValue());
+			}
+		});
+		for (Map.Entry<Integer, String> entry : entryList) {
+			System.out.println(entry.getKey() + ": " + entry.getValue());
+		}
+	}
+o/p:
+2: are
+3: hello
+1: rajesh
+~~~~~~~~~~~~~~~~~
+Q) public class PrintDuplicateLetteorInString 
+
+A) public static void main(String[] args) {
+
+//String ip="navneet";
+
+String ip="aaaa";
+
+int count=0;
+
+char [] input = ip.toCharArray();
+
+System.out.println("Duplicate Characters are as follows:");
+
+for(int i=0;i
+
+{
+
+for(int j=i+1;j
+
+{
+
+if(input[i]==input[j])
+
+{
+
+System.out.println(input[j]);
+
+count ++;
+
+break;
+
+}
+
+}
+
+}
+~~~~~~~~~~~~~~~~~
+Q)2nd approach using Duplicate Elements FindinString UsingMap and print non repeated chars
+public static void main(String[] args) {
+		String s = "abca";
+		HashMap<Character, Integer> hm = new HashMap<>();
+		for (int i = 0; i < s.length(); i++) {
+			char c = s.charAt(i);
+			if (hm.containsKey(c)) {
+				hm.put(c, hm.get(c)+1);
+			} else {
+				hm.put(c, 1);
+			}
+		}
+		//print non repeated chars
+		for(char c:s.toCharArray()) {
+			if(hm.get(c)==2) {
+				System.out.println(c + " ");
+			}
+		}
+		output : a a
+~~~~~~~~~~~~~~~~~
+Q) PrintonlyStars
+
+A) Logic:first print i=1 to 5 ee loop lo ne inko j loop ravali kani j <i
+
+Logic: 1 2 3 4 5
+j i
+
+space is taken as one charecter
+public class PrintonlyStars {
+
+    public static void main(String[] args) {
+
+        for (int i = 0; i <= 5; i++) {
+            for (int j = 0; j < i; j++) { 
+                System.out.print("* ");//if you want numbers then print i on here.
+            }
+
+            System.out.print("\n");
+        }
+    }
+}
+output::
+*
+* *
+* * *
+* * * *
+~~~~~~~~~~~~~~~~~
+Q) String logics
+
+A) String s="abc";
+
+//s.length()//output:2
+
+//s.charAt(c);output is 2
+
+lastnumber i want so
+
+//s.length()-1 so output is 2
+
+for(int i=0;i
+
+{
+
+sop(s.charAt(i))
+
+}
+
+}
+
+output is:a
+
+b
+
+c
+
+String str = "abc ";
+
+for (int i = str.length(); i >= 0; i--) //here array index of bound exception is coming
+
+for (int i = str.length() - 1; i >= 0; i--) {
+
+System.out.print(str.charAt(i));
+
+}
+
+output is:c
+
+b
+
+a
+
+//count words by using split method based on space
+
+//string contains length() method..String[]contains length variable no length()
+
+String s = "abc abc abc";
+
+String[] s1 = s.split(" ");
+
+System.out.println(s1.length);//output is:: 3//based on words not index 0
+
+for (int i = 0; i < s1.length; i++) {
+
+System.out.println(s1[i]);
+
+}
+
+output is:: 3
+
+abc
+
+abc
+
+abc
+
+//print reverse words using split method.
+
+String values= "abc abc def";
+
+String[] values= s.split(" ");
+
+system.out.println(values[values.length-1]); output is: def
+
+for (int i = values.length()-1; i>0; i++) {
+
+System.out.println(values[i]);
+
+}
+
+system.out.println(values[i]); output is: def
+
+abc
+
+abc
+
+~~~~~~~~~~~~~~~~~
+Q) String reverse without using inbuilt methods
+
+A) Class ReversewothoutinbuiltString{
+
+static int i,c=0,res;
+
+static void stringreverse(String s)
+
+{
+
+char ch[]=new char[s.length()];
+
+for(i=0;i < s.length();i++)
+
+ch[i]=s.charAt(i);
+
+for(i=s.length()-1;i>=0;i--)
+
+System.out.print(ch[i]);
+
+}
+
+public static void main (String args[])
+
+{
+
+System.out.println("Original String is : ");
+
+System.out.println(" manchester united is also known as red devil ");
+
+ReversewothoutinbuiltString.stringreverse(" manchester united is also known as red devil ");
+
+}
+
+}
+
+}
+
+output::
+
+Original String is :
+
+manchester united is also known as red devil
+
+lived der sa nwonk osla si detinu retsehcnam
+
+~~~~~~~~~~~~~~~~~
+Q) String reverse 
+
+A) public class Stringreverse {
+
+string s=abc;
+
+sop(s.length())//output is 2 because range starts from 0,1,2
+
+sop(s.length()-1)//we can get last value.
+
+length() gives total sizes including space also it counts.it starts from 0
+
+length()-1 gives
+
+public static void main(String[] args) {
+
+String str = "Hello Java";
+
+for (int i = str.length() - 1; i >= 0; i--) {
+
+System.out.print(str.charAt(i));
+
+}
+
+}
+
+}
+~~~~~~~~~~~~~~~~~
+Q) Binary Search
+
+A) If the keys match, then a matching element has been found
+
+so its index, or position, is returned.
+
+Otherwise,
+
+if the key is less than the middle element's key,
+
+then the algorithm repeats its action on the sub-array
+
+to the left of the middle element.
+
+if the input key is greater,
+
+on the sub-array to the right.
+
+If the remaining array to be searched
+
+is reduced to zero, then the key cannot be found in the array and
+
+a special "Not found" indication is returned.
+
+Every iteration eliminates half of the remaining possibilities.
+
+This makes binary searches very efficient - even for large collections.
+
+Binary search requires a sorted collection.
+
+Also, binary searching can only be applied to a collection that allows random access (indexing).
+
+Worst case performance: O(log n)
+
+Best case performance: O(1)
+
+package com.logicalporams1;
+
+public class BinarySearch{
+
+public int binarySearch(int[] inputArr,int key) {
+
+int start = 0;
+
+int end = inputArr.length - 1;//o/p::7
+
+System.out.println("end"+end);
+
+while (start <= end) {
+
+int mid = (start + end) / 2;//0+7/2=3.5;
+
+System.out.println("mid"+mid);
+
+if (key == inputArr[mid]) {//key 8==//3.5
+
+return mid;
+
+}
+
+if (key < inputArr[mid]) {
+
+end = mid - 1;
+
+} else {
+
+start = mid + 1;
+
+}
+
+}
+
+return -1;
+
+}
+
+public static void main(String[] args) {
+
+BubbleSortExample mbs = new BubbleSortExample();
+
+int[] arr = {2, 4, 6, 8, 10, 12, 14, 16};
+
+System.out.println("Key 14's position: "+mbs.binarySearch(arr, 8));
+
+int[] arr1 = {6,34,78,123,432,900};
+
+System.out.println("Key 432's position: "+mbs.binarySearch(arr1, 432));
+
+}
+
+}
+
+output::
+
+end7
+
+mid3
+
+Key 8's position: 3
+
+end5
+
+mid2
+
+mid4
+
+Key 432's position: 4
+
+~~~~~~~~~~~~~~~~~
+
+Q) Bubble Sort in Java
+
+A) We can create a java program to sort array elements using bubble sort.
+
+Bubble sort algorithm is known as the simplest sorting algorithm.
+
+In bubble sort algorithm, array is traversed from first element to last element.
+
+Here, current element is compared with the next element.
+
+If current element is greater than the next element, it is swapped.
+
+public class BubbleSortExample {
+
+static void bubbleSort(int[] arr) {
+
+int n = arr.length;
+
+int temp = 0;
+
+for(int i=0; i < n; i++){
+
+for(int j=1; j < (n-i); j++){
+
+if(arr[j-1] > arr[j]){
+
+//swap elements
+
+temp = arr[j-1];
+
+arr[j-1] = arr[j];
+
+arr[j] = temp;
+
+}
+
+}
+
+}
+
+}
+
+public static void main(String[] args) {
+
+int arr[] ={3,60,35,2,45,320,5};
+
+System.out.println("Array Before Bubble Sort");
+
+for(int i=0; i < arr.length; i++){
+
+System.out.print(arr[i] + " ");
+
+}
+
+System.out.println();
+
+bubbleSort(arr);//sorting array elements using bubble sort
+
+System.out.println("Array After Bubble Sort");
+
+for(int i=0; i < arr.length; i++){
+
+System.out.print(arr[i] + " ");
+
+}
+
+}
+
+}
+
+Output:
+
+Array Before Bubble Sort
+
+3 60 35 2 45 320 5
+
+Array After Bubble Sort
+
+2 3 5 35 45 60 320
+
+~~~~~~~~~~~~~~~~~
+
+Q) cloning ?
+
+A)//Cloning in Java refers to the process of creating a copy of an object. 
+//Java provides a mechanism for object cloning using the clone() method, 
+//which is defined in the Cloneable interface. There are two types of cloning: shallow copy and deep copy.
+
+//clonedStudent, the changes also affected the originalStudent 
+//because both objects share a reference to the same Subject object. This demonstrates shallow copy behavior.
+
+//In the deep copy example, 
+//changes to the clonedStudent do not affect the originalStudent, demonstrating the independence of deep copies.
+
+public class Student implements Cloneable {
+		private String name;
+		private Subject subject;
+		public Student(String name, Subject subject) {
+			super();
+			this.name = name;
+			this.subject = subject;
+		}
+		
+		// for example of Deep copy we need this constructor
+	 //   public Student(Student other) {
+	 //       this.name = other.name;
+	 //       this.subject = new Subject(other.subject.getName());
+	 //   }
+		public String getName() {
+			return name;
+		}
+
+		public void setName(String name) {
+			this.name = name;
+		}
+
+		public Subject getSubject() {
+			return subject;
+		}
+
+		public void setSubject(Subject subject) {
+			this.subject = subject;
+		}
+
+		
+		@Override
+		public Object clone() throws CloneNotSupportedException {
+			return super.clone();
+		}
+		@Override
+	    public String toString() {
+	        return "Student{name='" + name + "', subject='" + subject.getName() + "'}";
+	    }
+
+	
+	public static void main(String[] args) throws CloneNotSupportedException {
+		
+		 Subject math = new Subject("Math");
+	        Student originalStudent = new Student("Alice", math);
+
+	        // Create a shallow copy
+	        Student clonedStudent = (Student) originalStudent.clone();
+
+	        // Modify the clonedStudent's name
+	        clonedStudent.setName("Bob");
+
+	        // Modify the subject of the clonedStudent
+	        clonedStudent.setSubject(new Subject("History"));
+
+	        System.out.println("Original Student: " + originalStudent);
+	        System.out.println("Cloned Student: " + clonedStudent);
+        
+
+	}
+
+}
+
+o/p:
+Original Student: Student{name='Alice', subject='Math'}
+Cloned Student: Student{name='Bob', subject='History'}
+~~~~~~~~~~~~~~~~~
+Q) Exceptions in detail ?
+
+A) 2types they are 1.builtin(checked,unchecked) 2.userdefined exceptions.
+exception details fetch from exception stack and displayed.
+
+->Myexception class:
+
+take string as a parametr in constructor
+and extend the Exception class(E is caps).
+and to string method for display userdefined message
+
+-->in main class
+
+try{throw messsage display object}
+catch(Myexception me)
+me.printstacktrace();
+
+public class CustomException extends Exception {
+	
+	private static final long serialVersionUID = 1L;
+	private String CustomException;
+	CustomException(String message){
+		super(message);
+		this.CustomException = message;
+	}
+	public static void main(String[] args) throws CustomException {
+		
+		int a =0;
+		try {
+			int b = a/0;
+		} catch (ArithmeticException e) {
+			throw new CustomException("custom"+e.getMessage());
+		}
+	}
+
+}
+
+o/p:
+
+Exception in thread "main" com.strings.CustomException: custom/ by zero
+	at com.strings.CustomException.main(CustomException.java:17)
+~~~~~~~~~~~~~~~~~
+Q) write Asingleton ?
+A) public class Asingleton {
+	private static Asingleton instance=null;
+	private Asingleton() {
+	}
+	public static Asingleton getInstance(){
+		if(instance==null) {
+			instance =new Asingleton();
+		}
+		return instance;
+		
+	}
+	public static void main(String[] args) {
+		Asingleton firstInstance =   Asingleton.getInstance();
+		Asingleton secondInstance =  Asingleton.getInstance();
+
+		System.out.println(firstInstance);
+		System.out.println(secondInstance);
+		
+	}
+
+}
+//output:
+//com.strings.Asingleton@15db9742
+//com.strings.Asingleton@15db9742
+
+~~~~~~~~~~~~~~~~~
+Q) Find EachCharCount ?
+A)public class EachCharCount {
+	public static void main(String[] args) {
+		String s = "abca";
+		char[] c = s.toCharArray();
+		int[] a = new int[256];
+		for (int i : c) {
+			a[i] = a[i] + 1;
+		}
+		for (int i = 0; i < a.length; i++) {
+			if (a[i] > 0) {
+               System.out.println("Character:"+(char)i+","+"Count "+a[i]);
+			}
+		}
+//output:
+//			
+//Character:a,Count 2
+//Character:b,Count 1
+//Character:c,Count 1
+~~~~~~~~
+Q ) FindNonRepeatedChars 
+A ) package com.strings;
+
+public class FindNonRepeatedChars {
+//Logic :
+	// string lo vunna data ni int array lo store cheyali.
+	//int array lo okasari vachina strings ni mathrame print cheyali.
+	public static void main(String[] args) {
+		String s = "hydedrabad";
+		int[] charCount = new int[256];
+		for (int i = 0; i < s.length(); i++) {
+			char currentChar = s.charAt(i);
+			charCount[currentChar]++;
+		}
+		
+        StringBuilder results = new StringBuilder();
+		for(int i=0;i<s.length();i++) {
+			char charAt = s.charAt(i);
+			if(charCount[charAt]==1) {
+				results.append(charAt);
+			}
+		}
+		System.out.println(results.toString());
+	}
+}
+
+//  Note :
+
+	//1. We create an integer array charCount to store character frequencies, assuming ASCII characters (256 possible characters).
+	//We initialize the frequency array by iterating through the input string and incrementing the count for each character.
+	//We then create a StringBuilder called result to store the non-repeated characters.
+	//We iterate through the input string again and check if the charCount of each character is 1. If it is, we append that character to the result StringBuilder.
+	//Finally, we return the result as a string.
+~~~~~~~~~~~~~~~~~
+
+Q ) SwapTwoNumers 
+A ) public class SwapTwoNumers {
+
+	public static void main(String[] args) {
+
+		int x,y;
+		x=1;y=0;
+		
+		x = x+y;//1
+		y= x-y;//1
+		x=x-y;//1
+		
+		System.out.println(x);
+		System.out.println(y);
+	
+	}
+o/p : x : 0
+      y : 1
+~~~~~~~~~~
+Q ) CountNoOfWordsInArray UsingHashMap
+A ) package com.strings;
+
+import java.util.HashMap;
+
+public class CountNoOfWordsInArray {
+
+	public static void main(String[] args) {
+
+		String[] str = { "hyd", "hyd", "viz", "ant", "ant" };
+
+		HashMap<String, Integer> citysList = new HashMap<String, Integer>();
+		for (String citys : str) {
+			if (citysList.containsKey(citys)) {
+				citysList.put(citys, citysList.get(citys) + 1);
+			} else {
+				citysList.put(citys, 1);
+
+			}
+
+		}
+		System.out.println(citysList.toString());
+	}
+
+}
+o/p: {hyd=2, viz=1, ant=2}
+~~~~~~~~~~~~~~~~~
+
+Q) CallableStatement interface is used to call the stored procedures and functions.
+
+A) We can have business logic on the database by the use of stored procedures and functions
+
+that will make the performance better because these are precompiled.
+
+mport java.sql.*;
+
+public class Proc {
+
+public static void main(String[] args) throws Exception{
+
+Class.forName("oracle.jdbc.driver.OracleDriver");
+
+Connection con=DriverManager.getConnection(
+
+"jdbc:oracle:thin:@localhost:1521:xe","system","oracle");
+
+CallableStatement stmt=con.prepareCall("{call insertR(?,?)}");
+
+stmt.setInt(1,1011);
+
+stmt.setString(2,"Amit");
+
+stmt.execute();
+
+System.out.println("success");
+
+}
+
+}
+
+~~~~~~~~~~~~~~~~~
+Q ) find MaxAndMinInArray ?
+A ) package com.strings;
+
+import java.util.Arrays;
+
+public class MaxAndMinInArray {
+
+	public static void main(String[] args) {
+		
+		Integer arr [] = {7,1,2,9,0};
+		int min =arr[0];
+		for (Integer i : arr) {
+			if(min<i) { // if if(min>i) //o/p: we get minimum value is : 0
+		         min =i;
+			}
+			
+		}
+		System.out.println(min);
+	}
+//o/p: 9
+~~~~~~~~~~~~~~~~~
+
+Q) Thymeleaf is a Java template engine for processing
+
+A) and creating HTML, XML, JavaScript, CSS, and text.
+
+~~~~~~~~~~~~~~~~~
+Q) for java website hosting into live
+
+A) https://www.youtube.com/watch?v=J1pViMfR7RA
+
+~~~~~~~~~~~~~~~~~
+
+Q) interviewer asked i want duplicate data in arraylist?
+
+A) answer is intersection(retainall())
+
+public static void main(String[] args) {
+
+ArrayList list = new ArrayList();
+
+list.add(1);
+
+list.add(2);
+
+list.add(3);
+
+list.add(4);
+
+ArrayList list1 = new ArrayList();
+
+list1.add(1);
+
+list1.add(3);
+
+list1.add(5);
+
+list.retainAll(list1);
+
+System.out.println(list);
+
+output is ::[1,3]
+
+the intersection A n B of two sets A and B is the set that contains all elements of A that also belong to B
+
+(or equivalently, all elements of B that also belong to A)
+
+The union of two sets A and B is the set of elements which are in A, in B, or in both A and B. In symbols,
+
+For example, if A = {1, 3, 5, 7} and B = {1, 2, 4, 6} then A ? B = {1, 2, 3, 4, 5, 6, 7}.
+
+~~~~~~~~~~~~~~~~~
+Q ) SortingStringArray 
+A ) public class SortingStringArray {
+
+	public static void main(String[] args) {
+
+		String[] arr = { "zz", "hyd","vij"};
+
+		for (int i = 0; i < arr.length; i++) {
+			String temp;
+			for (int j = i + 1; j < arr.length; j++) {
+				if (arr[i].compareTo(arr[j]) > 0) {
+					temp = arr[i];
+					arr[i] = arr[j];
+					arr[j] = temp;
+				}
+				System.out.println("j::"+arr[j]);
+
+			}
+			System.out.println(arr[i]);
+
+		}
+
+	}
+
+}
+
+with inbuilt functions we use arrays.sort(arr);
+~~~~~~~~~~~~~~
+Q ) SortingIntegerArray 
+A ) package com.strings;
+
+import java.util.Arrays;
+
+public class SortingIntegerArray {
+	public static void main(String[] args) {
+		
+		Integer arr [] = {0,1,1,0,1,0,1};
+		for (int i = 0; i < arr.length; i++) {
+			int temp=0;
+			for (int j = i+1; j < arr.length; j++) {
+				if(arr[i]>arr[j]) {
+				temp = arr[i];
+				arr[i]=arr[j];
+				arr[j]=temp;
+				}
+			}
+		}
+		for (int i=arr.length-1;i>0;i--) {
+			System.out.println(arr[i]);
+		}
+	}
+
+}
+
+//0/p: 1
+     //1
+     //1
+     //1
+     //0
+     //0
+
+Logic 2 :
+
+on 3/10/2023
+swap without using 3rd varaible;
+
+x = x+y;
+y= x-y
+x = x-y;
+
+desc on integer numbers?
+
+package com.strings;
+
+import java.util.Arrays;
+
+public class DesendingOfIntegers {
+
+	public static void main(String[] args) {
+		Integer[] arr = { 4, 1, 0, 2 };
+		boolean flag = true;
+		while (flag) {
+			flag = false;
+			for (int i=0;i<arr.length-1;i++) {
+				if (arr[i] < arr[i + 1]) {
+					int temp = arr[i];
+					arr[i] = arr[i + 1];
+					arr[i + 1] = temp;
+					flag = true;
+					System.out.println("----->" + Arrays.toString(arr));
+				}
+
+			}
+		}
+	}
+
+}
+o/p: 0 1 2 4
+~~~~~~~~~~~~~~~~~
+
+Q) Get the sum of numbers
+
+A0total = n*(n+1)/2
+
+2 Subtract all the numbers from sum and
+
+you will get the missing number.
+
+// Java program to find missing Number
+
+class Main
+
+{
+
+// Function to ind missing number
+
+static int getMissingNo (int a[], int n)
+
+{
+
+int i, total;
+
+total = (n+1)*(n+2)/2;
+
+for ( i = 0; i< n; i++)
+
+total -= a[i];
+
+return total;
+
+}
+
+/* program to test above function */
+
+public static void main(String args[])
+
+{
+
+int a[] = {1,2,4,5,6};
+
+int miss = getMissingNo(a,5);
+
+System.out.println(miss);
+
+}
+
+}
+//output is 3
+~~~~~~~~~~~~~~~~~
+Q)FindFirstNonDuplicates 
+A)public static void main(String[] args) {
+
+        String s = "test";
+
+        StringBuffer sb = new StringBuffer();
+        boolean foundDuplicate = false;
+
+        for (int i = 0; i < s.length(); i++) {
+            char charAt = s.charAt(i);
+            if (s.indexOf(charAt) == s.lastIndexOf(charAt)) {
+                sb.append(charAt);
+                foundDuplicate = true;
+                break;
+            }
+        }
+
+        if (!foundDuplicate) {
+            System.out.println("No non-duplicate found");
+        } else {
+            System.out.println(sb.toString());
+        }
+    }
+	~~~~~~~~~~~~~~~~~

@@ -1,0 +1,366 @@
+Category: Microservices
+Q) Microservices
+
+A) below dependencys required from spring.io::
+
+web,Eureka Discovery,Feign,Hystrix,Config Client
+
+E:\angular Record\micro service
+
+microservice lo work chese tapudu ee below vi add cheyali.
+
+step 1: dependency add cheyali
+
+step 2 : annotation use cheyali.
+
+
+
+step 3 : property file add cheyali.
+
+eureka discovery ani tesukovali. spring.io lo eurekaclient @ work avalante
+
+
+
+spring-cloud-starter-netflix-eureka-server
+
+client ni server ki ela add chesthamante::
+
+spring-cloud-starter-netflix-eureka-server
+
+spring.application.name:eurekaClient1
+
+eureka.client.serviceUrl.defaultZone:http://localhost:2020/eureka
+
+spring.application.name-->ikada ichina name thone browser lo register avuthndi.
+
+
+
+Resttemplate resttemplate = new Resttemplate();
+
+ResponceEntity re= resttemplate.getForEntity("http://localhost",String.class);
+
+String responce = re.getBody();
+
+or
+
+spring boot main lo
+
+@Bean
+
+@Loadbalanced
+
+public Resttemplate getRestTempltae(){
+
+return new Resttemplate();
+
+}
+
+so ikada @loadbalanced aunte manamu ocalhost port number tho ayithe port number chnage chesthe prblem avuthundi.
+
+so danni avoid cheyalante getforEntity lo spring.application.name tesukovali. ila tesukoni resttemplate dagara @loadbalancer ani ivvali.
+
+
+
+@EnableFeignClient
+
+@FeignClient("http://aping.application.name/getData")
+
+interface FeignClientTest{
+
+}
+
+
+
+hystrix ::
+
+hystrix-dashboard
+
+fiegn
+
+properties file loki velli
+
+feign.hystrix.enabled=true
+
+ani ivvali.
+
+fail ayithe daniki fallback rayali.
+
+@FeignClient(name="TEST1",fallback=FeignFallBack.class)
+
+@Component
+
+public interface FeignClienttest{
+
+@RequestMapping("/controller100/data")
+
+public String getData();
+
+}
+
+@Component
+
+public class FeignFallBack impleents FeignCLientTest{
+
+public String getData(){
+
+syso("problem raised")
+
+}
+
+}
+
+}
+
+
+
+config server ::
+
+config server ane spring.io lo dependency tesukovali.
+
+main dagara @enableconfigserver tesukovali.
+
+resources lo config ane folder create cheyali.
+
+spring.cloud.config.uri : http://localhost:4444/so ikada vachi propery files ni tesukuntundi.
+
+git lo cofig folder/ lo spring.application.name ee name tho oka file git lo config folder create cheyali.
+
+git lo vunna files connect avalante.
+
+spring.cloud.config.server.git.uri:https://giuhub.com/rajesh
+
+spring.cloud.config.server.git.username : potrajes123
+
+spring.cloud.config.server.git.password: Service@12345
+
+spring.cloud.config.uri:http://loalhost:2222(bootstrap.properties lo ee line ivvali.)
+
+
+
+proxy or gateway or zuul or FrontController
+
+zuul ::
+
+spring.application.name:proxy
+
+eureka.client.serviceurl.defaultzone:http://localhost:8080
+
+zuul.routes.a.path:/client1/**
+
+zuul.routes.a.serviceId:eureksClient1
+
+zuul.rourtes.b.path:/client2/**
+
+zuul.routes.b.serviceId:eurekaClient2
+
+ee zuul lo vunayi anni git folder lo zuul.properties ani file create chesi.dantlo veyali.
+
+
+
+auth server::
+
+oka token generate avuthundi
+
+aa token ni resource server(@EnableResouceServer) ki send cheyali.
+
+aa token verify chesedi auth server.
+
+so auth server verify chesi.respone true or false aa ani resource server ki cheptundi.
+
+authorized person aa kada so apudu client id and secret key kavali.
+
+security lo username base chesukoni. aa userdetails ni istundi.
+
+authrozation-->login ayaka oka page ni acces cheyalante vediki acess vunda..(role based).
+
+authentication : verify username and pwd.
+
+filter loadUserbyUsername()ki cal chestndi by default.
+
+authenticationManager ni filter cal chestundi.
+
+user enter chesina loadbyuserbyusername cal chesi aa userdetais ni filter ki istundi..so ikada authentication mnger ila use avuthundi.
+
+clientid secret verify cheyalante.
+
+cientdetails-->loadClientByclient()
+
+cientdetailsService()
+
+ee rendu jarigithene token generate avuthundi.
+
+
+
+oauth code::
+
+@Configuration
+
+@EnableWebSecurity
+
+public class SecurityConfig extends WebSecurityConfigurerAdapter
+
+{
+
+@Bean
+
+public AuthenticationManager authenticationManagerBean(){
+
+return super.authenticationManagerBean();
+
+what is circuitbreaker?
+
+conclusion :Netflix Hystrix tolerance library dwara manamu application fail ayina sare exact data ni ivvagalamu.
+
+@HystrixComand anedi failayina same proxy method ni create chesukoni aa fail ayina method data ni istundi .
+
+deniki ee capability ravalante @Enablecircuitbreaker ani application class ki ivali.apude @HystrixComand failures ni monitor chestundi.
+
+
+
+details explonation in below ::
+
+we can apply circuit braker by using Netflix Hystrix tolerance library.
+
+
+org.springframework.cloud
+
+spring-cloud-starter-netflix-hystrix
+
+step 1 : @EnableCircuitBreaker for aplication class ki.
+
+failure ni Hystrix monitor chestundi.if failure is reaches certain threshold
+
+its open the circuit.while circuit is open it call to @Histrix (Fallbackmethod=ReadLIst)
+
+so here fall back method it will create proxy method its exactly same as original method. and returns it to specific caller.
+
+step2 :
+
+@HystrixCommand(fallbackMethod = "reliable")
+
+public String readingList() {
+
+URI uri = URI.create("http://localhost:8090/recommended");
+
+return this.restTemplate.getForObject(uri, String.class);
+
+}
+
+public String reliable() {
+
+return "Cloud Native Java (O'Reilly)";
+
+}
+
+
+
+@EnableCircuitBreaker. That annotation tells Spring Cloud that the reading application uses circuit breakers and to
+
+enable their monitoring, opening, and closing (behavior supplied, in our case, by Hystrix).
+
+output:
+
+Now stop the bookstore application. Your list source is gone, but thanks to Hystrix and Spring Cloud Netflix it gives original data from cache.
+
+
+
+unknownhostexception-->ee exception vasthe Resttemplate Bean create chesina aa method paina @loadbalaced ani use cheyali.otherweise we get error like unknownhostexception.
+
+
+
+video 3: about fiegn
+
+feignClient nundi kuda data ni send cheyavachu(like resttempltae)
+
+@FeignClient(name="TEST1")
+
+
+
+video 4 : fallback
+
+throw new ani userdefined ni send chesthamu normal ga java lo
+
+but here aa method class paina
+
+@FeignClient(name="Test",fallback=Customizedclass)
+
+public interface FallbackTest{
+
+public string getData();
+
+}
+
+public class CustomizedClass implements Fallbacktest{
+
+@override
+
+public string getData(){
+
+return "backup mesage"
+
+}
+
+}
+
+
+
+config folder ni resources lo tesukovali.dentlo all dev,qa ila vuntayi.
+
+src/main/resources aunte classpath lo file ani meaning.
+
+boottrap.properties aunte first ee files load avuthayi.load ayye kana munde
+
+bootstrap lo git aa svn aa mentionchesthe dani battti velthundi application.prop ki.
+
+config di default port is 8888 manamu dani ki bootstrap.prop lo mana port number ivakapothe adi default port(8888) ki cal avuthundi.
+
+video 5 : configurationServer(dependencies: web,configserver in spring.io lo)
+
+step 1 : spring.io nundi web,configserver ni ichi download chesi eclipse lo import cheyali.
+
+step 2 : main dagara @enableConfigserver anali.
+
+step 3: config ane folder ni resources tesukovali.
+
+step 4: spring.application.name aa filename tesukoni aafilename.properties ani create cheyali resources ane folder lo.
+
+Test1.properties:
+
+test.property = testvalue from 100
+
+step5:application.properties:spring.cloud.config.server.native.searchLocations:classpath:/config/
+
+step 6 : boptstrap.properties tesukovali.
+
+spring.cloud.config.uri:http://localhost:4444
+
+spring.profiles.active:native(look for step5 native word)
+
+step 7 :cloud.config.client ane dependency ni tesukovali.
+
+step 8: application.prop lo git uri.username,pwd ivali.
+
+ste p 9: spring.cloud.config.ur.:http://locahost:4444 -->client lo ivali.
+
+
+
+step 1: git lo configfolder lo Test1.properties
+
+app.mydata: git config configuration
+
+commit newfile anali.
+
+step 2 : eureka client lo
+
+@Value("${app.mydata:defaultData}")
+
+private String data;
+
+
+
+video 7;config client --BELOW vi spring.io nundi tesukovali.
+
+Web,eureka discovery,config client,FEIGN,HYSTRIX,HYSTRIX DASHBOARD
+
+}
+~~~~~~~~~~~~~~~~~~~

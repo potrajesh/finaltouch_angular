@@ -1,0 +1,26 @@
+<div class="notepad">
+    <div class="category-dropdown">
+      <select [(ngModel)]="selectedCategory" (ngModelChange)="onCategorySelected($event)">
+        <option *ngFor="let category of categories" [value]="category.name">{{ category.name }}</option>
+      </select>
+    </div>
+    
+    <div class="notepad-content">
+      <div *ngIf="selectedCategory">
+        <div *ngFor="let category of categories">
+          <div *ngIf="category.name === selectedCategory" class="category-section">
+            <div *ngFor="let qa of category.qa let i=index">
+              <!-- Display question and answer in non-edit mode -->
+              <p [ngClass]="{'question-text': true, 'green-text': !qa.showAnswer}" 
+              (click)="toggleAnswer(qa)">{{i+1}}. {{ qa.question }}</p>
+              <pre *ngIf="!qa.showAnswer">{{ qa.answer }}</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+   
+
+
+    
+  

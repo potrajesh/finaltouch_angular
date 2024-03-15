@@ -1,0 +1,82 @@
+/* Common styles for all screen sizes */
+
+/* Style for the dropdown and category section */
+.notepad {
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Style for the category section */
+  .category-section {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  /* Style for the question text */
+  .question-text {
+    color: green;
+    cursor: pointer;
+  }
+  
+  /* Style for the answer text (preformatted) */
+  pre {
+    white-space: pre-wrap; /* Preserve line breaks */
+    background-color: #f0f0f0;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  /* Styles for mobile phones (up to 767px wide) */
+  @media (max-width: 767px) {
+    /* Adjust styles for mobile phones here */
+    .notepad {
+      font-size: 14px; /* Adjust font size for smaller screens */
+    }
+  }
+  
+  /* Styles for tablets (768px to 1023px wide) */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    /* Adjust styles for tablets here */
+    .notepad {
+      font-size: 16px; /* Adjust font size for medium-sized screens */
+    }
+  }
+  
+  /* Styles for laptops and larger screens (1024px and wider) */
+  @media (min-width: 1024px) {
+    /* Adjust styles for laptops and larger screens here */
+    .notepad {
+      font-size: 18px; /* Adjust font size for larger screens */
+    }
+  }
+  
+  /* Style for the entire dropdown container */
+  .category-dropdown {
+    position: relative; /* Ensure relative positioning for proper z-index */
+    width: 200px; /* Adjust the width as needed */
+  }
+  
+  /* Style for the select element */
+  .category-dropdown select {
+    width: 100%;
+    padding: 10px; /* Adjust padding as needed */
+    font-size: 16px; /* Adjust font size as needed */
+    border: 1px solid #ccc; /* Add border */
+    border-radius: 5px; /* Add border radius */
+    appearance: none; /* Remove default styles on some browsers */
+    background-color: white; /* Background color for the dropdown area */
+  }
+  
+  /* Style for the dropdown arrow */
+  .category-dropdown::after {
+    content: "\25BC"; /* Unicode character for down arrow (▼) */
+    position: absolute;
+    top: 50%;
+    right: 10px; /* Adjust the right position as needed */
+    transform: translateY(-50%);
+    pointer-events: none; /* Ensure the arrow doesn't interfere with clicks */
+  }
+  /* Style for the vertical menu container */
+  
+  

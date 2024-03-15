@@ -1,0 +1,1049 @@
+Category: Hibernate
+Q) Hibernate
+
+A) Hibernate
+
+request mapping used for map web request on to specific handler classes(or)methods.
+
+Entity bean used for store persistant data stored in db like @entity and it is a server side component.
+
+
+
+how to data receive data using hibernate
+
+create new configuration("hibernate.cfg.xml")
+
+conf.sessionfactory
+
+session open sesssion
+
+begintransaction,
+
+Query query=session.createQuery("from employee");
+
+
+
+HIbernate
+
+
+
+save(or)update evict()
+
+clear()
+
+transient------------>persistant-------->detached
+
+
+delete() merge()
+
+lock()(or)save or update no
+
+Transient means no id and no records in db,before session object created.
+
+persistance means records available in db.
+
+session session =create sessionfactory.getsession
+
+transaction tx=session.begintransaction();
+
+session.save(std)
+
+tx.commit();
+
+session.close();
+
+detached means session.close
+
+flush()->save but not commit
+
+evict()-->perticular object to clear(one object)
+
+merge--two more objects in same session containing same id is
+
+called nonunique object exception occur.
+
+it is also used for detached to persistance state used.
+
+save(or)update aunte update ayye mundu object vunda leda check chestundi.oka vela vunte update chestundi.
+
+
+
+Hibernate
+
+what is ORM?
+
+object relation mapping:
+
+object is instance of a class and relation is record in a table .
+
+so object and relation we need a tool called orm.
+
+both object and relation is holding data.
+
+object converting record is called orm.
+
+convert one framework to another framework required mapping .
+
+it solve 3 problems
+
+1.mismatch of data types
+
+2.mismatch of relationships
+
+3.storage types(classes and tables)
+
+Hibernate
+
+java is a programming area,db is a storage area
+
+our java object convert to record.record convert to object
+
+we are facing 3 challenges.
+
+1.java datatypes and db data types is different.
+
+there is no need to change pojo class .
+
+hibernate improve the performance.by using caching(1st level cache,2nd level cache)
+
+lazy loading implemented using proxy design patterns.
+
+dialet,driverclassname,url,username,password these are also changed .so configuration (bds) only changed.no change in coding.
+
+
+
+configuration conf=new annotation.configure()
+
+schemaexport export =new schemaexport(conf)
+
+export.create(true,true)
+
+it will create automatic table and columns in db by using schemaexport.
+
+
+
+explonation about get and load methods in session.
+
+class Person{
+
+private string getname;
+
+public string getName(){
+
+return getname;
+
+}
+
+}
+
+session.get(pojo.class,1) here only generate queries
+
+person person =(Person)session.load(Person.class,1);
+
+person.getname();
+
+in above person class we are not write any jdbc query stuff.and how it will generate query .
+
+means by using load method.
+
+so our class cretaed sub class called proxy ..
+
+lazy(or)load()-->when use that getname()method it is called lazy loading.so it is called to proxy(subclass).
+
+if record not ther it returns objectnot found exception.
+
+session.get(person.class,2)-->eager loading,record get returns null object.
+
+person.getname annapude idi db query generate chestundi.
+
+because load it wil create sub class for our person class and write getname()method and jdbc logic also written
+
+so thats y it will be generate query.this query coming from session load only.
+
+
+
+one to one mapping in hibernate::
+
+rule 1::keep the references in both classes.
+
+rule 2:keep @one to one like
+
+rule 3:write @joincolumn and mapped by in 2 classes
+
+fro ex::
+
+db table::
+
+salary table::
+
+id salary empid
+
+
+
+1 12000 2
+
+
+
+public class Salary{
+
+private int salary
+
+private Employee emp;
+
+}
+
+//getter and setter
+
+@one to one
+
+@joincolumn(name="empid")
+
+public Employee getEmployee(){
+
+return Employee;
+
+}
+
+public class Employee{
+
+private String name;
+
+private Salary salary;
+
+}
+
+//setter and getter
+
+@one to one(mapped By="emp")
+
+public Salary getSalary(){
+
+return Salary;
+
+}
+
+so session.get(Employee.class,1)
+
+aunte idi salary object ni kuda istundi.
+
+
+
+why orm .in spring already given orm ??
+
+jdbc vadetapudu evry time connection create,prepared,resultset chesthamu,
+
+ade bds vadetapudu idi no.of connection pool object ni istundi.so no need to create connection again again.
+
+only hibernate framework vadetapudu.manamu hibernate.cfg.xml,Employee.hbm.xml file create chestamu.with help of mapping resource
+
+it will idenify employee.hbm.xml file.
+
+manamu spring hibernate vadetapudu .no need hibernate.cfg.xml file
+
+and Creative.hbm.xml file.
+
+manaku automatic ga ade by classname query isthamu so ade queries ni generate
+
+chesukuntundi
+
+it gives the solution for mismatch data types,relationships with respecct to
+
+java class and database.
+
+
+
+below is for hibernate curd operations::
+
+shema export chesina ventane querybrowser restart chesthe apudu aa automatic tables vasthayi ok na.
+
+public class CreativeMain {
+
+public static void main(String[] args) {
+
+Configuration conf = new Configuration();
+
+Configuration configure = conf.configure("hibernate.cfg.xml");
+
+//it is for automatic tables creation in db lo noneed of manually
+
+/*1.SchemaExport export=new SchemaExport(configure);
+
+export.create(true,true);1*/
+
+SessionFactory sf = configure.buildSessionFactory();
+
+Session session = sf.openSession();
+
+Transaction tx = session.beginTransaction();
+
+//this is for save data in db using hibernate w/o commit .data is not saved in db
+
+/*2.Creative creative2 = new Creative();
+
+creative2.setId(1);
+
+creative2.setAge(12);
+
+creative2.setName("name");
+
+creative2.setQual("qual");
+
+session.save(creative2);
+
+2.*/
+
+//get name data from db here we are not write any jdbc query and logic but it follows internally.
+
+/*3 Creative creative=(Creative)session.get(Creative.class,1);
+
+creative.setId(1);
+
+session.update(creative);
+
+System.out.println("getId::"+creative.getId());3*/
+
+////get delete 2 row id from db here we are not write any jdbc query and logic but it follows internally.
+
+//query given like this Hibernate: delete from creative where id=?
+
+Creative creative=(Creative)session.get(Creative.class,2);
+
+session.delete(creative);
+
+tx.commit();
+
+session.close();
+
+System.out.println("sucessfully deleted");
+
+}
+
+}
+
+
+
+Springboothibernate
+
+java8 features of lambda expressions::
+
+Reference to an Instance Method of a Particular Object
+
+The following is an example of a reference to an instance method of a particular object:
+
+class ComparisonProvider {
+
+public int compareByName(Person a, Person b) {
+
+return a.getName().compareTo(b.getName());
+
+}
+
+public int compareByAge(Person a, Person b) {
+
+return a.getBirthday().compareTo(b.getBirthday());
+
+}
+
+}
+
+ComparisonProvider myComparisonProvider = new ComparisonProvider();
+
+Arrays.sort(rosterAsArray, myComparisonProvider::compareByName);
+~~~~~~~~~~~~~~~~~~
+
+Category: spring
+Q) spring
+
+A) spring
+
+The IoC container is responsible to instantiate, configure and assemble the objects.
+
+The IoC container gets informations from the XML file and works accordingly.
+
+The main tasks performed by IoC container are:
+
+to instantiate the application class to configure the object
+
+to assemble the dependencies between the objects
+
+There are two types of IoC containers. They are:
+
+BeanFactory
+
+ApplicationContext
+
+why spring is singleton?
+
+Singleton scope in spring means single instance in a Spring context ..
+
+Spring container merely returns the same instance again and again for subsequent calls to get the bean.
+
+how to default spring is singleton aunte.
+
+main(){
+
+ApplicationContext ac= new AnnotationConfigApplicationContext(spring.xml);
+
+Student std=ac.getBean("bean id name");
+
+Student std1=ac.getBean("bean id name");
+
+Student std2=ac.getBean("bean id name");
+
+system.out.println(std);
+
+system.out.println(std1);
+
+system.out.println(std2);
+
+system.out.println(std);
+
+}
+
+output is same hsahcode for 3 sop's ok na
+
+so it is singleton.
+
+bean scope?
+
+request ,session,prototype,globalsession,singleton.
+
+prototype aunte oka bean create chestamu.getbean ani denni cal chesinapudally diffrent hashcode ni istundi.
+
+The default scope is always singleton. However, when you need one and only one instance of a bean,
+
+you can set the scope property to singleton in the bean configuration file, as shown in the following code snippet -
+
+A bean definition with singleton scope
+
+bean id = "..." class = "..." scope = "singleton"
+
+collaborators and configuration for this bean go here
+
+bean
+
+
+
+Bean lifecycle::
+
+instantiate
+
+!!
+
+populate properties
+
+!!
+
+setbeanname()
+
+!!
+
+setBeanFactory
+
+!!
+
+pre initilization
+
+!!
+
+intilize ofter properties set
+
+!!
+
+post initilization
+
+!!
+
+Bean is Ready to use
+
+
+
+@component annaotation marks a java class as a bean so the component-scanning mechanism of spring can pick it up and pull it into the application context
+
+
+
+@Required annotation::
+
+you would like to check if particular set of properties have been set or not in some specific beans only.
+
+Spring’s dependency checking feature using “dependency-check” attribute,
+
+will not able to help you in this case. So solve this problem, you can use @Required annotation.
+
+
+
+what is @service ? how to create object the services?
+
+his annotation serves as a specialization of {@link Component @Component},
+
+* allowing for implementation classes to be autodetected through classpath scanning.
+
+ApplicationContext context = new ClassPathXmlApplicationContext("services.xml", "daos.xml");
+
+ans is ::
+
+in spring API service decompiler open cheyagane below laga vundi.
+
+@Target({ElementType.TYPE})
+
+@Retention(RetentionPolicy.RUNTIME)
+
+@Documented
+
+@Component
+
+public @interface Service {
+
+/**
+
+* The value may indicate a suggestion for a logical component name,
+
+* to be turned into a Spring bean in case of an autodetected component.
+
+* @return the suggested component name, if any
+
+*/
+
+String value() default "";
+
+}
+
+
+
+what is @repository? how to create object the @repository ?
+
+Indicates that an annotated class is a "Repository", originally defined by
+
+* Domain-Driven Design (Evans, 2003) as "a mechanism for encapsulating storage,
+
+* retrieval, and search behavior which emulates a collection of objects".
+
+*
+
+*
+
+Teams implementing traditional J2EE patterns such as "Data Access Object"
+
+* may also apply this stereotype to DAO classes,
+
+@Target({ElementType.TYPE})
+
+@Retention(RetentionPolicy.RUNTIME)
+
+@Documented
+
+@Component
+
+public @interface Repository {
+
+/**
+
+* The value may indicate a suggestion for a logical component name,
+
+* to be turned into a Spring bean in case of an autodetected component.
+
+* @return the suggested component name, if any
+
+*/
+
+String value() default "";
+
+}
+
+
+
+what is @controller?
+
+/**
+
+* Indicates that an annotated class is a "Controller" (e.g. a web controller).
+
+*
+
+*
+
+This annotation serves as a specialization of {@link Component @Component},
+
+* allowing for implementation classes to be autodetected through classpath scanning.
+
+* It is typically used in combination with annotated handler methods based on the
+
+* {@link org.springframework.web.bind.annotation.RequestMapping} annotation.
+
+*
+
+* @author Arjen Poutsma
+
+* @author Juergen Hoeller
+
+* @since 2.5
+
+* @see Component
+
+* @see org.springframework.web.bind.annotation.RequestMapping
+
+* @see org.springframework.context.annotation.ClassPathBeanDefinitionScanner
+
+*/
+
+@Target({ElementType.TYPE})
+
+@Retention(RetentionPolicy.RUNTIME)
+
+@Documented
+
+@Component
+
+public @interface Controller {
+
+/**
+
+* The value may indicate a suggestion for a logical component name,
+
+* to be turned into a Spring bean in case of an autodetected component.
+
+* @return the suggested component name, if any
+
+*/
+
+String value() default "";
+
+}
+
+
+
+what is component ?
+
+/**
+
+* Indicates that an annotated class is a "component".
+
+* Such classes are considered as candidates for auto-detection
+
+* when using annotation-based configuration and classpath scanning.
+
+*
+
+*
+
+Other class-level annotations may be considered as identifying
+
+* a component as well, typically a special kind of component:
+
+* e.g. the {@link Repository @Repository} annotation or AspectJ's
+
+* {@link org.aspectj.lang.annotation.Aspect @Aspect} annotation.
+
+*
+
+* @author Mark Fisher
+
+* @since 2.5
+
+* @see Repository
+
+* @see Service
+
+* @see Controller
+
+* @see org.springframework.context.annotation.ClassPathBeanDefinitionScanner
+
+*/
+
+@Target(ElementType.TYPE)
+
+@Retention(RetentionPolicy.RUNTIME)
+
+@Documented
+
+public @interface Component {
+
+/**
+
+* The value may indicate a suggestion for a logical component name,
+
+* to be turned into a Spring bean in case of an autodetected component.
+
+* @return the suggested component name, if any
+
+*/
+
+String value() default "";
+
+}
+
+
+
+what is @RestController ?
+
+**
+
+* A convenience annotation that is itself annotated with
+
+* {@link Controller @Controller} and {@link ResponseBody @ResponseBody}.
+
+*
+
+* Types that carry this annotation are treated as controllers where
+
+* {@link RequestMapping @RequestMapping} methods assume
+
+* {@link ResponseBody @ResponseBody} semantics by default.
+
+*
+
+*
+
+NOTE: {@code @RestController} is processed if an appropriate
+
+* {@code HandlerMapping}-{@code HandlerAdapter} pair is configured such as the
+
+* {@code RequestMappingHandlerMapping}-{@code RequestMappingHandlerAdapter}
+
+* pair which are the default in the MVC Java config and the MVC namespace.
+
+* In particular {@code @RestController} is not supported with the
+
+* {@code DefaultAnnotationHandlerMapping}-{@code AnnotationMethodHandlerAdapter}
+
+* pair both of which are also deprecated.
+
+*
+
+* @author Rossen Stoyanchev
+
+* @author Sam Brannen
+
+* @since 4.0
+
+*/
+
+@Target(ElementType.TYPE)
+
+@Retention(RetentionPolicy.RUNTIME)
+
+@Documented
+
+@Controller
+
+@ResponseBody
+
+public @interface RestController {
+
+/**
+
+* The value may indicate a suggestion for a logical component name,
+
+* to be turned into a Spring bean in case of an autodetected component.
+
+* @return the suggested component name, if any
+
+* @since 4.0.1
+
+*/
+
+String value() default "";
+
+}
+
+
+
+when we go for constructor and setter injection?
+
+https://stackoverflow.com/questions/27132348/when-to-use-constructor-injection-in-spring
+
+Q33) Explain different modes of auto wiring?
+
+byName: When autowiring byName, the Spring container looks at the properties of the beans on which autowireattribute is set to byName
+
+in the XML configuration file. It then tries to match and wire its properties with the beans defined by the same names in the configuration file.
+
+byType:set to byType in the XML configuration file. It then tries to match and wire a property if its type matches with
+
+exactly one of the beans name in configuration file. If more than one such beans exist, a fatal exception is thrown.
+
+constructor:This mode is similar to byType, but type applies to constructor arguments. If there is not exactly one bean of the
+
+constructor argument type in the container, a fatal error is raised.
+
+autodetect: Spring first tries to wire using autowire by constructor, if it does not work, Spring tries to autowire bybyType.
+
+Q53) Joinpoint
+
+The join point represents a point in an application where we can plug-in an AOP aspect.
+
+Q54) Advice
+
+The advice is the actual action that will be taken either before or after the method execution.
+
+Spring aspects can work with five kinds of advice:
+
+before: Run advice before the method execution.
+
+after: Run advice after the method execution regardless of its outcome.
+
+after-returning: Run advice after the method execution only if method completes successfully.
+
+after-throwing: Run advice after the method execution only if a method exits by throwing an exception.
+
+around: Run advice before and after the advised method is invoked.
+
+Q55) Pointcut
+
+The pointcut is a set of one or more joinpoints where an advice should be executed. You can specify pointcuts using expressions or patterns.
+
+Q25) Explain the bean scopes supported by Spring
+
+There are five scoped provided by the Spring Framework supports following five scopes:
+
+In singlet on scope, Spring scopes the bean definition to a single instance per Spring IoC container.
+
+In prototype scope, a single bean definition has any number of object instances.
+
+In request scope, a bean is defined to an HTTP request. This scope is valid only in a web-aware Spring ApplicationContext.
+
+In session scope, a bean definition is scoped to an HTTP session. This scope is also valid only in a web-aware Spring ApplicationContext.
+
+In global-session scope, a bean definition is scoped to a global HTTP session. This is also a case used in a web-aware Spring ApplicationContext.
+
+The default scope of a Spring Bean is Singleton.
+
+by upendra sir:
+
+spring lo singleton aunte oka class ki multiple beans create cheyavachu.
+
+oka bean ki oke object create avuthundi means if your calling getbean it return same hashcode.
+
+singleton design pattern aunte oka class oka object create avuthundi.
+
+throughout the application.
+
+prototype aunte oka bean create chestamu.getbean ani denni cal chesinapudally diffrent hashcode ni istundi.
+
+object creation in spring 3 ways
+
+1.beans in xml 2.steoreotypes(@controller,@service..)3.@configuration.
+
+@service
+
+public class UserDetailsService{
+
+}
+
+@configuration
+
+public class ApplicationConfig{
+
+@Bean
+
+public UserDetailsServiceImpl userDetailsServiceImpl(){
+
+return new UserDetailsServiceImpl();
+
+}
+
+}
+
+in above it will create object
+
+only one not two because bydefault it is singleton.
+
+
+
+ade prototype aunte inject annappudalla new object create avuthundi(prototype ni use chesinappudalla new object create avuthundi)
+
+@configuration
+
+public class ApplicationConfig{
+
+@Bean
+
+@scope("prototype")
+
+public UserDetailsServiceImpl userDetailsServiceImpl(){
+
+return new UserDetailsServiceImpl();
+
+}
+
+}
+
+
+
+cannot read/write exception vasthe run on server anali not run as java application.
+
+
+
+bydefault singleton is eager because aa object ni use chestunapude object create avuthundi.
+
+
+
+class StudentService{
+
+}
+
+
+
+@configuration
+
+class test{
+
+@Bean
+
+public StudentService studentService(){
+
+sop("StudentService object is created")
+
+return new StudentService();
+
+}
+
+}
+
+ila configuration,bean aunte deniki object create avuthundi.
+
+
+
+difference of beanfactory and application context.
+
+Application context used for events configuration,internationalization,load property file,external resources
+
+beanfcatory very low level memory
+
+
+
+Bean life cycle::
+
+below 5 are interfaces only(say example of multipleinheritance)
+
+class UserDeatilsService implements BeannameAware,BeanFacotoryAware,ApplicationcontextAware,InitializingBean,Beanpostprocessor(preprocessor,postprocessor).
+
+ila implements aunte beannameaware manaki ee bean ki cal avuthundo istundi
+
+@Bean(name="syudent2")
+
+public Student student(){
+
+return new Student();
+
+}
+
+beanfactory aware aunte beans anni ofterpropertyset ane method dwara beans ni
+
+factory lo peduthundi.
+
+every bean intilize mundu pre processor,post processor
+
+call avuthayi.
+
+internally inject ayina object ee first call avuthundi
+
+ofter mana class object ki call avuthundi.
+
+
+
+manamu inject cheyalante by using property or method ga kani cheya vachu.
+
+
+
+
+
+@configuration
+
+class A
+
+@Bean
+
+@scope("singleton")//enni sarlu call chesina same hashcode(ade object)istundi.
+
+@scope("prototype")//enni sarlu cal chesthe diffrent hashcode ni istundi
+
+//aunte oka bean ee diffferent objects ni istundi.
+
+public Student std(){
+
+return new Student();
+
+}
+
+@autowired
+
+@qualifier("mystudent")//oka class ki 2(or 2 diffrent beans) hashcode vunte .aunte ee bean ni inject cheyalo ivvali.otherwise getting error.
+
+public void setStd(Student std){
+
+system.out.println("student object::"+std);
+
+this.std=std;
+
+}
+
+so
+
+class and bean is diffrent
+
+object and bean is diffrent
+
+oka bean ki oka object vundavachu or multiple objects kuda vunda vachhu.
+
+Requirenemtsofspring
+
+pagenation in springboot::
+
+https://ankushs92.github.io/tutorial/2016/05/03/pagination-with-spring-boot.html
+
+
+
+pagenation in spring hibernate::
+
+gatall lo nundi sublist(0,3)display cheyi.idi static kada
+
+aunduke int start=(page-1)*3,int end = page*3 tesuko
+
+subList(start,end)ani ivvu.
+
+records end ki reach ayithe session.setttribute("rend",true)
+
+ee rend reference ga tesukoni jsp lo records ended anali, button disable
+
+cheyali.ok na.
+
+
+
+fileuploading in spring hibernate::
+
+pojo class lo multipartfile file ani property ga tesuko(FileUploadpojo)
+
+fileupload(Fileuploadpojo fileupload){
+
+MUltipartFile file=fileupload.getFile();
+
+File savehere=new File("C:\\uploadfiles\\")
+
+file.transferto(savehere);
+
+}
+
+public void downloadFile(String fileName,httpServletResponse resp){
+
+FileInputStream fis = new FileInputStream("C:\\uploadfiles\\"+fileName);
+
+resp.setHeader("content-disposition"+"attachment;file"+fileName);
+
+int read = fis.read();
+
+while(read!=-1)
+
+{
+
+fis.read();
+
+}
+
+throws new FileNotFoundException("file doe not exist");
+
+}
+
+
+
+~~~~~~~~~~~~~~s
