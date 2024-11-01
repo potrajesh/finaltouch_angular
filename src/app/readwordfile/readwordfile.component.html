@@ -2,7 +2,6 @@
     <select class="category-dropdown" [(ngModel)]="selectedQuestion">
       <option value="apachekafka">apachekafka</option>
       <option value="reactjs">reactjs</option>
-
     </select>
     <div (click)="toggleAnswer('reactjs')">
       <strong *ngIf="selectedQuestion === 'reactjs'">reactjs</strong>
