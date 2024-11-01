@@ -1301,39 +1301,36 @@ public class ArrayReorder {
 ~~~~~~~~
 
 Q)find MostRepeatedCharacter?
-A)package project;
+A)package com.maps;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
-public class MostRepeatedCharacter {
+public class CountUsingMaps {
 
-		public static void main(String[] args) {
-	        String s = "helllorajesh";
-	        char mostRepeatedChar = 0;
-	        int maxCount = 0;
+    public static void main(String[] args) {
+        HashMap<String, Integer> map = new HashMap<>();
+        String[] arr = { "hyd", "hyd", "viz", "ant", "ant","ant" };
+        for (String d : arr) {
+            if(map.containsKey(d)){
+                map.put(d,map.get(d)+1);
+            }
+            else{
+                map.put(d,1);
+            }
+        }
+        //get highest
+        Set<Map.Entry<String, Integer>> entries = map.entrySet();
+        Map.Entry<String,Integer> max = null;
+        for (Map.Entry<String,Integer> e : entries){
+            if(max==null||e.getValue()>max.getValue()){
+                max = e;
+            }
+        }
+        System.out.println(max);
 
-	        HashMap<Character, Integer> charCount = new HashMap<>();
-
-	        // Count the frequency of each character
-	        for (int i = 0; i < s.length(); i++) {
-	            char currentChar = s.charAt(i);
-	            charCount.put(currentChar, charCount.getOrDefault(currentChar, 0) + 1);
-	        }
-
-	        // Find the character with the maximum count
-	        for (Map.Entry<Character, Integer> entry : charCount.entrySet()) {
-	            if (entry.getValue() > maxCount) {
-	                mostRepeatedChar = entry.getKey();
-	                maxCount = entry.getValue();
-	            }
-	        }
-
-	        System.out.println(mostRepeatedChar);
-
-	 
+    }
 }
-
-}//output: l
-
+output: ant=3
 ~~~~~~~~~~~~~~~~~
