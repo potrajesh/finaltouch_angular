@@ -23,8 +23,13 @@ import { SpringbatchComponent } from './springbatch/springbatch.component';
 import { ApchekafkaComponent } from './apchekafka/apchekafka.component';
 import { LeftSidebarComponent } from './left-sidebar/left-sidebar.component';
 import { CategoryQuestionsComponent } from './category-questions/category-questions.component';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+
 
 @NgModule({
+  
   declarations: [
     AppComponent,
     NavbarComponent,
@@ -41,10 +46,11 @@ import { CategoryQuestionsComponent } from './category-questions/category-questi
     SpringbatchComponent,
     ApchekafkaComponent,
     LeftSidebarComponent,
-    CategoryQuestionsComponent
+    CategoryQuestionsComponent,
   ],
   imports: [
     BrowserModule,
+    MatSelectModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
@@ -52,7 +58,11 @@ import { CategoryQuestionsComponent } from './category-questions/category-questi
     MatInputModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    MatIconModule
+    MatIconModule,
+    MatFormFieldModule,
+    MatButtonModule
+
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

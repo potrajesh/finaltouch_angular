@@ -44,7 +44,7 @@ export class NotepadReadServiceComponent {
       case '/hibernate':
         filePath = 'hibernate.txt';
         break;
-      case '/springboot':
+      case '/springboot'://done
         filePath = 'springboot.txt';
         break;
       case '/angular':
@@ -61,6 +61,9 @@ export class NotepadReadServiceComponent {
         break;
       case '/logical':
         filePath = 'logicalprogrammes.txt';
+        break;
+      case '/kubernate':
+        filePath = 'kubernate.txt';
         break;
       // Add more cases for other routes as needed
       default:

@@ -759,8 +759,125 @@ Biology
 Biology
 
 ~~~~~~~~~~~~~~
-Category: Ploymorphism
-Q) Ploymorphism
+
+Q)solid principles?
+A)single responsibility : a class have one reason to change.
+open/closed : its open for devlopment closed for modification.
+lenskov substitution: super class must be replaced with subtypes.
+interface : small subset features need to be add .use of interfaces
+dependency : we use one screen data to other as a dependecies.
+~~~~~~~~~~~~~~~~~~~~~~~
+Q) how to Creating an Immutable Class in Java
+
+A)To create an immutable class in Java, you need to follow these general principles:
+
+Declare the class as final so it can’t be extended.
+Make all of the fields private so that direct access is not allowed.
+Don’t provide setter methods for variables.
+Make all mutable fields final so that a field’s value can be assigned only once.
+Initialize all fields using a constructor method performing deep copy.
+Perform cloning of objects in the getter methods to return a copy rather than returning the actual object reference.
+
+import java.util.HashMap;
+import java.util.Iterator;
+
+public final class FinalClassExample {
+
+	// fields of the FinalClassExample class
+	private final int id;
+	
+	private final String name;
+	
+	private final HashMap<String,String> testMap;
+
+	
+	public int getId() {
+		return id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	// Getter function for mutable objects
+
+	public HashMap<String, String> getTestMap() {
+		return (HashMap<String, String>) testMap.clone();
+	}
+
+	// Constructor method performing deep copy
+	
+	public FinalClassExample(int i, String n, HashMap<String,String> hm){
+		System.out.println("Performing Deep Copy for Object initialization");
+
+		// "this" keyword refers to the current object
+		this.id=i;
+		this.name=n;
+
+		HashMap<String,String> tempMap=new HashMap<String,String>();
+		String key;
+		Iterator<String> it = hm.keySet().iterator();
+		while(it.hasNext()){
+			key=it.next();
+			tempMap.put(key, hm.get(key));
+		}
+		this.testMap=tempMap;
+	}
+
+	// Test the immutable class
+
+	public static void main(String[] args) {
+		HashMap<String, String> h1 = new HashMap<String,String>();
+		h1.put("1", "first");
+		h1.put("2", "second");
+		
+		String s = "original";
+		
+		int i=10;
+		
+		FinalClassExample ce = new FinalClassExample(i,s,h1);
+		
+		// print the ce values
+		System.out.println("ce id: "+ce.getId());
+		System.out.println("ce name: "+ce.getName());
+		System.out.println("ce testMap: "+ce.getTestMap());
+		// change the local variable values
+		i=20;
+		s="modified";
+		h1.put("3", "third");
+		// print the values again
+		System.out.println("ce id after local variable change: "+ce.getId());
+		System.out.println("ce name after local variable change: "+ce.getName());
+		System.out.println("ce testMap after local variable change: "+ce.getTestMap());
+		
+		HashMap<String, String> hmTest = ce.getTestMap();
+		hmTest.put("4", "new");
+		
+		System.out.println("ce testMap after changing variable from getter methods: "+ce.getTestMap());
+
+	}
+
+}
+Output
+Performing Deep Copy for Object initialization
+ce id: 10
+ce name: original
+ce testMap: {1=first, 2=second}
+ce id after local variable change: 10
+ce name after local variable change: original
+ce testMap after local variable change: {1=first, 2=second}
+ce testMap after changing variable from getter methods: {1=first, 2=second}
+
+py and the getter function returns a clone of the original object.
+
+What happens when you don’t use deep copy and cloning
+You can make changes to the FinalClassExample.java file to show what happens when you use shallow copy instead of deep copy and return the object insetad of a copy. The object is no longer immutable and can be changed. Make the following changes to the example file (or copy and paste from the code example):
+
+Delete the constructor method providing deep copy and add the constructor method providing shallow copy that is highlighted in the following example.
+In the getter function, delete return (HashMap<String, String>) testMap.clone(); and add return testMap;.
+~~~~~~~~~~~~~
+Category: Polymorphism
+Q) Polymorphism
 
 A) Ratan says below
 
@@ -1417,7 +1534,130 @@ ans is :: through CompletableFuture class we can achieve aynchronous .it is come
 
 pls refer https://www.callicoder.com/java-8-completablefuture-tutorial/
 
+~~~~~~~~~~~~~~
+Q)quick steps in java 8?
+
+A)
+To find the non-repeated words and then get the first word in Java 8, you can use the following approach. This solution involves using Java 8 streams to process the input string, count the occurrences of each word (case-sensitive), and then filter out the repeated words to get the first one.
+
+Here is a step-by-step guide and code example:
+
+Split the input string into words.
+Count the occurrences of each word using a Map.
+Filter out the words that appear more than once.
+Collect the non-repeated words.
+Get the first non-repeated word.
+
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+public class Main {
+    public static void main(String[] args) {
+        String input = "heLLo hello rajesh";
+
+        // Split the input string into words
+        String[] words = input.split("\\s+");
+
+        // Count the occurrences of each word
+        Map<String, Long> wordCounts = Arrays.stream(words)
+            .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+
+        // Filter out the non-repeated words
+        List<String> nonRepeatedWords = wordCounts.entrySet().stream()
+            .filter(entry -> entry.getValue() == 1)
+            .map(Map.Entry::getKey)
+            .collect(Collectors.toList());
+
+        // Get the first non-repeated word
+        if (!nonRepeatedWords.isEmpty()) {
+            System.out.println("First non-repeated word: " + nonRepeatedWords.get(0));
+        } else {
+            System.out.println("No non-repeated words found.");
+        }
+
+        // Print all non-repeated words
+        System.out.println("Non-repeated words: " + String.join(" ", nonRepeatedWords));
+    }
+}
+
+~~~~~~~~~~~~~~~~~~
+Q)get second max salary in java8 ?
+
+A)import java.util.*;
+import java.util.stream.Collectors;
+
+public class Main {
+    public static void main(String[] args) {
+        List<Employee> employees = Arrays.asList(
+            new Employee("John", 50000),
+            new Employee("Jane", 60000),
+            new Employee("Doe", 70000),
+            new Employee("Mary", 70000),
+            new Employee("Paul", 80000)
+        );
+
+        Optional<Double> secondMaxSalary = employees.stream()
+            .map(Employee::getSalary)            // Extract salaries
+            .distinct()                          // Remove duplicates
+            .sorted(Comparator.reverseOrder())   // Sort in descending order
+            .skip(1)                             // Skip the first (highest) salary
+            .findFirst();                        // Get the second highest salary
+
+        if (secondMaxSalary.isPresent()) {
+            System.out.println("The second highest salary is: " + secondMaxSalary.get());
+        } else {
+            System.out.println("There is no second highest salary.");
+        }
+    }
+}
+
+
+~~~~~~~~
+Q)get current date and second friday in java8?
+
+A) in java 8 introduced java.time package
+
+         LocalDate ld = LocalDate.now();//o/p: 2024-04-30
+         LocalDate secondFriday = ld.with(TemporalAdjusters.nextOrSame(DayOfWeek.FRIDAY)).with(TemporalAdjusters.next(DayOfWeek.FRIDAY));
 ~~~~~~~~~~~~~~~~
+
+Q)count of didgits in java8?
+A)Arrays.stream(arr).boxed().collect(Collectors.groupingBy(Function.identity(),Collectors.counting()));
+{1=1, 2=1, 3=2, 5=1}
+~~~~~~~~~~~~~~
+Q)without duplicates in java8?
+A)s.chars().mapToObj(c->(char)c).distinct().map(Object::toString).collect(Collectors.joining());
+collect(Collectors.joining()): Collects the distinct characters into a single String
+~~~~~~~~~~~~~~
+Q)find duplicates in java8?
+A)list.stream().mapToObj(c->(char)c).collect(Collectros.groupingBy(Function.identity())).collect(Collectors.counting())
+.entrySet().stream().filter(m->m.getValue>1).map(Map.Entry::getKey).collect(Collectors.toList());
+
+array given duplicate numbers.array given duplicate numbers.
+                .map(c -> (char) c.intValue())  // Convert to Character//if array given duplicate numbers.
+Set<Character> collect = s.chars().mapToObj(c->(char)c).collect(Collectors.groupingBy(Function.identity(),Collectors.counting()))
+		.entrySet().stream().filter(m->m.getValue()>1).map(Map.Entry::getKey).collect(Collectors.toSet());
+		System.out.println(collect);
+
+~~~~~~~~~~~~~~
+Q)find second max element in java8?
+A)Arrays.stream(arr).boxed().distinct().sorted(Comparator.reverseOrder()).skip(1).findFirst().get();
+~~~~~~~~~~~~~~
+Q)find first non repeated chars in java8?
+
+A) string s ="comparator";
+
+    	List<String> asList = Arrays.asList(s);
+    	
+    	Map<Character, Long> data=s1.chars().mapToObj(c->(char)c)
+    			.collect(Collectors.groupingBy(Function.identity(),Collectors.counting()));
+    	
+    	List<Character> collect = data.entrySet().stream().filter(e->e.getValue()>1).map(Entry::getKey).collect(Collectors.toList());
+    	
+    	System.out.println(collect);
+
+~~~~~~~~~~~~~~~~~~~
 Category: Collection
 Q) what is Collection?
 
@@ -2758,3 +2998,4 @@ Signature
 public boolean equals(Object anotherObject)
 
 ~~~~~~~~~~~~~~~~~~~~~~~~
+

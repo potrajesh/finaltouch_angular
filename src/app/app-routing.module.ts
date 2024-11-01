@@ -9,12 +9,12 @@ import { AwsComponent } from './aws/aws.component';
 import { ThreadsComponent } from './threads/threads.component';
 import { Readwordfile } from './readwordfile/readwordfile.component';
 import { LeftSidebarComponent } from './left-sidebar/left-sidebar.component';
+//canActivate: [AuthGuard] 
 const routes: Routes = [
   { path: 'welcome', component: LeftSidebarComponent, pathMatch: 'full' },
-  { path: 'home', component: SearchComponent, canActivate: [AuthGuard] },
-  { path: 'login', component: LoginComponent },
-
+  { path: 'login', component: LoginComponent},
   { path: 'corejava', component: NotepadReadServiceComponent },
+  {path:'home',component:SearchComponent},
   { path: 'spring', component: NotepadReadServiceComponent },
   { path: 'hibernate', component: NotepadReadServiceComponent }, 
   { path: 'springboot', component: NotepadReadServiceComponent},
@@ -22,8 +22,8 @@ const routes: Routes = [
   { path: 'react', component: NotepadReadServiceComponent },
   { path: 'sql', component: NotepadReadServiceComponent },
   { path: 'microservices', component: NotepadReadServiceComponent },
+  { path: 'kubernate', component: NotepadReadServiceComponent },
   { path: 'logical', component: NotepadReadServiceComponent },
-
   { path: 'aws', component: AwsComponent },
   { path: 'tek', component: Readwordfile },
   { path: '', redirectTo: '/login', pathMatch: 'full' },

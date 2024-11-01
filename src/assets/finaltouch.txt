@@ -1,4 +1,4 @@
-Category: angular
+angular
 Q) Angular
 
 A) Angular
@@ -97,12 +97,8 @@ console.debug("Error")
 
 );
 ~~~~~~~~~~~~~~
-Category: aws
-Q) what is aws
-A) it is having own services
 
-~~~~~~~~~~~~~~
-Category: CoreJava
+CoreJava
 
 Q) what is oops?
 A) 1.jvm loads .class byte into memory(static blocks are executed)
@@ -5365,91 +5361,7 @@ Category: ReactJs
 
 Q) ReactJs
 
-A) ReactJs
-
-
-{{ product.name }}
-{{ product.unitPrice | currency:'USD' }}
-Add to cart
-
-Description
-{{ product.description }}
-
-Back to Product List
-
-
-
-import { Component, OnInit } from '@angular/core';
-
-import { Product } from 'src/app/common/product';
-
-import { ProductService } from 'src/app/services/product.service';
-
-import { ActivatedRoute } from '@angular/router';
-
-import { CartService } from 'src/app/services/cart.service';
-
-import { CartItem } from 'src/app/common/cart-item';
-
-@Component({
-
-selector: 'app-product-details',
-
-templateUrl: './product-details.component.html',
-
-styleUrls: ['./product-details.component.css']
-
-})
-
-export class ProductDetailsComponent implements OnInit {
-
-product: Product = new Product();
-
-constructor(private productService: ProductService,
-
-private cartService: CartService,
-
-private route: ActivatedRoute) { }
-
-ngOnInit(): void {
-
-this.route.paramMap.subscribe(() => {
-
-this.handleProductDetails();
-
-})
-
-}
-
-handleProductDetails() {
-
-// get the "id" param string. convert string to a number using the "+" symbol
-
-const theProductId: number = +this.route.snapshot.paramMap.get('id')!;
-
-this.productService.getProduct(theProductId).subscribe(
-
-data => {
-
-this.product = data;
-
-}
-
-)
-
-}
-
-addToCart() {
-
-console.log(`Adding to cart: ${this.product.name}, ${this.product.unitPrice}`);
-
-let theCartItem = new CartItem(this.product.id, this.product.name, this.product.imageUrl, this.product.unitPrice);
-
-this.cartService.addToCart(theCartItem);
-
-}
-
-
+A) refer https://www.w3schools.com/REACT/DEFAULT.ASP
 ~~~~~~~~~~~~~~
 Category: Hibernate
 Q) Hibernate
@@ -6935,6 +6847,17 @@ Q)AggregateOperationsInJava8
 		//sum
 		double sum = list.stream().filter(emp->emp.getAge()>2).mapToInt(Employee::getAge).sum();
 		System.out.println("sum-->"+sum);
+
+		//fibonacci series //0,1,2,3,5
+		Stream.iterate(new int[] {0,1},t->new int[] {t[1],t[0]+t[1]}).limit(10)
+		.forEach(x->System.out.println(x[1]));
+
+		t -> new int[]{t[1], t[0] + t[1]}: 
+		This lambda function takes an array t and returns a new array where the first element 
+		is the second element of t, and the second element is the sum of the two elements in t. 
+		Essentially, this generates the next Fibonacci pair based on the previous pair.
+		
+
 	}
 
 }

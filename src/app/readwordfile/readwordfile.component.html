@@ -1,79 +1,31 @@
 <div id="htmlContent">
     <select class="category-dropdown" [(ngModel)]="selectedQuestion">
-      <option value="threads">Threads</option>
-      <option value="executors">Executors</option>
-      <option value="aws">aws</option>
-      <option value="kubernates">Kubernates</option>
-      <option value="docker">Docker</option>
-      <option value="java11">java11</option>
-      <option value="springbatch">springbatch</option>
       <option value="apachekafka">apachekafka</option>
+      <option value="reactjs">reactjs</option>
+
     </select>
-    <div (click)="toggleAnswer('threads')">
-      <strong *ngIf="selectedQuestion === 'threads'">Threads</strong>
+    <div (click)="toggleAnswer('reactjs')">
+      <strong *ngIf="selectedQuestion === 'reactjs'">reactjs</strong>
     </div>
-    <div *ngIf="showAnswer['threads'] && selectedQuestion === 'threads'">
+    <div *ngIf="showAnswer['reactjs'] && selectedQuestion === 'reactjs'">
       <pre>
-        <pre [innerHTML]="codeSnippets['threads']"></pre>
+        <pre [innerHTML]="codeSnippets['reactjs']"></pre>
       </pre>
     </div>
     <!-- about threads end -->
-    <div (click)="toggleAnswer('executors')">
-      <strong *ngIf="selectedQuestion === 'executors'">Executors</strong>
+    <div (click)="toggleAnswer('apachekafka')">
+      <strong *ngIf="selectedQuestion === 'apachekafka'">apachekafka</strong>
     </div>
-    <div *ngIf="showAnswer['executors'] && selectedQuestion === 'executors'">
-      <pre [innerHTML]="codeSnippets['executors']"></pre>
+    <div *ngIf="showAnswer['apachekafka'] && selectedQuestion === 'apachekafka'">
+      <pre [innerHTML]="codeSnippets['apachekafka']"></pre>
+    </div>
+    <div (click)="toggleAnswer('kubernate')">
+      <strong *ngIf="selectedQuestion === 'kubernate'">kubernate</strong>
+    </div>
+    <div *ngIf="showAnswer['kubernate'] && selectedQuestion === 'kubernate'">
+      <pre [innerHTML]="codeSnippets['kubernate']"></pre>
     </div>
 
-    <!-- executors end -->
-    <div (click)="toggleAnswer('aws')">
-      <strong *ngIf="selectedQuestion === 'aws'">AWS</strong>
-    </div>
-    <div *ngIf="showAnswer['aws'] && selectedQuestion === 'aws'">
-      <pre [innerHTML]="codeSnippets['aws']"></pre>
-    </div>
-    <!-- aws end -->
-    <!-- kubernates start -->
-    <div (click)="toggleAnswer('kubernates')">
-      <strong *ngIf="selectedQuestion === 'kubernates'">kubernates</strong>
-    </div>
-    <div *ngIf="showAnswer['kubernates'] && selectedQuestion === 'kubernates'">
-      <pre [innerHTML]="codeSnippets['kubernates']"></pre>
-    </div>
-    <!-- kubernates end -->
-    <!-- docker start -->
-    <div (click)="toggleAnswer('docker')">
-      <strong *ngIf="selectedQuestion === 'docker'">docker</strong>
-    </div>
-    <div *ngIf="showAnswer['docker'] && selectedQuestion === 'docker'">
-      <pre [innerHTML]="codeSnippets['docker']"></pre>
-    </div>
-    <!-- docker end -->
-    <!-- springbatch start -->
-    <div (click)="toggleAnswer('springbatch')">
-      <strong *ngIf="selectedQuestion === 'springbatch'">springbatch</strong>
-    </div>
-    <div *ngIf="showAnswer['springbatch'] && selectedQuestion === 'springbatch'">
-      <pre [innerHTML]="codeSnippets['springbatch']"></pre>
-    </div>
-        <!-- springbatch end -->
-            <!-- java11 start -->
-            <div (click)="toggleAnswer('java11')">
-              <strong *ngIf="selectedQuestion === 'java11'">java11</strong>
-            </div>
-            <div *ngIf="showAnswer['java11'] && selectedQuestion === 'java11'">
-              <pre [innerHTML]="codeSnippets['java11']"></pre>
-            </div>
-                <!-- jaav11 end -->
-
-<!-- apachekafka start -->
-<div (click)="toggleAnswer('apachekafka')">
-  <strong *ngIf="selectedQuestion === 'apachekafka'">apachekafka</strong>
-</div>
-<div *ngIf="showAnswer['apachekafka'] && selectedQuestion === 'apachekafka'">
-  <pre [innerHTML]="codeSnippets['apachekafka']"></pre>
-</div>
-<!-- apachekafka end -->
-
+<!-- corejava end -->
   </div>
   

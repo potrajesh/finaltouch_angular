@@ -6,8 +6,6 @@
           {{ category.name }}</option>
       </select>
     </div>
-    
-    <div class="notepad-content">
       <div *ngIf="selectedCategory">
         <div *ngFor="let category of categories">
           <div *ngIf="category.name === selectedCategory" class="category-section">
@@ -19,7 +17,9 @@
             </div>
           </div>
         </div>
-      </div>
     </div>
+    
+
+
    
   

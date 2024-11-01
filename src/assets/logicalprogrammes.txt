@@ -351,13 +351,25 @@ public static void main(String[] args) {
 			}
 		}
 		output : a a
+
+char count:
+
+public static void main(String[] args) {
+     String s ="abcda";
+     HashMap<Character, Integer> charCount = new HashMap<>();
+     for(char c:s.toCharArray()) {
+    	 charCount.put(c,charCount.getOrDefault(c,0)+1);
+     }
+     System.out.println(charCount);
+	}
+o/p: {a=2, b=1, c=1, d=1}
 ~~~~~~~~~~~~~~~~~
 Q) PrintonlyStars
 
-A) Logic:first print i=1 to 5 ee loop lo ne inko j loop ravali kani j <i
+A) Logic:first print i=0 to 5 ee loop lo ne inko j loop ravali kani j <i
 
 Logic: 1 2 3 4 5
-j i
+       i j
 
 space is taken as one charecter
 public class PrintonlyStars {
@@ -383,28 +395,17 @@ Q) String logics
 
 A) String s="abc";
 
-//s.length()//output:2
-
-//s.charAt(c);output is 2
-
-lastnumber i want so
-
-//s.length()-1 so output is 2
-
-for(int i=0;i
-
+    //  System.out.println(s.length());//3 because s[0]="a",s[1]="b",s[2]="c"
+	//	System.out.println(s.length() - 1);//it gives last character
+	//	System.out.println(s.indexOf("d"));//it gives index of d
+for (int i = 0; i < s.length(); i++)
 {
-
 sop(s.charAt(i))
-
 }
-
 }
-
-output is:a
-
+output is:
+a
 b
-
 c
 
 String str = "abc ";
@@ -417,57 +418,64 @@ System.out.print(str.charAt(i));
 
 }
 
-output is:c
-
+output is:
+c
 b
-
 a
 
 //count words by using split method based on space
 
-//string contains length() method..String[]contains length variable no length()
+//string contains length() method..
+//String[]contains length variable no length()
 
-String s = "abc abc abc";
+String s = "abc,abc,abc";
 
-String[] s1 = s.split(" ");
+String[] s1 = s.split(",");
 
 System.out.println(s1.length);//output is:: 3//based on words not index 0
-
 for (int i = 0; i < s1.length; i++) {
-
 System.out.println(s1[i]);
-
 }
 
 output is:: 3
-
 abc
-
 abc
-
 abc
 
 //print reverse words using split method.
 
 String values= "abc abc def";
-
 String[] values= s.split(" ");
-
 system.out.println(values[values.length-1]); output is: def
-
 for (int i = values.length()-1; i>0; i++) {
-
 System.out.println(values[i]);
-
 }
-
 system.out.println(values[i]); output is: def
-
 abc
-
 abc
-
 ~~~~~~~~~~~~~~~~~
+Q)what is Serialization?
+A)Serialization in Java allows objects to be converted into a byte stream, 
+which can be stored or transmitted and later reconstructed to its original form. 
+For a class to be serializable, it needs to implement the java.io.Serializable interface.
+
+It's recommended to declare serialVersionUID explicitly to ensure compatibility across 
+different Java compiler implementations.
+If not declared, Java computes a default serialVersionUID, 
+but this can lead to compatibility issues.
+
+ObjectOutputStream and ObjectInputStream are higher-level classes in Java's I/O framework
+ that allow you to serialize and deserialize Java objects, respectively. 
+ They are built on top of FileOutputStream and FileInputStream, providing 
+ a way to write and read Java objects directly to/from files.
+
+ try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("objects.dat"))) {
+    MyClass obj = new MyClass();
+    oos.writeObject(obj);
+} catch (IOException e) {
+    e.printStackTrace();
+
+~~~~~~~~~~~~
 Q) String reverse without using inbuilt methods
 
 A) Class ReversewothoutinbuiltString{
@@ -546,111 +554,53 @@ System.out.print(str.charAt(i));
 Q) Binary Search
 
 A) If the keys match, then a matching element has been found
-
 so its index, or position, is returned.
-
 Otherwise,
-
 if the key is less than the middle element's key,
-
 then the algorithm repeats its action on the sub-array
-
 to the left of the middle element.
-
 if the input key is greater,
-
 on the sub-array to the right.
-
 If the remaining array to be searched
-
 is reduced to zero, then the key cannot be found in the array and
-
 a special "Not found" indication is returned.
-
 Every iteration eliminates half of the remaining possibilities.
-
 This makes binary searches very efficient - even for large collections.
-
 Binary search requires a sorted collection.
-
 Also, binary searching can only be applied to a collection that allows random access (indexing).
 
-Worst case performance: O(log n)
+public class BinarySearch {
 
-Best case performance: O(1)
-
-package com.logicalporams1;
-
-public class BinarySearch{
-
-public int binarySearch(int[] inputArr,int key) {
-
-int start = 0;
-
-int end = inputArr.length - 1;//o/p::7
-
-System.out.println("end"+end);
-
-while (start <= end) {
-
-int mid = (start + end) / 2;//0+7/2=3.5;
-
-System.out.println("mid"+mid);
-
-if (key == inputArr[mid]) {//key 8==//3.5
-
-return mid;
-
+	    public static void main(String[] args) {
+	        int[] inputArr = {2, 4, 6, 8, 10, 12, 14, 16};
+	        binarySearch(inputArr, 4);
+	    }
+		private static int binarySearch(int[] inputArr, int key) {
+			 int start = 0;
+		        int end = inputArr.length - 1;
+		        while (start <= end) {
+		            int mid = (start + end) / 2;
+		            if (key == inputArr[mid]) {
+		                // Found the key
+		                System.out.println("Element found at index: " + mid);
+		                return mid;
+		            }
+		            if (key < inputArr[mid]) {
+		                // Search in the left half
+		                end = mid - 1;
+		            } else {
+		                // Search in the right half
+		                start = mid + 1;
+		            }
+		        }
+		        // Key not found
+		        System.out.println("Element not found");
+		        return -1;
+		}
 }
-
-if (key < inputArr[mid]) {
-
-end = mid - 1;
-
-} else {
-
-start = mid + 1;
-
-}
-
-}
-
-return -1;
-
-}
-
-public static void main(String[] args) {
-
-BubbleSortExample mbs = new BubbleSortExample();
-
-int[] arr = {2, 4, 6, 8, 10, 12, 14, 16};
-
-System.out.println("Key 14's position: "+mbs.binarySearch(arr, 8));
-
-int[] arr1 = {6,34,78,123,432,900};
-
-System.out.println("Key 432's position: "+mbs.binarySearch(arr1, 432));
-
-}
-
-}
-
 output::
 
-end7
-
-mid3
-
-Key 8's position: 3
-
-end5
-
-mid2
-
-mid4
-
-Key 432's position: 4
-
+Element found at index: 1
 ~~~~~~~~~~~~~~~~~
 
 Q) Bubble Sort in Java
@@ -911,26 +861,24 @@ public class FindNonRepeatedChars {
 	// string lo vunna data ni int array lo store cheyali.
 	//int array lo okasari vachina strings ni mathrame print cheyali.
 	public static void main(String[] args) {
-		String s = "hydedrabad";
-		int[] charCount = new int[256];
-		for (int i = 0; i < s.length(); i++) {
-			char currentChar = s.charAt(i);
-			charCount[currentChar]++;
+        StringBuffer sb = new StringBuffer();
+		String s = "abbas";
+         int[] arr= new int[256];
+         for (int i = 0; i < s.length(); i++) {
+			char c = s.charAt(i);
+			arr[c] = arr[c]+1;
+			 if(arr[c]==1) {
+	        	 sb.append(c);
+	         }
+        	 
 		}
-		
-        StringBuilder results = new StringBuilder();
-		for(int i=0;i<s.length();i++) {
-			char charAt = s.charAt(i);
-			if(charCount[charAt]==1) {
-				results.append(charAt);
-			}
-		}
-		System.out.println(results.toString());
+        
+         System.out.println(sb.toString());
 	}
 }
-
+//output:abs// if(arr[c]==1) because 1 place lo string data store avuthundi int[256]
+}
 //  Note :
-
 	//1. We create an integer array charCount to store character frequencies, assuming ASCII characters (256 possible characters).
 	//We initialize the frequency array by iterating through the input string and incrementing the count for each character.
 	//We then create a StringBuilder called result to store the non-repeated characters.
@@ -1262,4 +1210,130 @@ A)public static void main(String[] args) {
             System.out.println(sb.toString());
         }
     }
-	~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~
+Q)get only string data?
+A) public static void main(String[] args) {
+     StringBuffer sb = new StringBuffer();
+		String s = "ABC123DEF";
+		char[] c = s.toCharArray();
+		for (char d : c) {
+			if(!Character.isDigit(d)) {
+				sb.append(d);
+			}
+		}
+		System.out.println(sb.toString());
+	}
+o/p: ABCDEF	
+
+another way:
+public static void main(String[] args) {
+     StringBuffer sb = new StringBuffer();
+		String s = "ABC123DEF";
+		char[] c = s.toCharArray();
+		for (char d : c) {
+			if(d<'0'||d>'9') {
+				sb.append(d);
+			}
+		}
+		System.out.println(sb.toString());
+	}
+~~~~~~~~~~~~~~~~~~~~~
+
+Q)string caps to small and small to caps?
+
+A)public static void main(String[] args) {
+
+		String str = "HelloWorld123";
+		char[] chars = str.toCharArray();
+		for (int i = 0; i < chars.length; i++) {
+			char c = chars[i];
+			if (c >= 'a' && c <= 'z') {
+				chars[i] = (char) (c-'a'+'A');
+			} else if (c >= 'A' && c <= 'Z') {
+				chars[i] = (char) (c - 'A' + 'a');
+			}
+		}
+		System.out.println(Arrays.toString(chars));
+	}
+}
+output:[h, E, L, L, O, w, O, R, L, D, 1, 2, 3]
+~~~~~~~~~~~~~~~~~~~~~~~~
+Q)remove duplicates in string java8?
+
+ A) public class RemoveDuplicates {
+    public static void main(String[] args) {
+        String input = "hello world";
+        
+        String result = input.chars()
+                             .distinct()  // Removes duplicates
+                             .mapToObj(c -> String.valueOf((char) c))
+                             .collect(Collectors.joining());
+                             
+        System.out.println(result);  // Expected output: helo wrd
+    }
+}
+~~~~~~~~~~~~~~
+Q) rearrange the array order ?
+
+A) input :1, 2, 5, 10 output:2, 0, 3, 1
+
+public class ArrayReorder {
+    public static void main(String[] args) {
+        int[] input = {1, 2, 5, 10};
+        int[] order = {2, 0, 3, 1}; // This array specifies the new order
+        int[] output = reorderArray(input, order);
+        for (int num : output) {
+            System.out.print(num + " ");
+        }
+    }
+    public static int[] reorderArray(int[] input, int[] order) {
+        if (input.length != order.length) {
+            throw new IllegalArgumentException("Input array and order array must have the same length");
+        }
+        int[] output = new int[input.length];
+        for (int i = 0; i < input.length; i++) {
+            output[i] = input[order[i]];
+        }
+
+        return output;
+    }
+}
+~~~~~~~~
+
+Q)find MostRepeatedCharacter?
+A)package project;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class MostRepeatedCharacter {
+
+		public static void main(String[] args) {
+	        String s = "helllorajesh";
+	        char mostRepeatedChar = 0;
+	        int maxCount = 0;
+
+	        HashMap<Character, Integer> charCount = new HashMap<>();
+
+	        // Count the frequency of each character
+	        for (int i = 0; i < s.length(); i++) {
+	            char currentChar = s.charAt(i);
+	            charCount.put(currentChar, charCount.getOrDefault(currentChar, 0) + 1);
+	        }
+
+	        // Find the character with the maximum count
+	        for (Map.Entry<Character, Integer> entry : charCount.entrySet()) {
+	            if (entry.getValue() > maxCount) {
+	                mostRepeatedChar = entry.getKey();
+	                maxCount = entry.getValue();
+	            }
+	        }
+
+	        System.out.println(mostRepeatedChar);
+
+	 
+}
+
+}//output: l
+
+~~~~~~~~~~~~~~~~~

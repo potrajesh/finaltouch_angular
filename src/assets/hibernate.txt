@@ -1,5 +1,352 @@
-Category: hibernate
-Q) what is hibernate
-A) it is ORM
+Category: Hibernate
+Q) Hibernate
 
-~~~~~~~~~~~~~~
+A) Hibernate
+
+request mapping used for map web request on to specific handler classes(or)methods.
+
+Entity bean used for store persistant data stored in db like @entity and it is a server side component.
+
+
+
+how to data receive data using hibernate
+
+create new configuration("hibernate.cfg.xml")
+
+conf.sessionfactory
+
+session open sesssion
+
+begintransaction,
+
+Query query=session.createQuery("from employee");
+
+
+
+HIbernate
+
+
+
+save(or)update evict()
+
+clear()
+
+transient------------>persistant-------->detached
+
+
+delete() merge()
+
+lock()(or)save or update no
+
+Transient means no id and no records in db,before session object created.
+
+persistance means records available in db.
+
+session session =create sessionfactory.getsession
+
+transaction tx=session.begintransaction();
+
+session.save(std)
+
+tx.commit();
+
+session.close();
+
+detached means session.close
+
+flush()->save but not commit
+
+evict()-->perticular object to clear(one object)
+
+merge--two more objects in same session containing same id is
+
+called nonunique object exception occur.
+
+it is also used for detached to persistance state used.
+
+save(or)update aunte update ayye mundu object vunda leda check chestundi.oka vela vunte update chestundi.
+
+
+
+Hibernate
+
+what is ORM?
+
+object relation mapping:
+
+object is instance of a class and relation is record in a table .
+
+so object and relation we need a tool called orm.
+
+both object and relation is holding data.
+
+object converting record is called orm.
+
+convert one framework to another framework required mapping .
+
+it solve 3 problems
+
+1.mismatch of data types
+
+2.mismatch of relationships
+
+3.storage types(classes and tables)
+
+Hibernate
+
+java is a programming area,db is a storage area
+
+our java object convert to record.record convert to object
+
+we are facing 3 challenges.
+
+1.java datatypes and db data types is different.
+
+there is no need to change pojo class .
+
+hibernate improve the performance.by using caching(1st level cache,2nd level cache)
+
+lazy loading implemented using proxy design patterns.
+
+dialet,driverclassname,url,username,password these are also changed .so configuration (bds) only changed.no change in coding.
+
+
+
+configuration conf=new annotation.configure()
+
+schemaexport export =new schemaexport(conf)
+
+export.create(true,true)
+
+it will create automatic table and columns in db by using schemaexport.
+
+
+
+explonation about get and load methods in session.
+
+class Person{
+
+private string getname;
+
+public string getName(){
+
+return getname;
+
+}
+
+}
+
+session.get(pojo.class,1) here only generate queries
+
+person person =(Person)session.load(Person.class,1);
+
+person.getname();
+
+in above person class we are not write any jdbc query stuff.and how it will generate query .
+
+means by using load method.
+
+so our class cretaed sub class called proxy ..
+
+lazy(or)load()-->when use that getname()method it is called lazy loading.so it is called to proxy(subclass).
+
+if record not ther it returns objectnot found exception.
+
+session.get(person.class,2)-->eager loading,record get returns null object.
+
+person.getname annapude idi db query generate chestundi.
+
+because load it wil create sub class for our person class and write getname()method and jdbc logic also written
+
+so thats y it will be generate query.this query coming from session load only.
+
+
+
+one to one mapping in hibernate::
+
+rule 1::keep the references in both classes.
+
+rule 2:keep @one to one like
+
+rule 3:write @joincolumn and mapped by in 2 classes
+
+fro ex::
+
+db table::
+
+salary table::
+
+id salary empid
+
+
+
+1 12000 2
+
+
+
+public class Salary{
+
+private int salary
+
+private Employee emp;
+
+}
+
+//getter and setter
+
+@one to one
+
+@joincolumn(name="empid")
+
+public Employee getEmployee(){
+
+return Employee;
+
+}
+
+public class Employee{
+
+private String name;
+
+private Salary salary;
+
+}
+
+//setter and getter
+
+@one to one(mapped By="emp")
+
+public Salary getSalary(){
+
+return Salary;
+
+}
+
+so session.get(Employee.class,1)
+
+aunte idi salary object ni kuda istundi.
+
+
+
+why orm .in spring already given orm ??
+
+jdbc vadetapudu evry time connection create,prepared,resultset chesthamu,
+
+ade bds vadetapudu idi no.of connection pool object ni istundi.so no need to create connection again again.
+
+only hibernate framework vadetapudu.manamu hibernate.cfg.xml,Employee.hbm.xml file create chestamu.with help of mapping resource
+
+it will idenify employee.hbm.xml file.
+
+manamu spring hibernate vadetapudu .no need hibernate.cfg.xml file
+
+and Creative.hbm.xml file.
+
+manaku automatic ga ade by classname query isthamu so ade queries ni generate
+
+chesukuntundi
+
+it gives the solution for mismatch data types,relationships with respecct to
+
+java class and database.
+
+
+
+below is for hibernate curd operations::
+
+shema export chesina ventane querybrowser restart chesthe apudu aa automatic tables vasthayi ok na.
+
+public class CreativeMain {
+
+public static void main(String[] args) {
+
+Configuration conf = new Configuration();
+
+Configuration configure = conf.configure("hibernate.cfg.xml");
+
+//it is for automatic tables creation in db lo noneed of manually
+
+/*1.SchemaExport export=new SchemaExport(configure);
+
+export.create(true,true);1*/
+
+SessionFactory sf = configure.buildSessionFactory();
+
+Session session = sf.openSession();
+
+Transaction tx = session.beginTransaction();
+
+//this is for save data in db using hibernate w/o commit .data is not saved in db
+
+/*2.Creative creative2 = new Creative();
+
+creative2.setId(1);
+
+creative2.setAge(12);
+
+creative2.setName("name");
+
+creative2.setQual("qual");
+
+session.save(creative2);
+
+2.*/
+
+//get name data from db here we are not write any jdbc query and logic but it follows internally.
+
+/*3 Creative creative=(Creative)session.get(Creative.class,1);
+
+creative.setId(1);
+
+session.update(creative);
+
+System.out.println("getId::"+creative.getId());3*/
+
+////get delete 2 row id from db here we are not write any jdbc query and logic but it follows internally.
+
+//query given like this Hibernate: delete from creative where id=?
+
+Creative creative=(Creative)session.get(Creative.class,2);
+
+session.delete(creative);
+
+tx.commit();
+
+session.close();
+
+System.out.println("sucessfully deleted");
+
+}
+
+}
+
+
+
+Springboothibernate
+
+java8 features of lambda expressions::
+
+Reference to an Instance Method of a Particular Object
+
+The following is an example of a reference to an instance method of a particular object:
+
+class ComparisonProvider {
+
+public int compareByName(Person a, Person b) {
+
+return a.getName().compareTo(b.getName());
+
+}
+
+public int compareByAge(Person a, Person b) {
+
+return a.getBirthday().compareTo(b.getBirthday());
+
+}
+
+}
+
+ComparisonProvider myComparisonProvider = new ComparisonProvider();
+
+Arrays.sort(rosterAsArray, myComparisonProvider::compareByName);
+~~~~~~~~~~~~~~~~~~

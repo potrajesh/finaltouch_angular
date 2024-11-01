@@ -9,8 +9,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  username: string = '';
-  password: string = '';
+  username: string = 'user';
+  password: string = 'user';
 
   constructor(private router: Router,private authService:AuthService) {}
 
@@ -21,7 +21,7 @@ export class LoginComponent {
       console.log(`Welcome, ${this.username}!`);
     } else {
       // Handle login failure
-      console.log('Login failed');
+      alert('Login failed');
     }
   }
 }
