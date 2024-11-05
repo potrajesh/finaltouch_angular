@@ -52,218 +52,37 @@ Q) How many Ways to Create an Object in Java
 
 A) 5 ways
 
-1.Java new Operator.
+1.Using new Operator.:
 
-2.Java Class. newInstance() method.
+Ex: MyClass obj = new MyClass();
 
-3.Java newInstance() method of constructor.
+2.Using newInstance() method (Reflection).
 
-4.Java Object. clone() method.
+MyClass obj = (MyClass) Class.forName("MyClass").getDeclaredConstructor().newInstance();
 
-5.Java Object Serialization and Deserialization.
+3.Using Constructor newInstance() method.
 
-1.Java new Operator
+Constructor<MyClass> constructor = MyClass.class.getConstructor();
+MyClass obj = constructor.newInstance();
 
-A new operator is also followed by a call to constructor which
 
-initializes the new object. While we create an object it occupies
+4.Using clone() method.
 
-space in the heap.
+MyClass obj1 = new MyClass();
+MyClass obj2 = (MyClass) obj1.clone();
 
-Java Class.newInstance() method
+5.Using Deserialization
 
-public class NewInstanceExample
+ObjectInputStream in = new ObjectInputStream(new FileInputStream("data.obj"));
+MyClass obj = (MyClass) in.readObject();
+in.close();
 
-{
-    String str="hello";
 
-public static void main(String args[])
+6.Using Factory Methods.
 
-{
+MyClass obj = MyClass.createInstance();
 
-try
-
-{
-
-//creating object of class
-
-NewInstanceExample obj= NewInstanceExample.class.newInstance();
-
-System.out.println(obj.str);
-
-}
-
-Java newInstance() method of constructor
-
-import java.lang.reflect.Constructor;
-
-public class NewInstanceExample1
-
-{
-
-String str="hello";
-
-public static void main(String args[])
-
-{
-
-try
-
-{
-
-Constructor obj
-
-=NewInstanceExample1.class.getConstructor();
-
-NewInstanceExample1 obj1 = obj.newInstance();
-
-Java Object.clone() method
-
-public class CloneExample implements Cloneable
-
-{
-
-//creates and returns a copy of this object
-
-protected Object clone() throws CloneNotSupportedException
-
-{
-
-return super.clone();
-
-}
-
-String name = "Microprocessor";
-
-public static void main(String[] args)
-
-{
-
-CloneExample obj1 = new CloneExample(); //creating object of
-
-class
-
-try
-
-{
-
-CloneExample obj2 = (CloneExample) obj1.clone();
-
-Java Object Serialization and Deserialization
-
-import java.io.*;
-
-class Demo implements Serializable
-
-{
-
-public int i;
-
-public String s;
-
-public Demo(int i, String s) //default constructor
-
-{
-
-this.i = i;
-
-this.s = s;
-
-}
-
-}
-
-public class DeserializationExample
-
-{
-
-public static void main(String[] args)
-
-{
-
-Demo object = new Demo(8, "javatpoint");
-
-String filename = "Demofile.ser"; //specified file name (must
-
-have extension .ser)
-
-/*-----------------Serialization----------*/
-
-try
-
-{
-
-FileOutputStream file = new FileOutputStream(filename); //Saving of
-
-object in the file
-
-ObjectOutputStream out = new ObjectOutputStream(file);
-
-out.writeObject(object); //serialize object
-
-out.close(); //closes the ObjectOutputStream
-
-file.close(); //closes the file
-
-System.out.println("Object serialized");
-
-}
-
-catch(IOException e)
-
-{
-
-e.printStackTrace();
-
-}
-
-Demo obj = null;
-
-/*-----------------Deserialization--------*/
-
-try
-
-{
-
-FileInputStream file = new FileInputStream(filename); // reading an
-
-object from a file
-
-ObjectInputStream is = new ObjectInputStream(file);
-
-obj = (Demo)is.readObject(); //deserialize object
-
-is.close(); //closes the ObjectInputStream
-
-file.close(); //closes the file
-
-System.out.println("Object deserialized ");
-
-System.out.println("number = " + obj.i);
-
-System.out.println("string = " + obj.s);
-
-}
-
-catch(IOException e)
-
-{
-
-System.out.println("IOException is caught");
-
-}
-
-catch(ClassNotFoundException e)
-
-{
-
-System.out.println("ClassNotFoundException is caught");
-
-}
-
-}
-
-}
+for ex: List.of(1, 2, 3)
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Q) upendra sir told:about hashcode and equals method in hashset.
@@ -339,6 +158,7 @@ synchronized (DemoClass.class)
 
 }
 
+
 object level locking::
 
 public class DemoClass
@@ -358,7 +178,14 @@ synchronized (this)
 }
 
 }
-
+Block-level lock: Lock specific code sections, allowing finer control.
+java
+Copy code
+public void methodName() {
+    synchronized (this) {
+        // critical section
+    }
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Q) what is Hashcode?
 A) by nageswararao
@@ -372,398 +199,98 @@ it is also reference number location of objects,except for string
 objects.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Q) Cloning:
+Q) Cloning: 
 
-A) In Simple Terms, a Shallow Copy is similar to Call By Reference and
+Shallow: if we changed cloneddata ..original data also modified.
 
-a Deep Copy is similar to Call By Value
+A) package com.cloning;
 
-In Call By Reference, Both formal and actual parameters of a
+public class ShallowCopyExample implements Cloneable{
+    int i;
+    int [] arr;
+    public ShallowCopyExample(int i, int[] arr) {
+        this.i=i;
+        this.arr=arr;
+    }
 
-function refers to same memory location and the value.
+    public static void main(String[] args) {
+        int arr[] = {3,2,1};
+        ShallowCopyExample original = new ShallowCopyExample(2,arr);//2,[3,2,1]
+        ShallowCopyExample clonedObject = original.clone();
+        clonedObject.arr[0]=12;//[12,2,1]
 
-In Call By Value, Both formal and actual parameters of a functions
+        System.out.println("Original array first element: " + original.arr[0]); // Outputs 12
+//output:
+//Original array first element: 12
+    }
 
-refers to different memory location but having the same value.
 
-copy of object
+    @Override
+    public ShallowCopyExample clone() {
+        try {
+            return (ShallowCopyExample) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
+    }
+}
+//output:
+//Original array first element: 12
 
-In shallow copy main or parent object is copied,
+Deep: not modified in original object if we change in cloned object.
 
-but they share same fields or children if fields are modified in one
+public class DeepCopyExample implements Cloneable {
+    int x;               // primitive field
+    int[] arr;           // reference field (array)
 
-parent object other parent fields have automatic same changes occur,
+    public DeepCopyExample(int x, int[] arr) {
+        this.x = x;
+        this.arr = arr;
+    }
 
-but in deep copy this is not the case.
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        DeepCopyExample cloned = (DeepCopyExample) super.clone(); // Perform shallow copy
+        
+        // Deep copy the array
+        cloned.arr = arr.clone(); // Creates a new array that is a copy of the original
+        
+        return cloned;
+    }
 
-shallow copy::
+    public static void main(String[] args) throws CloneNotSupportedException {
+        int[] arr = {1, 2, 3};
+        DeepCopyExample original = new DeepCopyExample(10, arr);
+        DeepCopyExample deepCopy = (DeepCopyExample) original.clone(); // Perform deep cloning
 
-makes a copy of the reference to A into B
+        // Modify the array in the cloned object
+        deepCopy.arr[0] = 99;
 
-think about it as a copy of A's address.so the
-
-address of A and B will be the same
-
-means they will be point to same memorylocation means data contents.
-
-deep copy:: stored in two diiferent entities in the memory space.
-
-clone object and original object will be 100% disjoint.
-
-They will be 100% independent of each other.
-
-Any changes made to clone object will not be reflected in original
-
-object.
-
-public class Language implements Cloneable{
-
-String name;
-
-public Language(String name){
-
-this.name=name;
-
+        // Check the original array - change is NOT reflected in the original
+        System.out.println("Original array first element: " + original.arr[0]); // Outputs 1
+        System.out.println("Deep copy array first element: " + deepCopy.arr[0]); // Outputs 99
+    }
 }
 
-public String getName() {
+//output:
 
-return name;
-
-}
-
-@Override
-
-protected Object clone() throws CloneNotSupportedException {
-
-return super.clone();
-
-}
-
-}
-
-main class is following-
-
-public static void main(String args[]) throws
-
-ClassNotFoundException, CloneNotSupportedException{
-
-ArrayList list=new ArrayList();
-
-list.add(new Language("C"));
-
-list.add(new Language("JAVA"));
-
-ArrayList shallow=(ArrayList) list.clone
-
-();
-
-//We used here clone since this always shallow copied.
-
-System.out.println(list==shallow);
-
-for(int i=0;i
-
-System.out.println(list.get(i)==shallow.get(i));//true
-
-ArrayList deep=new ArrayList();
-
-for(Language language:list){
-
-deep.add((Language) language.clone());
-
-}
-
-System.out.println(list==deep);
-
-for(int i=0;i
-
-System.out.println(list.get(i)==deep.get(i));//false
-
-}
-
-class Course
-
-{
-
-String subject1;
-
-String subject2;
-
-String subject3;
-
-public Course(String sub1, String sub2, String sub3)
-
-{
-
-this.subject1 = sub1;
-
-this.subject2 = sub2;
-
-this.subject3 = sub3;
-
-}
-
-}
-
-class Student implements Cloneable
-
-{
-
-int id;
-
-String name;
-
-Course course;
-
-public Student(int id, String name, Course course)
-
-{
-
-this.id = id;
-
-this.name = name;
-
-this.course = course;
-
-}
-
-//Default version of clone() method. It creates shallow copy of
-
-an object.
-
-protected Object clone() throws CloneNotSupportedException
-
-{
-
-return super.clone();
-
-}
-
-}
-
-public class ShallowCopyInJava
-
-{
-
-public static void main(String[] args)
-
-{
-
-Course science = new Course("Physics", "Chemistry",
-
-"Biology");
-
-Student student1 = new Student(111, "John", science);
-
-Student student2 = null;
-
-try
-
-{
-
-//Creating a clone of student1 and assigning it to
-
-student2
-
-student2 = (Student) student1.clone();
-
-}
-
-catch (CloneNotSupportedException e)
-
-{
-
-e.printStackTrace();
-
-}
-
-//Printing the subject3 of 'student1'
-
-System.out.println(student1.course.subject3);
-
-//Output : Biology
-
-//Changing the subject3 of 'student2'
-
-student2.course.subject3 = "Maths";
-
-//This change will be reflected in original student
-
-'student1'
-
-System.out.println(student1.course.subject3); //Output
-
-: Maths
-
-}
-
-}
-
-output::
-
-student1 Biology
-
-------------------------
-
-student2 Maths
-
------------------------------------
-
-deep copy example::(has a relationship)
-
-Deep copy is preferred if an object has references to other objects
-
-as fields.
-
-To create the deep copy of an object, you have to override clone
-
-method.
-
-class course implements cloneable(subject1,2,3)
-
-class sutdent implements cloneable(id,name,course)
-
-class Course implements Cloneable
-
-{
-
-String subject1;
-
-String subject2;
-
-String subject3;
-
-public Course(String sub1, String sub2, String sub3)
-
-{
-
-this.subject1 = sub1;
-
-this.subject2 = sub2;
-
-this.subject3 = sub3;
-
-}
-
-protected Object clone() throws CloneNotSupportedException
-
-{
-
-return super.clone();
-
-}
-
-}
-
-class Student implements Cloneable
-
-{
-
-int id;
-
-String name;
-
-Course course;
-
-public Student(int id, String name, Course course)
-
-{
-
-this.id = id;
-
-this.name = name;
-
-this.course = course;
-
-}
-
-//Overriding clone() method to create a deep copy of an object.
-
-protected Object clone() throws CloneNotSupportedException
-
-{
-
-Student student = (Student) super.clone();
-
-student.course = (Course) course.clone();
-
-return student;
-
-}
-
-}
-
-public class DeepCopyInJava
-
-{
-
-public static void main(String[] args)
-
-{
-
-Course science = new Course("Physics", "Chemistry",
-
-"Biology");
-
-Student student1 = new Student(111, "John", science);
-
-Student student2 = null;
-
-try
-
-{
-
-//Creating a clone of student1 and assigning it to
-
-student2
-
-student2 = (Student) student1.clone();
-
-}
-
-catch (CloneNotSupportedException e)
-
-{
-
-e.printStackTrace();
-
-}
-
-//Printing the subject3 of 'student1'
-
-System.out.println(student1.course.subject3);
-
-//Output : Biology
-
-//Changing the subject3 of 'student2'
-
-student2.course.subject3 = "Maths";
-
-//This change will not be reflected in original student
-
-'student1'
-
-System.out.println(student1.course.subject3); //Output
-
-: Biology
-
-}
-
-}
-
-output::
-
-Biology
-
-Biology
+Original: Person{name='John Doe', age=30, addresses=[123 Main St, New York, 456 Elm St, Los Angeles]}
+Deep Clone: Person{name='John Doe', age=30, addresses=[789 Oak St, New York, 456 Elm St, Los Angeles]}
 
 ~~~~~~~~~~~~~~
 
 Q)solid principles?
 A)single responsibility : a class have one reason to change.
+
+ A class should have only one reason to change. This means that a class should have only one job or responsibility. 
+ If a class has more than one responsibility, it becomes coupled, and changes to one responsibility might affect the other.
+
 open/closed : its open for devlopment closed for modification.
-lenskov substitution: super class must be replaced with subtypes.
+
+Software entities (classes, modules, functions, etc.) should be open for extension but closed for modification. 
+This means that the behavior of a module can be extended without modifying its source code.
+
+Liskov substitution: super class must be replaced with subtypes.
 interface : small subset features need to be add .use of interfaces
 dependency : we use one screen data to other as a dependecies.
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -772,109 +299,62 @@ Q) how to Creating an Immutable Class in Java
 A)To create an immutable class in Java, you need to follow these general principles:
 
 Declare the class as final so it can’t be extended.
-Make all of the fields private so that direct access is not allowed.
+Make all of the fields private final so that direct access is not allowed.
 Don’t provide setter methods for variables.
 Make all mutable fields final so that a field’s value can be assigned only once.
-Initialize all fields using a constructor method performing deep copy.
-Perform cloning of objects in the getter methods to return a copy rather than returning the actual object reference.
 
-import java.util.HashMap;
-import java.util.Iterator;
 
-public final class FinalClassExample {
+import java.util.Date;
 
-	// fields of the FinalClassExample class
-	private final int id;
-	
-	private final String name;
-	
-	private final HashMap<String,String> testMap;
+public final class Person {
+    private final String name;       // Immutable field
+    private final int age;           // Immutable field
+    private final Date birthDate;    // Mutable field
 
-	
-	public int getId() {
-		return id;
-	}
+    // Constructor
+    public Person(String name, int age, Date birthDate) {
+        this.name = name;
+        this.age = age;
+        // Create a defensive copy of the mutable Date object
+        this.birthDate = new Date(birthDate.getTime());
+    }
 
-	public String getName() {
-		return name;
-	}
+    // Getters (no setters)
+    public String getName() {
+        return name;
+    }
 
-	// Getter function for mutable objects
+    public int getAge() {
+        return age;
+    }
 
-	public HashMap<String, String> getTestMap() {
-		return (HashMap<String, String>) testMap.clone();
-	}
+    public Date getBirthDate() {
+        // Return a defensive copy of the mutable Date object
+        return new Date(birthDate.getTime());
+    }
 
-	// Constructor method performing deep copy
-	
-	public FinalClassExample(int i, String n, HashMap<String,String> hm){
-		System.out.println("Performing Deep Copy for Object initialization");
-
-		// "this" keyword refers to the current object
-		this.id=i;
-		this.name=n;
-
-		HashMap<String,String> tempMap=new HashMap<String,String>();
-		String key;
-		Iterator<String> it = hm.keySet().iterator();
-		while(it.hasNext()){
-			key=it.next();
-			tempMap.put(key, hm.get(key));
-		}
-		this.testMap=tempMap;
-	}
-
-	// Test the immutable class
-
-	public static void main(String[] args) {
-		HashMap<String, String> h1 = new HashMap<String,String>();
-		h1.put("1", "first");
-		h1.put("2", "second");
-		
-		String s = "original";
-		
-		int i=10;
-		
-		FinalClassExample ce = new FinalClassExample(i,s,h1);
-		
-		// print the ce values
-		System.out.println("ce id: "+ce.getId());
-		System.out.println("ce name: "+ce.getName());
-		System.out.println("ce testMap: "+ce.getTestMap());
-		// change the local variable values
-		i=20;
-		s="modified";
-		h1.put("3", "third");
-		// print the values again
-		System.out.println("ce id after local variable change: "+ce.getId());
-		System.out.println("ce name after local variable change: "+ce.getName());
-		System.out.println("ce testMap after local variable change: "+ce.getTestMap());
-		
-		HashMap<String, String> hmTest = ce.getTestMap();
-		hmTest.put("4", "new");
-		
-		System.out.println("ce testMap after changing variable from getter methods: "+ce.getTestMap());
-
-	}
-
+    // Optionally, you can override toString(), equals(), and hashCode()
+    @Override
+    public String toString() {
+        return "Person{name='" + name + "', age=" + age + ", birthDate=" + birthDate + '}';
+    }
 }
-Output
-Performing Deep Copy for Object initialization
-ce id: 10
-ce name: original
-ce testMap: {1=first, 2=second}
-ce id after local variable change: 10
-ce name after local variable change: original
-ce testMap after local variable change: {1=first, 2=second}
-ce testMap after changing variable from getter methods: {1=first, 2=second}
+	// Test the immutable class
+public class Main {
+    public static void main(String[] args) {
+        Date birthDate = new Date(); // Current date
+        Person person = new Person("Alice", 30, birthDate);
 
-py and the getter function returns a clone of the original object.
+        System.out.println(person); // Person{name='Alice', age=30, birthDate=Mon Nov 06 12:00:00 UTC 2023}
 
-What happens when you don’t use deep copy and cloning
-You can make changes to the FinalClassExample.java file to show what happens when you use shallow copy instead of deep copy and return the object insetad of a copy. The object is no longer immutable and can be changed. Make the following changes to the example file (or copy and paste from the code example):
+        // Attempting to modify the person instance will fail
+        // person.age = 31; // Compilation error: age has private access
 
-Delete the constructor method providing deep copy and add the constructor method providing shallow copy that is highlighted in the following example.
-In the getter function, delete return (HashMap<String, String>) testMap.clone(); and add return testMap;.
+        // Modifying the birthDate outside will not affect the Person instance
+        birthDate.setYear(2000); // This modifies the original Date object
+        System.out.println(person.getBirthDate()); // Still shows the original birth date
+    }
+}
 ~~~~~~~~~~~~~
 Category: Polymorphism
 Q) Polymorphism
