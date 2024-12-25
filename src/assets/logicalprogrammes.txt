@@ -1334,3 +1334,597 @@ public class CountUsingMaps {
 }
 output: ant=3
 ~~~~~~~~~~~~~~~~~
+Q)reverse String using java8?
+A)public class ReverseParrallelStream {
+    public static void main(String[] args) {
+       String s ="hyderabad is a beautiful city";
+        String reversed =  IntStream.range(0, s.length())
+                .mapToObj(i -> s.charAt(s.length() - 1 - i)) // Reverse the character based on its position
+                .parallel() // Enable parallelism
+                //valueof method accept any data type of data and its return string
+                .map(String::valueOf)
+                .collect(Collectors.joining()); // Join into a single string
+
+        System.out.println("Reversed String: " + reversed); // Output: "dcba"
+
+    }
+}
+~~~~~~~~~~~~~~~~~~
+Q)custom linkedlist?
+
+A)public class CustomLL {
+
+    /*
+    *
+    * header!data!next!
+    * */
+    class Node{
+        int data;
+        Node next = null;
+
+        public Node(int data){
+            this.data=data;
+            this.next = null;
+        }
+    }
+    private Node head; // Head node of the list
+
+    public void add(int data) {
+        CustomLL.Node newNode = new CustomLL.Node(data);
+        if (head == null) {
+            head = newNode;
+        } else {
+            CustomLL.Node current = head;
+            while (current.next != null) {
+                current = current.next;
+            }
+            current.next = newNode;
+        }
+    }
+    public static void main(String[] args) {
+        CustomLL list = new CustomLL();
+        list.add(10);
+        System.out.println("Original LinkedList:");
+    }
+}
+
+
+~~~~~~~~~~~~~~~~~~~~~
+Q)findSumOfNumbersWithSameFirstAndLastDigit
+A) Given A = [130, 191, 10, 200], the function should return 140. The only integers in A that share first and last digits are 130 and 10.//
+
+public static int findSumOfNumbersWithSameFirstAndLastDigit(int[] numbers) {
+        int sum = 0;
+
+        for (int number : numbers) {
+            String numberStr = String.valueOf(number); // Convert the number to a string
+            int firstDigit = Character.getNumericValue(numberStr.charAt(0)); // First digit
+            int lastDigit = Character.getNumericValue(numberStr.charAt(numberStr.length() - 1)); // Last digit
+
+            if (firstDigit == lastDigit) {
+                sum += number; // Add to sum if first and last digits match
+            }
+        }
+        return sum;
+    }
+Q)findMaxSumOfSameFirstAndLastDigit
+
+Given A = [405, 45, 300, 300], the function should return 600. There are two pairs of integers that share first and last digits: (405, 45) and (300, 300). The sum of the two 300s is bigger than the sum of 405 and 45.
+
+ A)public static int findMaxSumOfSameFirstAndLastDigit(int[] numbers) {
+        // Map to store the sum of numbers sharing the same first and last digits
+        Map<String, Integer> digitGroupSums = new HashMap<>();
+
+        for (int number : numbers) {
+            String numberStr = String.valueOf(number); // Convert number to string
+            char firstDigit = numberStr.charAt(0); // First digit
+            char lastDigit = numberStr.charAt(numberStr.length() - 1); // Last digit
+
+            // Create a key to group by first and last digits
+            String key = firstDigit + "-" + lastDigit;
+
+            // Add the current number to the group's sum
+            digitGroupSums.put(key, digitGroupSums.getOrDefault(key, 0) + number);
+        }
+
+        // Find the maximum sum among all groups
+        int maxSum = 0;
+        for (int sum : digitGroupSums.values()) {
+            maxSum = Math.max(maxSum, sum);
+        }
+
+        return maxSum;
+    }
+
+Q)findTotalSumOfSameFirstAndLastDigit
+ Given A = [30, 909, 3190, 99, 3990, 9009], the function should return 9918.
+
+A)public static int findTotalSumOfSameFirstAndLastDigit(int[] numbers) {
+        // Map to store the sum of numbers sharing the same first and last digits
+        Map<String, Integer> digitGroupSums = new HashMap<>();
+
+        for (int number : numbers) {
+            String numberStr = String.valueOf(number); // Convert number to string
+            char firstDigit = numberStr.charAt(0); // First digit
+            char lastDigit = numberStr.charAt(numberStr.length() - 1); // Last digit
+
+            // Create a key to group numbers by first and last digits
+            String key = firstDigit + "-" + lastDigit;
+
+            // Add the current number to the group's sum
+            digitGroupSums.put(key, digitGroupSums.getOrDefault(key, 0) + number);
+        }
+
+        // Calculate the total sum of all groups
+        int totalSum = 0;
+        for (int sum : digitGroupSums.values()) {
+            totalSum += sum;
+        }
+
+        return totalSum;
+    }
+
+
+~~~~~~~~~~~~~~~~~~~~
+
+Q)how to use async?
+A)
+To use the @Async annotation in a Spring Boot application, you need to make some adjustments because 
+@Async works as part of Spring's asynchronous task execution support.
+
+Here’s an updated version of the file handling example where:
+
+@Async is used to read and write the file asynchronously.
+Spring Boot’s asynchronous support is enabled using @EnableAsync.
+The file content is directly copied from input.txt to output.txt.
+
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Service;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.concurrent.CompletableFuture;
+
+@Service
+public class FileService {
+
+    private final Path inputFile = Paths.get("D:\\files\\input.txt");
+    private final Path outputFile = Paths.get("D:\\files\\output.txt");
+
+    @Async
+    public CompletableFuture<String> readFileAsync() {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                System.out.println("Reading file: " + inputFile);
+                return Files.readString(inputFile);
+            } catch (IOException e) {
+                throw new RuntimeException("Error reading file: " + e.getMessage());
+            }
+        });
+    }
+
+    @Async
+    public CompletableFuture<Void> writeFileAsync(String content) {
+        return CompletableFuture.runAsync(() -> {
+            try {
+                System.out.println("Writing to file: " + outputFile);
+                Files.writeString(outputFile, content);
+            } catch (IOException e) {
+                throw new RuntimeException("Error writing file: " + e.getMessage());
+            }
+        });
+    }
+}
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableAsync;
+
+@SpringBootApplication
+@EnableAsync
+public class FileProcessingApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(FileProcessingApplication.class, args);
+    }
+
+    @Bean
+    CommandLineRunner run(FileService fileService) {
+        return args -> {
+            // Read the file asynchronously
+            fileService.readFileAsync()
+                .thenComposeAsync(content -> {
+                    // Write the file content to the output file
+                    return fileService.writeFileAsync(content);
+                })
+                .thenRun(() -> System.out.println("File processing completed successfully!"))
+                .exceptionally(ex -> {
+                    System.err.println("Error occurred: " + ex.getMessage());
+                    return null;
+                });
+
+            System.out.println("Main thread is not blocked and continues execution...");
+        };
+    }
+}
+
+~~~~~~~~~~~~~~~~~~~
+Q)how to use completablefuture ?
+
+A) --> its coming from util.concurrent package.
+
+--> CompletableFuture provides a more flexible and powerful API for working with asynchronous computations than Future. 
+It offers non-blocking methods, composition methods, better exception handling, and explicit completion methods, 
+which makes it easier to write robust and scalable concurrent code.
+
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.concurrent.CompletableFuture;
+//we are reading file data and write to output file.
+public class CompletableFutureFileExample {
+
+    public static void main(String[] args) {
+        // Define input and output file paths
+        Path inputFile = Paths.get("D:\\files\\input.txt");
+        Path outputFile = Paths.get("D:\\files\\output.txt");
+
+        // 1. Read file asynchronously
+        CompletableFuture<String> readFileFuture = CompletableFuture.supplyAsync(() -> {
+            try {
+                System.out.println("Reading file: " + inputFile);
+                return Files.readString(inputFile); // Read file content
+            } catch (IOException e) {
+                throw new RuntimeException("Error reading file: " + e.getMessage());
+            }
+        });
+
+        // 2. Write file content without modification
+        CompletableFuture<Void> writeFileFuture = readFileFuture.thenAcceptAsync(content -> {
+            try {
+                System.out.println("Writing to file: " + outputFile);
+                Files.writeString(outputFile, content); // Directly write content
+            } catch (IOException e) {
+                throw new RuntimeException("Error writing file: " + e.getMessage());
+            }
+        });
+
+        // 3. Handle success and exceptions
+        writeFileFuture
+                .thenRun(() -> System.out.println("File processing completed successfully!"))
+                .exceptionally(ex -> {
+                    System.err.println("Error occurred: " + ex.getMessage());
+                    return null;
+                });
+
+        // Prevent JVM from exiting immediately (optional for demo purposes)
+        try {
+            Thread.sleep(3000); // Wait for tasks to complete
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+~~~~~~~~~~~~~~~~~~~~~
+Q)how to use producer and consumer in java8?
+
+A)In Java 8, you can use Producer and Consumer concepts with functional interfaces 
+like Supplier<T> and Consumer<T> provided in the java.util.function package. 
+These interfaces allow us to produce and consume values without explicitly managing threads or creating complex logic.
+
+. Understanding Producer and Consumer:
+Producer: A producer generates (or "produces") data. In Java 8, this is represented by the Supplier<T> functional interface.
+Method: T get() – Produces a value.
+Consumer: A consumer accepts (or "consumes") data and performs operations on it. In Java 8, this is represented by the Consumer<T> functional interface.
+Method: void accept(T t) – Consumes a value.
+
+import java.util.function.Supplier;
+import java.util.function.Consumer;
+
+public class ProducerConsumerExample {
+    public static void main(String[] args) {
+        
+        // Producer: Generates a message
+        Supplier<String> producer = () -> "Hello from Producer!";
+        
+        // Consumer: Accepts and prints the message
+        Consumer<String> consumer = message -> System.out.println("Consumed: " + message);
+        
+        // Produce the message
+        String producedMessage = producer.get();
+        
+        // Consume the message
+        consumer.accept(producedMessage);
+    }
+}
+
+~~~~~~~~~~~~~~~
+
+Q) find odd and even numbers using threads?
+
+A)public class GFG {
+
+    // Starting counter
+      //will force all threads to update and use the latest copy of this counter, and not use locally cached copies
+    volatile static int counter = 1; 
+    
+      int limit;
+
+    GFG (int limit) {this.limit = limit;}
+
+  //function to print odd numbers
+    public synchronized void printOddNum () {
+        while(counter<=limit) {
+            if(counter%2 == 1) { //counter is odd, print it
+                  // remove thread name and use System.out.print() to print in one line, as per the sample output format
+                System.out.println(Thread.currentThread().getName()+": "+counter); 
+                counter++;
+                notifyAll();
+            } else {
+                try {
+                    wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    // Function to print even numbers
+    public synchronized void printEvenNum () {
+        while (counter<=limit) {
+            if(counter%2 == 0) { //counter is even, print it
+              // remove thread name and use System.out.print() to print in one line, as per the sample output format
+                System.out.println(Thread.currentThread().getName()+": "+counter);
+                counter++;
+                notifyAll();
+            } else {
+                try {
+                    wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    // Driver Code
+    public static void main(String[] args) {
+        GFG printer = new GFG (10);
+
+        Thread t1 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                printer.printOddNum();
+            }
+        });
+      
+        t1.setName("Odd"); // for clearer verification
+
+        Thread t2 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                printer.printEvenNum();
+            }
+        });
+      
+        t2.setName("Even"); // for clearer verification
+
+        t1.start();
+        t2.start();
+    }
+}
+~~~~~~~~~
+
+Q)Handle tranactions in multiple databases?
+https://docs.spring.io/spring-framework/docs/4.2.x/spring-framework-reference/html/transaction.html#transaction-global
+A)
+
+efaultTransactionDefinition def = new DefaultTransactionDefinition();
+// explicitly setting the transaction name is something that can only be done programmatically
+def.setName("SomeTxName");
+def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+
+TransactionStatus status = txManager.getTransaction(def);
+try {
+    // execute your business logic here
+}
+catch (MyException ex) {
+    txManager.rollback(status);
+    throw ex;
+}
+txManager.commit(status);
+
+public class SimpleService implements Service {
+
+    private final TransactionTemplate transactionTemplate;
+
+    public SimpleService(PlatformTransactionManager transactionManager) {
+        Assert.notNull(transactionManager, "The 'transactionManager' argument must not be null.");
+        this.transactionTemplate = new TransactionTemplate(transactionManager);
+
+        // the transaction settings can be set here explicitly if so desired
+        this.transactionTemplate.setIsolationLevel(TransactionDefinition.ISOLATION_READ_UNCOMMITTED);
+        this.transactionTemplate.setTimeout(30); // 30 seconds
+        // and so forth...
+    }
+}
+
+public class SimpleService implements Service {
+
+    // single TransactionTemplate shared amongst all methods in this instance
+    private final TransactionTemplate transactionTemplate;
+
+    // use constructor-injection to supply the PlatformTransactionManager
+    public SimpleService(PlatformTransactionManager transactionManager) {
+        Assert.notNull(transactionManager, "The 'transactionManager' argument must not be null.");
+        this.transactionTemplate = new TransactionTemplate(transactionManager);
+    }
+
+    public Object someServiceMethod() {
+        return transactionTemplate.execute(new TransactionCallback() {
+            // the code in this method executes in a transactional context
+            public Object doInTransaction(TransactionStatus status) {
+                updateOperation1();
+                return resultOfUpdateOperation2();
+            }
+        });
+    }
+}
+
+@Transactional(readOnly = true)
+public class DefaultFooService implements FooService {
+
+    public Foo getFoo(String fooName) {
+        // do something
+    }
+
+    // these settings have precedence for this method
+    @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
+    public void updateFoo(Foo foo) {
+        // do something
+    }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~
+Q) disadvantages of microservices?
+A) troubleshooting - request flows from one service another service.
+   performance - through remote calls we fetchdata. its leads to performance 
+   TransactionS.-maintain safety between microservices.
+   tracking.-tracking data is difficult.
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Q)CyclicBarrier
+A)The CyclicBarrier in Java is a synchronization aid that allows a fixed number of threads to wait for each other at a common barrier point. 
+Once all the threads reach the barrier, the barrier is broken, and the threads are released to continue their execution.
+
+A key feature of CyclicBarrier is that it can be reused after the waiting threads are released, unlike CountDownLatch.
+
+
+import java.util.concurrent.BrokenBarrierException;
+import java.util.concurrent.CyclicBarrier;
+
+public class CyclicBarrierExample {
+
+    public static void main(String[] args) {
+        final int THREAD_COUNT = 3;
+
+        // Create a CyclicBarrier for 3 threads, with an optional barrier action
+        CyclicBarrier barrier = new CyclicBarrier(THREAD_COUNT, () -> {
+            System.out.println("All threads have reached the barrier. Barrier is now broken!");
+        });
+
+        Runnable task = () -> {
+            try {
+                System.out.println(Thread.currentThread().getName() + " is performing a task...");
+                Thread.sleep((int) (Math.random() * 3000)); // Simulate work
+                System.out.println(Thread.currentThread().getName() + " has reached the barrier.");
+
+                barrier.await(); // Wait at the barrier
+
+                System.out.println(Thread.currentThread().getName() + " continues after the barrier.");
+            } catch (InterruptedException | BrokenBarrierException e) {
+                Thread.currentThread().interrupt();
+                e.printStackTrace();
+            }
+        };
+
+        // Create and start 3 threads
+        for (int i = 0; i < THREAD_COUNT; i++) {
+            new Thread(task).start();
+        }
+    }
+}
+
+Output Explanation
+Each thread performs some work (simulated with Thread.sleep).
+Once a thread finishes its work, it calls barrier.await() to wait for the other threads.
+When all threads reach the barrier:
+The optional barrier action (printing a message) executes.
+All threads proceed beyond the barrier.
+
+output:
+
+Thread-0 is performing a task...
+Thread-1 is performing a task...
+Thread-2 is performing a task...
+Thread-2 has reached the barrier.
+Thread-0 has reached the barrier.
+Thread-1 has reached the barrier.
+All threads have reached the barrier. Barrier is now broken!
+Thread-2 continues after the barrier.
+Thread-0 continues after the barrier.
+Thread-1 continues after the barrier.
+
+~~~~~~~~~~~~~~~~~~~~~~~~
+Q)CountDownLatch Usage ?
+A)The CountDownLatch in Java is a synchronization aid that allows one or more threads to wait until a set of operations being performed by other threads completes. 
+It is often used in scenarios where you need to ensure that a particular task does not proceed until other dependent tasks are finished.
+
+import java.util.concurrent.CountDownLatch;
+
+public class CountDownLatchExample {
+
+    public static void main(String[] args) {
+        final int WORKER_COUNT = 3;
+
+        // Create a CountDownLatch initialized with the number of worker threads
+        CountDownLatch latch = new CountDownLatch(WORKER_COUNT);
+
+        Runnable workerTask = () -> {
+            try {
+                System.out.println(Thread.currentThread().getName() + " is performing a task...");
+                Thread.sleep((int) (Math.random() * 3000)); // Simulate work
+                System.out.println(Thread.currentThread().getName() + " has finished its task.");
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                e.printStackTrace();
+            } finally {
+                latch.countDown(); // Decrease the count of the latch
+            }
+        };
+
+        // Create and start worker threads
+        for (int i = 0; i < WORKER_COUNT; i++) {
+            new Thread(workerTask).start();
+        }
+
+        try {
+            System.out.println("Main thread is waiting for workers to complete...");
+            latch.await(); // Wait until the latch count reaches zero
+            System.out.println("All workers have completed their tasks. Main thread resumes.");
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            e.printStackTrace();
+        }
+    }
+}
+Explanation
+Initialization: A CountDownLatch is initialized with the number of worker threads (WORKER_COUNT).
+Worker Threads: Each worker thread performs a task and then decrements the latch using countDown().
+Main Thread: The main thread calls latch.await(), blocking until the latch count reaches zero.
+Completion: When all worker threads finish their tasks, the main thread resumes execution.
+
+output:
+
+Main thread is waiting for workers to complete...
+Thread-0 is performing a task...
+Thread-1 is performing a task...
+Thread-2 is performing a task...
+Thread-1 has finished its task.
+Thread-2 has finished its task.
+Thread-0 has finished its task.
+All workers have completed their tasks. Main thread resumes.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~
